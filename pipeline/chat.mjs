@@ -1,15 +1,26 @@
 // "Ask the AI" for any signal. The server builds the context from the pipeline's own results (never from the browser),
 // then asks Codex CLI (if installed) or Claude Code CLI to explain it in plain words.
-//   CHAT_ENGINE=auto|codex|claude   (auto = codex if found on PATH, else claude)
+//   CHAT_ENGINE=codex|claude        (Codex is the default; Claude is opt-in)
 import { spawn, spawnSync } from 'node:child_process';
-import { readFileSync, existsSync } from 'node:fs';
+import { readFileSync, existsSync, accessSync, constants } from 'node:fs';
 import { tmpdir } from 'node:os';
 
 const OUT = new URL('./out/', import.meta.url);
 const read = (n) => { const u = new URL(n, OUT); return existsSync(u) ? JSON.parse(readFileSync(u, 'utf8')) : null; };
 const STORY_ISSUE = { b07: 'b07-fraud', mtl: 'mtl-water', home: 'home-pricing', wait: 'senior-review', leave: 'claim-wait-retention', brokers: 'broker-channel', big: 'severe-claims', bundle: 'bundle-opportunity' };
-const has = (bin) => spawnSync('which', [bin]).status === 0;
-export function engine() { const want = (process.env.CHAT_ENGINE || 'auto').toLowerCase(); if (want === 'codex') return has('codex') ? 'codex' : null; if (want === 'claude') return has('claude') ? 'claude' : null; return has('codex') ? 'codex' : has('claude') ? 'claude' : null; }
+const CODEX_APP_BIN = '/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex';
+function binary(name) {
+  const configured = process.env[name === 'codex' ? 'CODEX_BIN' : 'CLAUDE_BIN'];
+  const found = configured || spawnSync('which', [name], { encoding: 'utf8' }).stdout?.trim();
+  const candidates = [found, ...(name === 'codex' ? [CODEX_APP_BIN] : [])].filter(Boolean);
+  return candidates.find((p) => { try { accessSync(p, constants.X_OK); return true; } catch { return false; } }) || null;
+}
+export function engine() {
+  const want = (process.env.CHAT_ENGINE || 'codex').toLowerCase();
+  if (want === 'claude') return binary('claude') ? 'claude' : null;
+  if (want === 'auto') return binary('codex') ? 'codex' : binary('claude') ? 'claude' : null;
+  return binary('codex') ? 'codex' : null;
+}
 const clip = (v, n) => String(v ?? '').slice(0, n);
 const short = (o, n = 1400) => clip(JSON.stringify(o), n);
 
@@ -39,7 +50,7 @@ function run(eng, prompt) {
     // JSONL keeps Codex progress/status events out of the chat bubble. We only
     // return the final agent_message to the browser.
     const args = eng === 'codex' ? ['exec', '--skip-git-repo-check', '--sandbox', 'read-only', '--json', '-'] : ['-p', '--tools', '', '--no-session-persistence', '--system-prompt', SYSTEM];
-    const p = spawn(eng, args, { cwd: tmpdir(), stdio: ['pipe', 'pipe', 'pipe'], env: process.env });
+    const p = spawn(binary(eng), args, { cwd: tmpdir(), stdio: ['pipe', 'pipe', 'pipe'], env: process.env });
     let out = '', err = ''; const kill = setTimeout(() => { p.kill('SIGKILL'); reject(new Error('The AI took too long. Try again.')); }, 110000);
     p.stdout.on('data', (d) => (out += d)); p.stderr.on('data', (d) => (err += d));
     p.on('error', (e) => { clearTimeout(kill); reject(e); });
