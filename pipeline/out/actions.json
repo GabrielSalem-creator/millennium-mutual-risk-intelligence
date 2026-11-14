@@ -38,7 +38,7 @@
   ],
   "ifWrong": "A hold is a review, not a termination; if SIU clears the broker, payments are released and the broker reinstated. False alarms cost a few weeks of binding.",
   "logged": true,
-  "firedAt": "2026-11-14T20:52:50.200Z"
+  "firedAt": "2026-11-14T21:09:43.673Z"
  },
  {
   "id": "R2",
@@ -124,7 +124,7 @@
   ],
   "ifWrong": "Wasted review time on honest claims; mitigated by sampling only 25% outside flagged sources.",
   "logged": true,
-  "firedAt": "2026-11-14T20:52:50.201Z"
+  "firedAt": "2026-11-14T21:09:43.673Z"
  },
  {
   "id": "R3",
@@ -227,7 +227,7 @@
   ],
   "ifWrong": "An unnecessary call to a customer whose claim was already moving; low cost.",
   "logged": true,
-  "firedAt": "2026-11-14T20:52:50.201Z"
+  "firedAt": "2026-11-14T21:09:43.673Z"
  },
  {
   "id": "R4",
@@ -266,7 +266,7 @@
   ],
   "ifWrong": "A review ticket costs analyst time only; no price changes without an actuarial filing.",
   "logged": true,
-  "firedAt": "2026-11-14T20:52:50.204Z"
+  "firedAt": "2026-11-14T21:09:43.677Z"
  },
  {
   "id": "R5",
@@ -305,6 +305,6 @@
   ],
   "ifWrong": "A wrongly repaired row is logged and reversible; original files are never edited.",
   "logged": true,
-  "firedAt": "2026-11-14T20:52:50.204Z"
+  "firedAt": "2026-11-14T21:09:43.677Z"
  }
 ]

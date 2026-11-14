@@ -1,6 +1,258 @@
 {
+ "pricing": {
+  "assumptions": {
+   "expense": 0.3,
+   "laeOfLosses": 0.14,
+   "targetMargin": 0.05,
+   "note": "Expense 30% (Definity 2025: 29.6%); claims handling 14% of losses (MSA Research: 8–11 points of premium); target margin 5%. Excludes broker B07."
+  },
+  "rows": [
+   {
+    "label": "Home · Montréal",
+    "policies": 501,
+    "exposureYears": 376,
+    "premiumPerYear": 1235,
+    "costPerYear": 1878,
+    "costWithHandling": 2140,
+    "breakEvenPremium": 3058,
+    "increaseToBreakEven": 1.477,
+    "targetPremium": 3293,
+    "increaseToTarget": 1.667,
+    "combinedRatioNow": 2.03,
+    "product": "Home",
+    "city": "Montréal"
+   },
+   {
+    "label": "Home · Toronto",
+    "policies": 546,
+    "exposureYears": 410,
+    "premiumPerYear": 1416,
+    "costPerYear": 1260,
+    "costWithHandling": 1436,
+    "breakEvenPremium": 2052,
+    "increaseToBreakEven": 0.45,
+    "targetPremium": 2210,
+    "increaseToTarget": 0.561,
+    "combinedRatioNow": 1.31,
+    "product": "Home",
+    "city": "Toronto"
+   },
+   {
+    "label": "Home · Ottawa",
+    "policies": 182,
+    "exposureYears": 137,
+    "premiumPerYear": 1186,
+    "costPerYear": 1019,
+    "costWithHandling": 1161,
+    "breakEvenPremium": 1659,
+    "increaseToBreakEven": 0.398,
+    "targetPremium": 1786,
+    "increaseToTarget": 0.506,
+    "combinedRatioNow": 1.28,
+    "product": "Home",
+    "city": "Ottawa"
+   },
+   {
+    "label": "Home · Calgary",
+    "policies": 334,
+    "exposureYears": 261,
+    "premiumPerYear": 1290,
+    "costPerYear": 790,
+    "costWithHandling": 900,
+    "breakEvenPremium": 1286,
+    "increaseToBreakEven": -0.003,
+    "targetPremium": 1385,
+    "increaseToTarget": 0.073,
+    "combinedRatioNow": 1,
+    "product": "Home",
+    "city": "Calgary"
+   },
+   {
+    "label": "Home · Québec City",
+    "policies": 227,
+    "exposureYears": 164,
+    "premiumPerYear": 1114,
+    "costPerYear": 471,
+    "costWithHandling": 537,
+    "breakEvenPremium": 768,
+    "increaseToBreakEven": -0.311,
+    "targetPremium": 827,
+    "increaseToTarget": -0.258,
+    "combinedRatioNow": 0.78,
+    "product": "Home",
+    "city": "Québec City"
+   },
+   {
+    "label": "Auto · Montréal",
+    "policies": 764,
+    "exposureYears": 593,
+    "premiumPerYear": 1466,
+    "costPerYear": 567,
+    "costWithHandling": 646,
+    "breakEvenPremium": 923,
+    "increaseToBreakEven": -0.37,
+    "targetPremium": 994,
+    "increaseToTarget": -0.322,
+    "combinedRatioNow": 0.74,
+    "product": "Auto",
+    "city": "Montréal"
+   },
+   {
+    "label": "Auto · Toronto",
+    "policies": 799,
+    "exposureYears": 619,
+    "premiumPerYear": 1734,
+    "costPerYear": 712,
+    "costWithHandling": 812,
+    "breakEvenPremium": 1160,
+    "increaseToBreakEven": -0.331,
+    "targetPremium": 1249,
+    "increaseToTarget": -0.279,
+    "combinedRatioNow": 0.77,
+    "product": "Auto",
+    "city": "Toronto"
+   },
+   {
+    "label": "Auto · Ottawa",
+    "policies": 316,
+    "exposureYears": 244,
+    "premiumPerYear": 1416,
+    "costPerYear": 767,
+    "costWithHandling": 875,
+    "breakEvenPremium": 1249,
+    "increaseToBreakEven": -0.117,
+    "targetPremium": 1345,
+    "increaseToTarget": -0.05,
+    "combinedRatioNow": 0.92,
+    "product": "Auto",
+    "city": "Ottawa"
+   },
+   {
+    "label": "Auto · Calgary",
+    "policies": 490,
+    "exposureYears": 383,
+    "premiumPerYear": 1563,
+    "costPerYear": 706,
+    "costWithHandling": 804,
+    "breakEvenPremium": 1149,
+    "increaseToBreakEven": -0.265,
+    "targetPremium": 1237,
+    "increaseToTarget": -0.208,
+    "combinedRatioNow": 0.81,
+    "product": "Auto",
+    "city": "Calgary"
+   },
+   {
+    "label": "Auto · Québec City",
+    "policies": 352,
+    "exposureYears": 273,
+    "premiumPerYear": 1347,
+    "costPerYear": 777,
+    "costWithHandling": 885,
+    "breakEvenPremium": 1265,
+    "increaseToBreakEven": -0.061,
+    "targetPremium": 1362,
+    "increaseToTarget": 0.011,
+    "combinedRatioNow": 0.96,
+    "product": "Auto",
+    "city": "Québec City"
+   }
+  ],
+  "bands": [
+   {
+    "label": "Low risk",
+    "policies": 241,
+    "exposureYears": 187,
+    "premiumPerYear": 1005,
+    "costPerYear": 1448,
+    "costWithHandling": 1651,
+    "breakEvenPremium": 2358,
+    "increaseToBreakEven": 1.347,
+    "targetPremium": 2540,
+    "increaseToTarget": 1.528,
+    "combinedRatioNow": 1.94,
+    "band": "Low"
+   },
+   {
+    "label": "Medium risk",
+    "policies": 175,
+    "exposureYears": 125,
+    "premiumPerYear": 1283,
+    "costPerYear": 2249,
+    "costWithHandling": 2564,
+    "breakEvenPremium": 3663,
+    "increaseToBreakEven": 1.854,
+    "targetPremium": 3945,
+    "increaseToTarget": 2.074,
+    "combinedRatioNow": 2.3,
+    "band": "Medium"
+   },
+   {
+    "label": "High risk",
+    "policies": 85,
+    "exposureYears": 64,
+    "premiumPerYear": 1811,
+    "costPerYear": 2403,
+    "costWithHandling": 2739,
+    "breakEvenPremium": 3913,
+    "increaseToBreakEven": 1.161,
+    "targetPremium": 4214,
+    "increaseToTarget": 1.327,
+    "combinedRatioNow": 1.81,
+    "band": "High"
+   }
+  ],
+  "montrealHome": {
+   "premiumPerYear": 1235,
+   "waterCostPerYear": 1415,
+   "otherCostPerYear": 462,
+   "waterShareOfCost": 0.75,
+   "waterFreqMontreal": 0.205,
+   "waterFreqOtherCities": 0.066,
+   "waterFreqRatio": 3.1,
+   "increaseToBreakEven": 1.477,
+   "breakEvenPremium": 3058,
+   "increaseToTarget": 1.667,
+   "targetPremium": 3293,
+   "combinedRatioNow": 2.03,
+   "combinedRatioWithoutWater": 0.73,
+   "marketParityStep": 0.36,
+   "marketPrice": 1679,
+   "combinedRatioAtMarketPrice": 1.57,
+   "waterCutNeededToBreakEven": 0.6,
+   "waterCutNeededForTarget": 0.65,
+   "scenarios": [
+    {
+     "id": "today",
+     "name": "Price alone, water claims as they are today",
+     "price": 3058,
+     "increase": 1.477,
+     "note": "Not realistic: customers would leave long before this."
+    },
+    {
+     "id": "peer",
+     "name": "Price alone, if water claims fell to the level of our other cities",
+     "price": 1493,
+     "increase": 0.209,
+     "note": "Needs the water problem fixed first."
+    },
+    {
+     "id": "market",
+     "name": "Raise price to the market level (+36%) and cut water claims by about 60%",
+     "price": 1679,
+     "increase": 0.36,
+     "note": "Break-even at 60% fewer water claims; 65% for the 5% target margin."
+    }
+   ]
+  },
+  "homeRowsNeedingIncrease": [
+   "Home · Montréal",
+   "Home · Toronto",
+   "Home · Ottawa"
+  ]
+ },
  "meta": {
-  "generated": "2026-11-14T20:52:50.277Z",
+  "generated": "2026-11-14T21:09:43.765Z",
   "assumptions": {
    "expense": 0.3,
    "lae": 0.14,
@@ -1437,10 +1689,10 @@
     },
     {
      "test": "Is the Home Medium-over-High inversion real?",
-     "result": "Medium 1.29 vs High 0.98; frequency is not inverted (0.243 vs 0.289) but severity is higher in Medium; bootstrap probability that Medium ≤ High = 15%",
+     "result": "Medium 1.29 vs High 0.98; frequency is not inverted (0.243 vs 0.289) but severity is higher in Medium; bootstrap probability that Medium ≤ High = 13%",
      "verdict": "caution",
      "numbers": {
-      "pInversionNotReal": 0.15
+      "pInversionNotReal": 0.13
      }
     },
     {
@@ -4410,7 +4662,7 @@
    ],
    "ifWrong": "A hold is a review, not a termination; if SIU clears the broker, payments are released and the broker reinstated. False alarms cost a few weeks of binding.",
    "logged": true,
-   "firedAt": "2026-11-14T20:52:50.200Z"
+   "firedAt": "2026-11-14T21:09:43.673Z"
   },
   {
    "id": "R2",
@@ -4496,7 +4748,7 @@
    ],
    "ifWrong": "Wasted review time on honest claims; mitigated by sampling only 25% outside flagged sources.",
    "logged": true,
-   "firedAt": "2026-11-14T20:52:50.201Z"
+   "firedAt": "2026-11-14T21:09:43.673Z"
   },
   {
    "id": "R3",
@@ -4599,7 +4851,7 @@
    ],
    "ifWrong": "An unnecessary call to a customer whose claim was already moving; low cost.",
    "logged": true,
-   "firedAt": "2026-11-14T20:52:50.201Z"
+   "firedAt": "2026-11-14T21:09:43.673Z"
   },
   {
    "id": "R4",
@@ -4638,7 +4890,7 @@
    ],
    "ifWrong": "A review ticket costs analyst time only; no price changes without an actuarial filing.",
    "logged": true,
-   "firedAt": "2026-11-14T20:52:50.204Z"
+   "firedAt": "2026-11-14T21:09:43.677Z"
   },
   {
    "id": "R5",
@@ -4677,7 +4929,7 @@
    ],
    "ifWrong": "A wrongly repaired row is logged and reversible; original files are never edited.",
    "logged": true,
-   "firedAt": "2026-11-14T20:52:50.204Z"
+   "firedAt": "2026-11-14T21:09:43.677Z"
   }
  ]
 }

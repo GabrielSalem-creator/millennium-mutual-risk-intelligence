@@ -254,6 +254,31 @@ log('ACT: evaluating automation rules on the data');
 { const q = SIG.signals.find((s) => s.issue === 'data-quality').evidence; const n = q.premiumAsText + q.policyDatesDMY + q.claimDatesDMY + q.duplicatesRemoved;
   fire({ id: 'R5', name: 'Ingestion validation', condition: 'Premium stored as text, non-ISO dates, duplicate claim IDs or city-label variants in a new extract', status: n ? 'FIRED' : 'idle', matched: { count: n, items: [{ issue: 'premiums as text', rows: q.premiumAsText }, { issue: 'day-first dates', rows: q.policyDatesDMY + q.claimDatesDMY }, { issue: 'duplicate claims', rows: q.duplicatesRemoved }, { issue: 'city label variants', rows: q.cityLabels - q.cityCanonical }] }, actions: [{ do: 'Repair rows and log each change', to: 'Data team' }], notify: ['Data team'], ifWrong: 'A wrongly repaired row is logged and reversible; original files are never edited.', logged: true }); }
 
+
+// ------------------------------------------------------------ pricing answer: how much must price rise to break even / hit target, and what it takes to win
+function pricingPlan() {
+  const e = A.expense, l = A.lae, m = A.margin;
+  const row = (ps, label, extra = {}) => { const ex = expOf(ps), prem = earnedOf(ps) / ex, cost = incOf(claimsOf(ps)) / ex, costL = cost * (1 + l), be = costL / (1 - e), tg = costL / (1 - e - m); return { label, policies: ps.length, exposureYears: f(ex, 0), premiumPerYear: f(prem, 0), costPerYear: f(cost, 0), costWithHandling: f(costL, 0), breakEvenPremium: f(be, 0), increaseToBreakEven: f(be / prem - 1, 3), targetPremium: f(tg, 0), increaseToTarget: f(tg / prem - 1, 3), combinedRatioNow: f(costL / prem + e, 2), ...extra }; };
+  const cities = ['Montreal', 'Toronto', 'Ottawa', 'Calgary', 'Quebec City'], nm = { Montreal: 'Montréal', Toronto: 'Toronto', Ottawa: 'Ottawa', Calgary: 'Calgary', 'Quebec City': 'Québec City' };
+  const rows = []; for (const prod of ['Home', 'Auto']) for (const c of cities) rows.push(row(nonB.filter((p) => p.policy_type === prod && p.city2 === c), prod + ' · ' + nm[c], { product: prod, city: nm[c] }));
+  const mtl = homeNB.filter((p) => p.city2 === 'Montreal'), peers = homeNB.filter((p) => p.city2 !== 'Montreal'), isW = (c) => c.claim_type === 'Water Damage';
+  const exM = expOf(mtl), prem = earnedOf(mtl) / exM, waterCost = incOf(claimsOf(mtl).filter(isW)) / exM, otherCost = incOf(claimsOf(mtl).filter((c) => !isW(c))) / exM;
+  const fM = claimsOf(mtl).filter(isW).length / exM, fP = claimsOf(peers).filter(isW).length / expOf(peers), peerFactor = fP / fM;
+  const cr = (cost, price) => (cost * (1 + l)) / price + e, needPrice = (cost, margin) => (cost * (1 + l)) / (1 - e - margin);
+  const marketStep = mtlWater().numbers.marketParityStep, pMarket = prem * (1 + marketStep);
+  const allowedBE = ((1 - e) * pMarket) / (1 + l), allowedTG = ((1 - e - m) * pMarket) / (1 + l);
+  const cutBE = Math.max(0, 1 - (allowedBE - otherCost) / waterCost), cutTG = Math.max(0, 1 - (allowedTG - otherCost) / waterCost);
+  const costPeerWater = otherCost + waterCost * peerFactor;
+  const scen = [
+    { id: 'today', name: 'Price alone, water claims as they are today', price: f(needPrice(waterCost + otherCost, 0), 0), increase: f(needPrice(waterCost + otherCost, 0) / prem - 1, 3), note: 'Not realistic: customers would leave long before this.' },
+    { id: 'peer', name: 'Price alone, if water claims fell to the level of our other cities', price: f(needPrice(costPeerWater, 0), 0), increase: f(needPrice(costPeerWater, 0) / prem - 1, 3), note: 'Needs the water problem fixed first.' },
+    { id: 'market', name: `Raise price to the market level (+${pctS(marketStep)}) and cut water claims by about ${pctS(cutBE)}`, price: f(pMarket, 0), increase: f(marketStep, 3), note: `Break-even at ${pctS(cutBE)} fewer water claims; ${pctS(cutTG)} for the 5% target margin.` },
+  ];
+  const bands = ['Low', 'Medium', 'High'].map((b) => row(mtl.filter((p) => p.risk_band === b), b + ' risk', { band: b }));
+  const home = rows.filter((r) => r.product === 'Home'), mrow = rows.find((r) => r.label === 'Home · Montréal');
+  return { assumptions: { expense: e, laeOfLosses: l, targetMargin: m, note: 'Expense 30% (Definity 2025: 29.6%); claims handling 14% of losses (MSA Research: 8–11 points of premium); target margin 5%. Excludes broker B07.' }, rows, bands, montrealHome: { premiumPerYear: f(prem, 0), waterCostPerYear: f(waterCost, 0), otherCostPerYear: f(otherCost, 0), waterShareOfCost: f(waterCost / (waterCost + otherCost), 2), waterFreqMontreal: f(fM, 3), waterFreqOtherCities: f(fP, 3), waterFreqRatio: f(fM / fP, 1), increaseToBreakEven: mrow.increaseToBreakEven, breakEvenPremium: mrow.breakEvenPremium, increaseToTarget: mrow.increaseToTarget, targetPremium: mrow.targetPremium, combinedRatioNow: mrow.combinedRatioNow, combinedRatioWithoutWater: f(cr(otherCost, prem), 2), marketParityStep: f(marketStep, 3), marketPrice: f(pMarket, 0), combinedRatioAtMarketPrice: f(cr(waterCost + otherCost, pMarket), 2), waterCutNeededToBreakEven: f(cutBE, 2), waterCutNeededForTarget: f(cutTG, 2), scenarios: scen }, homeRowsNeedingIncrease: home.filter((r) => r.increaseToBreakEven > 0).map((r) => r.label) };
+}
+
 // ------------------------------------------------------------ assemble
 const issues = [mtlWater(), b07(), seniorReview(), retention(), homePricing(), brokerChannel(), severe(), bundle(), dataQuality()];
 for (const is of issues) { const ev = evidenceFor(is.id); is.evidence = { cards: ev.length, supports: ev.filter((c) => c.stance === 'supports').length, challenges: ev.filter((c) => c.stance === 'challenges').length, context: ev.filter((c) => c.stance === 'context').length, verified: ev.filter((c) => c.verified).length }; is.evidenceCards = ev; is.signalIds = SIG.issues.find((i) => i.id === is.id)?.signalIds || []; }
@@ -265,7 +290,8 @@ const stakeholders = [
   { who: 'Head of Retention', said: '"Renewals are slipping. The complaints are about waiting for their claim to be paid."', verdict: 'right', answer: `Customers whose claim took more than 30 days did not renew ${pctS(+rt.numbers.byBucket.find((b) => b.wait.startsWith('>')).nonRenewalRate)} vs about 16–17% when it closed sooner (more than 20 days: ${pctS(+rt.numbers.slow20.nrSlow)} vs ${pctS(+rt.numbers.slow20.nrFast)}). The effect is not about price.`, issues: ['claim-wait-retention', 'senior-review'] },
   { who: 'Head of Distribution', said: '"Brokers are our best growth engine. Don\'t slow them down."', verdict: 'partly right', answer: 'The channel is healthy without B07 (Auto through brokers is as profitable as through agents). Do not slow brokers in general; do put one broker on hold, and add automatic monitors for all.', issues: ['broker-channel', 'b07-fraud'] },
 ];
-const out = { meta: { generated: new Date().toISOString(), assumptions: A, asOf: SIG.meta.asOf, note: 'Impact figures are observed in the data window (about two years of policies; B07 is 2026 only), not annual forecasts.' }, stakeholders, issues, automations: actions };
+const pricing = pricingPlan();
+const out = { pricing, meta: { generated: new Date().toISOString(), assumptions: A, asOf: SIG.meta.asOf, note: 'Impact figures are observed in the data window (about two years of policies; B07 is 2026 only), not annual forecasts.' }, stakeholders, issues, automations: actions };
 writeFileSync(new URL('decisions.json', OUT), JSON.stringify(out, null, 1));
 writeFileSync(new URL('actions.json', OUT), JSON.stringify(actions, null, 1));
 log(`wrote ${issues.length} decisions, ${stakeholders.length} stakeholder verdicts, ${actions.filter((a) => a.status === 'FIRED').length} automations fired → pipeline/out/decisions.json`);

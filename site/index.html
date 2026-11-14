@@ -1,63 +1,69 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>1 · What we found — Millennium Mutual</title><link rel="stylesheet" href="/shared.css"></head>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>1 · What we found — Millennium Mutual</title><link rel="stylesheet" href="/shared.css">
+<style>
+.wrap{max-width:980px}.h{margin:34px 0 4px;font-size:clamp(24px,3vw,34px);letter-spacing:-.02em}.sub0{color:var(--mute);margin:0 0 16px}
+.sig{display:grid;grid-template-columns:44px 1fr auto;gap:16px;align-items:center;padding:18px 20px;margin:12px 0;border-radius:16px;border:1px solid var(--line);border-left:5px solid var(--c);background:var(--panel)}
+.sig .no{font:800 22px ui-monospace,Menlo,monospace;color:var(--c)}.sig h3{margin:0 0 4px;font-size:clamp(17px,1.9vw,21px);line-height:1.25}.sig p{margin:0;color:var(--mute);font-size:15px}
+.sig .big{text-align:right;min-width:130px}.sig .big b{display:block;font-size:clamp(26px,3vw,38px);font-weight:800;letter-spacing:-.03em;line-height:1;color:var(--c)}.sig .big span{font-size:12px;color:var(--mute)}
+.sig .btns{grid-column:2/4;margin-top:2px}
+@media(max-width:700px){.sig{grid-template-columns:34px 1fr}.sig .big{grid-column:2;text-align:left}.sig .btns{grid-column:1/3}}
+.win{border:1px solid var(--accent);border-radius:20px;padding:24px;background:linear-gradient(160deg,color-mix(in srgb,var(--panel) 90%,transparent),color-mix(in srgb,var(--accent) 10%,var(--panel)))}
+.win .hero{font-size:clamp(30px,4.6vw,56px);font-weight:800;letter-spacing:-.035em;line-height:1.05;margin:6px 0 8px}.win .hero em{font-style:normal;color:var(--bad)}.win .hero i{font-style:normal;color:var(--good)}
+.sc3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0}@media(max-width:800px){.sc3{grid-template-columns:1fr}}
+.sc{border-radius:14px;padding:14px 16px;background:var(--panel2);border:1px solid var(--line)}.sc.best{border-color:var(--good);box-shadow:0 0 0 1px var(--good)}.sc small{color:var(--mute);display:block;min-height:40px;font-size:13px}.sc b{font-size:34px;letter-spacing:-.03em;font-weight:800}.sc .p{color:var(--mute);font-size:13.5px}
+.path{margin:16px 0;padding:14px 16px;border-radius:14px;background:var(--goodbg);border:1px solid var(--good)}.path ol{margin:6px 0 0 20px;padding:0}.path li{margin:6px 0;font-size:16px}
+table.t td,table.t th{padding:9px 8px;font-size:15px}.up{color:var(--bad);font-weight:700}.dn{color:var(--good);font-weight:700}
+.sl{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:10px 0}@media(max-width:700px){.sl{grid-template-columns:1fr}}.sl label{font-size:12.5px;color:var(--mute);display:block}.sl input{width:100%;accent-color:var(--accent)}
+.foot a{margin-right:16px}
+</style></head>
 <body><div class="wrap" id="app"><div class="card">Reading the data…</div></div>
 <script src="/shared.js"></script><script src="/simple.js"></script><script src="/story.js"></script><script src="/common.js"></script>
 <script>
-const ISSUE_COL={'b07-fraud':'#ff7a6e','mtl-water':'#6fd8ee','home-pricing':'#f0b958','senior-review':'#8b82ff','claim-wait-retention':'#c58bff','broker-channel':'#4cd6a0','severe-claims':'#ff9f6e','bundle-opportunity':'#7ee0b5','data-quality':'#a19fb5',other:'#a19fb5'};
-const ISSUE_NAME={'b07-fraud':'Broker B07','mtl-water':'Montréal water','home-pricing':'Home pricing','senior-review':'Big-claim delays','claim-wait-retention':'Waiting → leaving','broker-channel':'Broker channel','severe-claims':'Big claims','bundle-opportunity':'Bundles','data-quality':'Data quality',other:'Other'};
-let timers=[];
-function countUp(el,to,fmt,ms=1400){const t0=performance.now();const step=t=>{const k=Math.min(1,(t-t0)/ms),e=1-Math.pow(1-k,3);el.textContent=fmt(to*e);if(k<1)requestAnimationFrame(step)};requestAnimationFrame(step)}
-function bigStat(id,state,CH){
-  const pt=(c,si,x)=>CH[c]?.series?.[si]?.points?.find(p=>p.x===x)?.y, e=state.signals.signals.find(s=>s.detector==='early-claim + threshold-structuring')?.evidence||{};
-  const wp=CH['wait-renewal']?.series?.[0]?.points||[], w=wp[wp.length-1]?.y;
-  const m={b07:[`${e.theftClaims||60} vs ${Math.round(e.expectedTheft||3)}`,'theft claims: actual vs normal'],mtl:[((pt('city-water',0,'Montréal')||0)/(pt('city-water',0,'Toronto')||1)).toFixed(1)+'×','Montréal vs Toronto water claims'],home:[Math.round((pt('home-vs-auto',0,'Home')||0)*100)+'¢','paid per $1, Home (Auto: '+Math.round((pt('home-vs-auto',0,'Auto')||0)*100)+'¢)'],wait:['2×+','longer for claims over $10,000'],leave:[Math.round((w||0)*100)+'%','leave after a 30+ day claim'],brokers:['1 of 10','brokers is the problem'],big:['1 in 10','claims = a third of the money'],bundle:['−23%','fewer claims with both lines']};
-  return m[id]||['',''];
+const COL={Urgent:'#ff7a6e',Important:'#f0b958','Good news':'#4cd6a0',Watch:'#8b82ff'};
+let PR=null;
+function bigStat(id,state,CH){const pt=(c,si,x)=>CH[c]?.series?.[si]?.points?.find(p=>p.x===x)?.y,e=state.signals.signals.find(s=>s.detector==='early-claim + threshold-structuring')?.evidence||{},wp=CH['wait-renewal']?.series?.[0]?.points||[],w=wp[wp.length-1]?.y;
+  return ({b07:[`${e.theftClaims||60} vs ${Math.round(e.expectedTheft||3)}`,'theft claims vs normal'],mtl:[((pt('city-water',0,'Montréal')||0)/(pt('city-water',0,'Toronto')||1)).toFixed(1)+'×','Montréal vs Toronto'],home:[Math.round((pt('home-vs-auto',0,'Home')||0)*100)+'¢ vs '+Math.round((pt('home-vs-auto',0,'Auto')||0)*100)+'¢','paid per $1: Home vs Auto'],wait:['30 vs 13','days to close: big vs small'],leave:[Math.round((w||0)*100)+'%','leave after a 30+ day claim'],brokers:['1 of 10','brokers is the problem'],big:['1 in 10','claims = 32% of the money'],bundle:['−23%','fewer claims with both lines']})[id]||['',''];}
+const $=n=>'$'+Math.round(n).toLocaleString('en-CA'), P=x=>(x>=0?'+':'−')+Math.round(Math.abs(x)*100)+'%';
+function calc(pr,e,l,m){
+  const M=pr.montrealHome,prem=M.premiumPerYear,w=M.waterCostPerYear,o=M.otherCostPerYear,pf=M.waterFreqOtherCities/M.waterFreqMontreal,need=(c,mg)=>c*(1+l)/(1-e-mg),mk=prem*(1+M.marketParityStep);
+  const aBE=(1-e)*mk/(1+l),aTG=(1-e-m)*mk/(1+l);
+  return {prem,today:need(w+o,0),peer:need(o+w*pf,0),mk,cutBE:Math.max(0,1-(aBE-o)/w),cutTG:Math.max(0,1-(aTG-o)/w),crNow:(w+o)*(1+l)/prem+e,crMk:(w+o)*(1+l)/mk+e,crNoWater:o*(1+l)/prem+e,wshare:w/(w+o)};
 }
-function play(state,m,term,nodes){
-  timers.forEach(clearTimeout);timers=[];term.innerHTML='<div class="bar"><i></i><i></i><i></i></div>';nodes.forEach(n=>n.classList.remove('on'));
-  const SG=state.signals,DC=state.decisions,EV=Object.values(state.evidence||{}).flat(),tests=DC.issues.flatMap(i=>i.why||[]),dq=SG.signals.find(s=>s.issue==='data-quality')?.evidence||{},fired=DC.automations.filter(a=>a.status==='FIRED');
-  const scan=SG.signals.filter(s=>s.kind==='scan').length;
-  const L=[
-   [0,0,'<span class="c">$ node pipeline/run.mjs</span>'],
-   [0,0,`<span class="d">[data]</span> ${m.policies.toLocaleString()} policies · ${m.claimsUnique} claims · repaired <span class="y">${dq.premiumAsText||0}</span> text prices, <span class="y">${(dq.policyDatesDMY||0)+(dq.claimDatesDMY||0)}</span> dates`],
-   [1,1,`<span class="d">[detect]</span> six classic signals ✓  ·  automatic scan <span class="g">${scan} findings</span>`],
-   [1,1,`<span class="d">[detect]</span> custom detectors: early-claim ✓ threshold-bunching ✓ wait-time ✓ workload ✓`],
-   [2,2,`<span class="d">[research]</span> <span class="g">${EV.length} articles</span> read · <span class="r">${EV.filter(c=>c.stance==='challenges').length} argue against us</span>`],
-   [3,3,`<span class="d">[decide]</span> ${tests.length} ideas tested: <span class="g">${tests.filter(t=>t.verdict==='ruled-out').length} ruled out</span>, <span class="r">${tests.filter(t=>t.verdict==='confirmed').length} confirmed</span>`],
-   [4,4,`<span class="d">[act]</span> <span class="y">${fired.length} automations fired</span>: ${fired.map(a=>a.name.split(' ').slice(0,2).join(' ').toLowerCase()).join(' · ')}`],
-   [4,4,'<span class="g">✓ done — decisions ready on page 3</span>']];
-  L.forEach(([n,idx,html],i)=>{timers.push(setTimeout(()=>{const d=document.createElement('div');d.className='l';d.style.animationDelay='0s';d.innerHTML=html;term.appendChild(d);if(nodes[idx])nodes[idx].classList.add('on')},350+i*620))});
-}
-function radar(state,stories,box){
-  const sg=state.signals.signals,lenses=[...new Set(sg.map(s=>s.lensName||s.lens))],W=900,H=310,L0=40,R0=20,T=26,B=40,cw=(W-L0-R0)/lenses.length;
-  const z=s=>{const p=s.stats?.p;const pv=p==='<1e-12'?1e-12:+p;if(pv>0)return Math.min(14,-Math.log10(pv));const zz=Math.abs(+s.stats?.z||0);return zz?Math.min(14,zz/2.5):5};
-  const hash=i=>{const x=Math.sin(i*127.1)*43758.5453;return x-Math.floor(x)};
-  const pts=sg.map((s,i)=>{const col=lenses.indexOf(s.lensName||s.lens),y=T+(1-z(s)/14)*(H-T-B),x=L0+col*cw+cw/2+(hash(i)-.5)*cw*.7,r=6+Math.min(16,Math.sqrt(Math.abs(s.impactUSD||0))/38);return{s,x,y,r,c:ISSUE_COL[s.issue]||ISSUE_COL.other}});
-  box.innerHTML=`<svg viewBox="0 0 ${W} ${H}">${lenses.map((l,i)=>`<line x1="${L0+i*cw}" x2="${L0+i*cw}" y1="${T-8}" y2="${H-B+6}" stroke="currentColor" opacity=".08"/><text x="${L0+i*cw+cw/2}" y="${H-B+22}" text-anchor="middle" style="font-size:11px">${S.esc(String(l).replace(/ \(.*\)/,'').replace(' / ',' / '))}</text>`).join('')}<text x="4" y="${T+4}" style="font-size:10px">more certain ↑</text><text x="4" y="${H-B}" style="font-size:10px">less ↓</text>${pts.sort((a,b)=>b.r-a.r).map(p=>`<circle class="bub" data-id="${p.s.id}" cx="${p.x}" cy="${p.y}" r="${p.r}" fill="${p.c}" fill-opacity=".72" stroke="${p.c}" stroke-width="1.5"><title>${S.esc(p.s.headline)}</title></circle>`).join('')}</svg><div class="tip" id="tip"></div><div class="legend">${Object.entries(ISSUE_NAME).filter(([k])=>sg.some(s=>s.issue===k)).map(([k,n])=>`<span><i style="background:${ISSUE_COL[k]}"></i>${n}</span>`).join('')}<span>· bubble size = money at stake · height = how sure we are</span></div>`;
-  const tip=box.querySelector('#tip');
-  box.querySelectorAll('.bub').forEach(c=>{const s=sg.find(x=>x.id===c.dataset.id);c.onmousemove=e=>{const r=box.getBoundingClientRect();tip.style.opacity=1;tip.style.left=Math.min(r.width-330,e.clientX-r.left+12)+'px';tip.style.top=(e.clientY-r.top+14)+'px';tip.innerHTML=`<b>${S.esc(s.headline.slice(0,140))}</b>`};c.onmouseleave=()=>tip.style.opacity=0;c.onclick=()=>PG.openSignal(s,stories.find(st=>st.issueIds.includes(s.issue)))});
+function priceSection(state){
+  const pr=state.decisions.pricing,A=pr.assumptions,e=+document.getElementById('se')?.value/100||A.expense,l=+document.getElementById('sl')?.value/100||A.laeOfLosses,m=+document.getElementById('sm')?.value/100||A.targetMargin,c=calc(pr,e,l,m);
+  const rows=pr.rows.filter(r=>r.product==='Home').map(r=>{const be=r.city==='Montréal'?c.today:r.costPerYear*(1+l)/(1-e),tg=r.costPerYear*(1+l)/(1-e-m),inc=be/r.premiumPerYear-1;return {...r,be,inc,incT:tg/r.premiumPerYear-1}});
+  const bands=pr.bands.map(r=>{const be=r.costPerYear*(1+l)/(1-e);return {...r,be,inc:be/r.premiumPerYear-1}});
+  const autoOK=pr.rows.filter(r=>r.product==='Auto').map(r=>({...r,inc:r.costPerYear*(1+l)/(1-e)/r.premiumPerYear-1}));
+  return `<div class="win"><div style="color:var(--mute);font-size:13px;letter-spacing:.1em;font-weight:700">MONTRÉAL HOME · WHAT IT TAKES TO MAKE MONEY</div>
+  <div class="hero">Price alone: <em>${P(c.today/c.prem-1)}</em>.<br>Price + fewer water claims: <i>${P(c.mk/c.prem-1)}</i>.</div>
+  <p style="margin:0;color:var(--mute);max-width:70ch">We charge <b style="color:var(--ink)">${$(c.prem)}</b> a year. Water alone makes up <b style="color:var(--ink)">${Math.round(c.wshare*100)}%</b> of what Montréal homes cost us. Without water the same policy would be profitable (combined ratio ${c.crNoWater.toFixed(2)}).</p>
+  <div class="sc3"><div class="sc"><small>1 · Price alone, water claims unchanged</small><b>${$(c.today)}</b><div class="p">${P(c.today/c.prem-1)} · not realistic, customers leave first</div></div>
+  <div class="sc"><small>2 · Price alone, if water claims fell to our other cities’ level</small><b>${$(c.peer)}</b><div class="p">${P(c.peer/c.prem-1)} · needs the water problem fixed first</div></div>
+  <div class="sc best"><small>3 · Market-level price AND fewer water claims</small><b>${$(c.mk)}</b><div class="p">${P(c.mk/c.prem-1)} price + ${Math.round(c.cutBE*100)}% fewer water claims = break-even</div></div></div>
+  <div class="path"><b>The path to profit</b><ol><li><b>Raise Montréal Home to ${$(c.mk)}</b> (${P(c.mk/c.prem-1)}). That is where the market already is. Combined ratio goes from ${c.crNow.toFixed(2)} to ${c.crMk.toFixed(2)}.</li><li><b>Cut water claims by ${Math.round(c.cutBE*100)}%</b> (backwater valves, leak shut-offs, spring inspections, stricter new business) to break even. <b>${Math.round(c.cutTG*100)}%</b> reaches a ${Math.round(m*100)}% profit margin.</li><li>Until then, pause new Montréal Home sales through brokers.</li></ol></div>
+  <div class="btns"><button class="pbtn" id="pdata">📊 See the data</button><button class="pbtn" id="part">📰 See the articles</button></div></div>
+  <h3 style="margin:26px 0 6px">Home insurance: price now vs price needed to break even</h3>
+  <table class="t"><tr><th>City</th><th>We charge</th><th>Claims + handling cost</th><th>Needed to break even</th><th>Change</th></tr>${rows.sort((a,b)=>b.inc-a.inc).map(r=>`<tr><td>${r.city}</td><td>${$(r.premiumPerYear)}</td><td>${$(r.costPerYear*(1+l))}</td><td>${$(r.be)}</td><td class="${r.inc>0.005?'up':'dn'}">${P(r.inc)}</td></tr>`).join('')}</table>
+  <h3 style="margin:22px 0 6px">Montréal Home by risk band</h3>
+  <table class="t"><tr><th>Band</th><th>We charge</th><th>Needed to break even</th><th>Change</th></tr>${bands.map(r=>`<tr><td>${r.band}</td><td>${$(r.premiumPerYear)}</td><td>${$(r.be)}</td><td class="up">${P(r.inc)}</td></tr>`).join('')}</table>
+  <p class="note">Auto has room to spare: it could come down in ${autoOK.filter(r=>r.inc<-0.05).length} of 5 cities. Costs are what the data shows for the last two years and exclude broker B07.</p>
+  <div class="sl"><div><label>Expense load: <b>${Math.round(e*100)}%</b></label><input id="se" type="range" min="15" max="45" value="${Math.round(e*100)}"></div><div><label>Claims handling (% of claims): <b>${Math.round(l*100)}%</b></label><input id="sl" type="range" min="0" max="20" value="${Math.round(l*100)}"></div><div><label>Profit margin wanted: <b>${Math.round(m*100)}%</b></label><input id="sm" type="range" min="0" max="15" value="${Math.round(m*100)}"></div></div>
+  <p class="note">${S.esc(A.note)} Move the sliders to test other assumptions; every number above updates.</p>`;
 }
 function render(state){
-  const stories=STORY(state),m=state.signals.meta,CH=state.signals.charts||{},DC=state.decisions,app=document.getElementById('app'),iss=id=>DC.issues.find(i=>i.id===id)||{};
-  const leak=[['Broker B07: early theft claims',iss('b07-fraud').impactUSD,'b07'],['Montréal basements: water claims',iss('mtl-water').impactUSD,'mtl'],['Customers lost to slow claims (premium)',iss('claim-wait-retention').impactUSD,'leave']].filter(x=>x[1]);
-  const mx=Math.max(...leak.map(x=>x[1]),1),total=leak.reduce((a,x)=>a+x[1],0);
-  app.innerHTML=`<div class="hero2"><div class="eyebrow">Millennium Mutual · Data → Detect → Decide → Act</div><h1>See the loss.<br><span class="grad">Find the cause. Fix it.</span></h1><p class="lead">We read every policy and claim, let the computer hunt for patterns from every angle, checked each one against articles and statistics, and turned them into decisions. Everything below is already worked out.</p></div>
-  <div class="kpis2"><div class="kpi2"><small>POLICIES READ</small><b data-n="${m.policies}">0</b></div><div class="kpi2"><small>CLAIMS</small><b data-n="${m.claimsUnique}">0</b></div><div class="kpi2"><small>PATTERNS FOUND</small><b data-n="${state.signals.signals.length}">0</b></div><div class="kpi2"><small>ARTICLES READ</small><b data-n="${Object.values(state.evidence||{}).flat().length}">0</b></div><div class="kpi2 hot"><small>LEAKING (OBSERVED)</small><b data-n="${total}" data-m="1">0</b></div></div>
-  <div class="sect"><h2>The machine at work</h2><p>Five steps, run for real on your data. Press replay to watch it again.</p></div>
-  <div class="pipe"><div class="nodes">${[['📥','Data','Read and clean the files'],['🔎','Detect','Hunt for patterns from every angle'],['🌐','Research','Read the world, for and against'],['🧪','Decide','Test every possible cause'],['⚡','Act','Rules that act by themselves']].map(([i,t,d])=>`<div class="node"><div class="dot">${i}</div><div><b>${t}</b><span>${d}</span></div></div>`).join('')}<button class="pbtn replay" id="replay">↻ Replay</button></div><div class="term" id="term"></div></div>
-  <div class="sect"><h2>Every pattern it found</h2><p>Each bubble is one pattern. Big = a lot of money. High = we’re very sure. Hover to read it, click to see the data.</p></div>
-  <div class="radar reveal" id="radar"></div>
-  <div class="sect"><h2>Where the money is going</h2><p>What the data says we lost, by problem (observed in the data, not a forecast).</p></div>
-  <div class="card reveal money">${leak.map(([n,v,id])=>`<div class="mrow"><span>${n}</span><div class="tr"><i data-w="${v/mx*100}"></i></div><b>$${Math.round(v).toLocaleString()}</b></div>`).join('')}<div class="note">Together about $${Math.round(total).toLocaleString()} — and most of it comes from two things: one broker and one city’s basements.</div></div>
-  <div class="sect"><h2>The 8 things that matter</h2><p>In plain words. Press 📊 to see the numbers, 📰 for the articles.</p></div>
-  <div class="cards2">${stories.map(s=>{const [v,l]=bigStat(s.id,state,CH),sc=s.severity.startsWith('Urgent')?'sevU':s.severity.startsWith('Important')?'sevI':'sevG';return `<article class="story reveal ${sc}" id="${s.id}"><div class="top"><span class="ic">${s.icon}</span><span class="sev ${s.severity.split(' ')[0]}">${s.severity.toUpperCase()}</span></div><div class="bigstat"><b>${S.esc(v)}</b><span>${S.esc(l)}</span></div><h2>${S.esc(s.headline)}</h2><p class="sub">${S.esc(s.sub)}</p><div class="mini">${S.chart(s.charts[0],{compact:true})}</div>${PG.btns(s.id,s)}<div><a href="/research.html#${s.id}">Why is this happening? →</a> · <a href="/decisions.html#${s.id}">What to do →</a></div></article>`}).join('')}</div>
-  <details class="more card reveal" style="margin-top:22px"><summary>All ${state.signals.signals.length} patterns as a list — press 📊 on any line</summary>${state.signals.signals.map(sg=>`<div class="rowsig"><span class="t">${S.esc(sg.headline)}</span><span class="tag">${S.esc((sg.lensName||'').replace(/ \(.*\)/,''))}</span><button class="pbtn" data-act="sig" data-id="${sg.id}">📊</button></div>`).join('')}</details>
-  <p class="note" style="margin-top:16px">Every number comes from policies.csv and claims.csv. Earned premium assumes 12-month policies. Patterns are leads that page 2 researches and page 3 turns into decisions.</p>`;
+  const stories=STORY(state),m=state.signals.meta,CH=state.signals.charts||{},app=document.getElementById('app');
+  app.innerHTML=`<div class="hero"><div style="font:700 12px ui-monospace,Menlo,monospace;letter-spacing:.2em;color:var(--accent)">MILLENNIUM MUTUAL</div><h1 style="font-size:clamp(34px,5vw,60px);letter-spacing:-.035em;line-height:1.02;margin:10px 0">What the data says.</h1><p style="max-width:56ch">${m.policies.toLocaleString()} policies and ${m.claimsUnique} claims, checked from every angle. These are the ${stories.length} things that matter. Press 📊 to see the data behind any line.</p></div>
+  <h2 class="h">The signals</h2><p class="sub0">Each one checked against articles and statistics.</p>
+  ${stories.map((s,i)=>{const [v,l]=bigStat(s.id,state,CH),c=COL[s.severity]||COL[s.severity.split(' ')[0]]||'#8b82ff';return `<article class="sig" id="${s.id}" style="--c:${c}"><div class="no">${i+1}</div><div><h3>${S.esc(s.headline)}</h3><p>${S.esc(s.sub)}</p></div><div class="big"><b>${S.esc(v)}</b><span>${S.esc(l)}</span></div><div class="btns"><button class="pbtn" data-act="data" data-id="${s.id}">📊 See the data</button><button class="pbtn" data-act="art" data-id="${s.id}">📰 Articles (${s.articles.length})</button><a href="/research.html#${s.id}" style="align-self:center;font-size:13.5px">why →</a></div></article>`}).join('')}
+  <h2 class="h">How much to raise the price to win</h2><p class="sub0">Precise numbers for Montréal and the rest of Home insurance.</p><div id="price">${priceSection(state)}</div>
+  <p class="foot note" style="margin-top:30px"><a href="/research.html">② Why it happens</a><a href="/decisions.html">③ What to do</a><a href="/how.html">How the machine works</a><a href="/platform.html" target="_blank">Price one customer ↗</a></p>`;
   PG.wire(app,stories,state);
-  app.querySelectorAll('.kpi2 b').forEach(b=>countUp(b,+b.dataset.n,v=>b.dataset.m?'$'+Math.round(v/1000)+'k':Math.round(v).toLocaleString()));
-  const term=document.getElementById('term'),nodes=[...app.querySelectorAll('.node')];play(state,m,term,nodes);document.getElementById('replay').onclick=()=>play(state,m,term,nodes);
-  radar(state,stories,document.getElementById('radar'));
-  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');e.target.querySelectorAll('[data-w]').forEach(i=>i.style.width=i.dataset.w+'%');io.unobserve(e.target)}}),{threshold:.15});
-  app.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  const wirePrice=()=>{const box=document.getElementById('price');box.querySelectorAll('input[type=range]').forEach(i=>i.oninput=()=>{const keep=i.id;box.innerHTML=priceSection(state);wirePrice();document.getElementById(keep).focus()});
+    const hs=stories.find(x=>x.id==='home'),ms=stories.find(x=>x.id==='mtl'),pr=state.decisions.pricing,c=calc(pr,+document.getElementById('se').value/100,+document.getElementById('sl').value/100,+document.getElementById('sm').value/100),e=+document.getElementById('se').value/100,l=+document.getElementById('sl').value/100;
+    document.getElementById('pdata').onclick=()=>{const homeRows=pr.rows.filter(r=>r.product==='Home');S.openProof({title:'Montréal Home: the price maths',tab:'data',articles:[...ms.articles,...hs.articles],charts:[
+      {id:'pm1',title:'Home: what we charge vs what we need, per year',type:'groupbars',unit:'$ per policy-year',series:[{name:'we charge today',points:homeRows.map(r=>({x:r.city,y:r.premiumPerYear}))},{name:'needed to break even',points:homeRows.map(r=>({x:r.city,y:Math.round(r.costPerYear*(1+l)/(1-e))}))}],plain:'Montréal, Toronto and Ottawa are charged less than their claims cost; Calgary is about right; Québec City has room.',how:'Premium = average earned premium per policy-year. Needed = (claims cost × (1 + handling)) ÷ (1 − expenses). Broker B07 excluded.',source:'policies.csv + claims.csv'},
+      {id:'pm2',title:'Montréal Home: where the money goes, per policy per year',type:'bars',unit:'$ per policy-year',series:[{name:'$',points:[{x:'We charge',y:Math.round(c.prem)},{x:'Water claims',y:Math.round(pr.montrealHome.waterCostPerYear)},{x:'Other claims',y:Math.round(pr.montrealHome.otherCostPerYear)},{x:'Needed to break even',y:Math.round(c.today)}]}],plain:'Water claims alone cost more than the whole premium.',how:'Estimated claim cost per policy-year, split into Water Damage and everything else, Montréal Home policies.',source:'claims.csv joined to policies.csv'}]})};
+    document.getElementById('part').onclick=()=>S.openProof({title:'Why Montréal Home is under-priced: articles',tab:'art',charts:[],articles:[...ms.articles,...hs.articles]});};
+  wirePrice();
 }
 MM.boot('signals',render);
 </script></body></html>

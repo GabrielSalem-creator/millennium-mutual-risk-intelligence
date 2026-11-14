@@ -1,0 +1,63 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>How it works — Millennium Mutual</title><link rel="stylesheet" href="/shared.css"></head>
+<body><div class="wrap" id="app"><div class="card">Reading the data…</div></div>
+<script src="/shared.js"></script><script src="/simple.js"></script><script src="/story.js"></script><script src="/common.js"></script>
+<script>
+const ISSUE_COL={'b07-fraud':'#ff7a6e','mtl-water':'#6fd8ee','home-pricing':'#f0b958','senior-review':'#8b82ff','claim-wait-retention':'#c58bff','broker-channel':'#4cd6a0','severe-claims':'#ff9f6e','bundle-opportunity':'#7ee0b5','data-quality':'#a19fb5',other:'#a19fb5'};
+const ISSUE_NAME={'b07-fraud':'Broker B07','mtl-water':'Montréal water','home-pricing':'Home pricing','senior-review':'Big-claim delays','claim-wait-retention':'Waiting → leaving','broker-channel':'Broker channel','severe-claims':'Big claims','bundle-opportunity':'Bundles','data-quality':'Data quality',other:'Other'};
+let timers=[];
+function countUp(el,to,fmt,ms=1400){const t0=performance.now();const step=t=>{const k=Math.min(1,(t-t0)/ms),e=1-Math.pow(1-k,3);el.textContent=fmt(to*e);if(k<1)requestAnimationFrame(step)};requestAnimationFrame(step)}
+function bigStat(id,state,CH){
+  const pt=(c,si,x)=>CH[c]?.series?.[si]?.points?.find(p=>p.x===x)?.y, e=state.signals.signals.find(s=>s.detector==='early-claim + threshold-structuring')?.evidence||{};
+  const wp=CH['wait-renewal']?.series?.[0]?.points||[], w=wp[wp.length-1]?.y;
+  const m={b07:[`${e.theftClaims||60} vs ${Math.round(e.expectedTheft||3)}`,'theft claims: actual vs normal'],mtl:[((pt('city-water',0,'Montréal')||0)/(pt('city-water',0,'Toronto')||1)).toFixed(1)+'×','Montréal vs Toronto water claims'],home:[Math.round((pt('home-vs-auto',0,'Home')||0)*100)+'¢','paid per $1, Home (Auto: '+Math.round((pt('home-vs-auto',0,'Auto')||0)*100)+'¢)'],wait:['2×+','longer for claims over $10,000'],leave:[Math.round((w||0)*100)+'%','leave after a 30+ day claim'],brokers:['1 of 10','brokers is the problem'],big:['1 in 10','claims = a third of the money'],bundle:['−23%','fewer claims with both lines']};
+  return m[id]||['',''];
+}
+function play(state,m,term,nodes){
+  timers.forEach(clearTimeout);timers=[];term.innerHTML='<div class="bar"><i></i><i></i><i></i></div>';nodes.forEach(n=>n.classList.remove('on'));
+  const SG=state.signals,DC=state.decisions,EV=Object.values(state.evidence||{}).flat(),tests=DC.issues.flatMap(i=>i.why||[]),dq=SG.signals.find(s=>s.issue==='data-quality')?.evidence||{},fired=DC.automations.filter(a=>a.status==='FIRED');
+  const scan=SG.signals.filter(s=>s.kind==='scan').length;
+  const L=[
+   [0,0,'<span class="c">$ node pipeline/run.mjs</span>'],
+   [0,0,`<span class="d">[data]</span> ${m.policies.toLocaleString()} policies · ${m.claimsUnique} claims · repaired <span class="y">${dq.premiumAsText||0}</span> text prices, <span class="y">${(dq.policyDatesDMY||0)+(dq.claimDatesDMY||0)}</span> dates`],
+   [1,1,`<span class="d">[detect]</span> six classic signals ✓  ·  automatic scan <span class="g">${scan} findings</span>`],
+   [1,1,`<span class="d">[detect]</span> custom detectors: early-claim ✓ threshold-bunching ✓ wait-time ✓ workload ✓`],
+   [2,2,`<span class="d">[research]</span> <span class="g">${EV.length} articles</span> read · <span class="r">${EV.filter(c=>c.stance==='challenges').length} argue against us</span>`],
+   [3,3,`<span class="d">[decide]</span> ${tests.length} ideas tested: <span class="g">${tests.filter(t=>t.verdict==='ruled-out').length} ruled out</span>, <span class="r">${tests.filter(t=>t.verdict==='confirmed').length} confirmed</span>`],
+   [4,4,`<span class="d">[act]</span> <span class="y">${fired.length} automations fired</span>: ${fired.map(a=>a.name.split(' ').slice(0,2).join(' ').toLowerCase()).join(' · ')}`],
+   [4,4,'<span class="g">✓ done — decisions ready on page 3</span>']];
+  L.forEach(([n,idx,html],i)=>{timers.push(setTimeout(()=>{const d=document.createElement('div');d.className='l';d.style.animationDelay='0s';d.innerHTML=html;term.appendChild(d);if(nodes[idx])nodes[idx].classList.add('on')},350+i*620))});
+}
+function radar(state,stories,box){
+  const sg=state.signals.signals,lenses=[...new Set(sg.map(s=>s.lensName||s.lens))],W=900,H=310,L0=40,R0=20,T=26,B=40,cw=(W-L0-R0)/lenses.length;
+  const z=s=>{const p=s.stats?.p;const pv=p==='<1e-12'?1e-12:+p;if(pv>0)return Math.min(14,-Math.log10(pv));const zz=Math.abs(+s.stats?.z||0);return zz?Math.min(14,zz/2.5):5};
+  const hash=i=>{const x=Math.sin(i*127.1)*43758.5453;return x-Math.floor(x)};
+  const pts=sg.map((s,i)=>{const col=lenses.indexOf(s.lensName||s.lens),y=T+(1-z(s)/14)*(H-T-B),x=L0+col*cw+cw/2+(hash(i)-.5)*cw*.7,r=6+Math.min(16,Math.sqrt(Math.abs(s.impactUSD||0))/38);return{s,x,y,r,c:ISSUE_COL[s.issue]||ISSUE_COL.other}});
+  box.innerHTML=`<svg viewBox="0 0 ${W} ${H}">${lenses.map((l,i)=>`<line x1="${L0+i*cw}" x2="${L0+i*cw}" y1="${T-8}" y2="${H-B+6}" stroke="currentColor" opacity=".08"/><text x="${L0+i*cw+cw/2}" y="${H-B+22}" text-anchor="middle" style="font-size:11px">${S.esc(String(l).replace(/ \(.*\)/,'').replace(' / ',' / '))}</text>`).join('')}<text x="4" y="${T+4}" style="font-size:10px">more certain ↑</text><text x="4" y="${H-B}" style="font-size:10px">less ↓</text>${pts.sort((a,b)=>b.r-a.r).map(p=>`<circle class="bub" data-id="${p.s.id}" cx="${p.x}" cy="${p.y}" r="${p.r}" fill="${p.c}" fill-opacity=".72" stroke="${p.c}" stroke-width="1.5"><title>${S.esc(p.s.headline)}</title></circle>`).join('')}</svg><div class="tip" id="tip"></div><div class="legend">${Object.entries(ISSUE_NAME).filter(([k])=>sg.some(s=>s.issue===k)).map(([k,n])=>`<span><i style="background:${ISSUE_COL[k]}"></i>${n}</span>`).join('')}<span>· bubble size = money at stake · height = how sure we are</span></div>`;
+  const tip=box.querySelector('#tip');
+  box.querySelectorAll('.bub').forEach(c=>{const s=sg.find(x=>x.id===c.dataset.id);c.onmousemove=e=>{const r=box.getBoundingClientRect();tip.style.opacity=1;tip.style.left=Math.min(r.width-330,e.clientX-r.left+12)+'px';tip.style.top=(e.clientY-r.top+14)+'px';tip.innerHTML=`<b>${S.esc(s.headline.slice(0,140))}</b>`};c.onmouseleave=()=>tip.style.opacity=0;c.onclick=()=>PG.openSignal(s,stories.find(st=>st.issueIds.includes(s.issue)))});
+}
+function render(state){
+  const stories=STORY(state),m=state.signals.meta,CH=state.signals.charts||{},DC=state.decisions,app=document.getElementById('app'),iss=id=>DC.issues.find(i=>i.id===id)||{};
+  const leak=[['Broker B07: early theft claims',iss('b07-fraud').impactUSD,'b07'],['Montréal basements: water claims',iss('mtl-water').impactUSD,'mtl'],['Customers lost to slow claims (premium)',iss('claim-wait-retention').impactUSD,'leave']].filter(x=>x[1]);
+  const mx=Math.max(...leak.map(x=>x[1]),1),total=leak.reduce((a,x)=>a+x[1],0);
+  app.innerHTML=`<div class="hero2"><div class="eyebrow">Millennium Mutual · Data → Detect → Decide → Act</div><h1>See the loss.<br><span class="grad">Find the cause. Fix it.</span></h1><p class="lead">We read every policy and claim, let the computer hunt for patterns from every angle, checked each one against articles and statistics, and turned them into decisions. Everything below is already worked out.</p></div>
+  <div class="kpis2"><div class="kpi2"><small>POLICIES READ</small><b data-n="${m.policies}">0</b></div><div class="kpi2"><small>CLAIMS</small><b data-n="${m.claimsUnique}">0</b></div><div class="kpi2"><small>PATTERNS FOUND</small><b data-n="${state.signals.signals.length}">0</b></div><div class="kpi2"><small>ARTICLES READ</small><b data-n="${Object.values(state.evidence||{}).flat().length}">0</b></div><div class="kpi2 hot"><small>LEAKING (OBSERVED)</small><b data-n="${total}" data-m="1">0</b></div></div>
+  <div class="sect"><h2>The machine at work</h2><p>Five steps, run for real on your data. Press replay to watch it again.</p></div>
+  <div class="pipe"><div class="nodes">${[['📥','Data','Read and clean the files'],['🔎','Detect','Hunt for patterns from every angle'],['🌐','Research','Read the world, for and against'],['🧪','Decide','Test every possible cause'],['⚡','Act','Rules that act by themselves']].map(([i,t,d])=>`<div class="node"><div class="dot">${i}</div><div><b>${t}</b><span>${d}</span></div></div>`).join('')}<button class="pbtn replay" id="replay">↻ Replay</button></div><div class="term" id="term"></div></div>
+  <div class="sect"><h2>Every pattern it found</h2><p>Each bubble is one pattern. Big = a lot of money. High = we’re very sure. Hover to read it, click to see the data.</p></div>
+  <div class="radar reveal" id="radar"></div>
+  <div class="sect"><h2>Where the money is going</h2><p>What the data says we lost, by problem (observed in the data, not a forecast).</p></div>
+  <div class="card reveal money">${leak.map(([n,v,id])=>`<div class="mrow"><span>${n}</span><div class="tr"><i data-w="${v/mx*100}"></i></div><b>$${Math.round(v).toLocaleString()}</b></div>`).join('')}<div class="note">Together about $${Math.round(total).toLocaleString()} — and most of it comes from two things: one broker and one city’s basements.</div></div>
+  <div class="sect"><h2>The 8 things that matter</h2><p>In plain words. Press 📊 to see the numbers, 📰 for the articles.</p></div>
+  <div class="cards2">${stories.map(s=>{const [v,l]=bigStat(s.id,state,CH),sc=s.severity.startsWith('Urgent')?'sevU':s.severity.startsWith('Important')?'sevI':'sevG';return `<article class="story reveal ${sc}" id="${s.id}"><div class="top"><span class="ic">${s.icon}</span><span class="sev ${s.severity.split(' ')[0]}">${s.severity.toUpperCase()}</span></div><div class="bigstat"><b>${S.esc(v)}</b><span>${S.esc(l)}</span></div><h2>${S.esc(s.headline)}</h2><p class="sub">${S.esc(s.sub)}</p><div class="mini">${S.chart(s.charts[0],{compact:true})}</div>${PG.btns(s.id,s)}<div><a href="/research.html#${s.id}">Why is this happening? →</a> · <a href="/decisions.html#${s.id}">What to do →</a></div></article>`}).join('')}</div>
+  <details class="more card reveal" style="margin-top:22px"><summary>All ${state.signals.signals.length} patterns as a list — press 📊 on any line</summary>${state.signals.signals.map(sg=>`<div class="rowsig"><span class="t">${S.esc(sg.headline)}</span><span class="tag">${S.esc((sg.lensName||'').replace(/ \(.*\)/,''))}</span><button class="pbtn" data-act="sig" data-id="${sg.id}">📊</button></div>`).join('')}</details>
+  <p class="note" style="margin-top:16px">Every number comes from policies.csv and claims.csv. Earned premium assumes 12-month policies. Patterns are leads that page 2 researches and page 3 turns into decisions.</p>`;
+  PG.wire(app,stories,state);
+  app.querySelectorAll('.kpi2 b').forEach(b=>countUp(b,+b.dataset.n,v=>b.dataset.m?'$'+Math.round(v/1000)+'k':Math.round(v).toLocaleString()));
+  const term=document.getElementById('term'),nodes=[...app.querySelectorAll('.node')];play(state,m,term,nodes);document.getElementById('replay').onclick=()=>play(state,m,term,nodes);
+  radar(state,stories,document.getElementById('radar'));
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');e.target.querySelectorAll('[data-w]').forEach(i=>i.style.width=i.dataset.w+'%');io.unobserve(e.target)}}),{threshold:.15});
+  app.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+}
+MM.boot('how',render);
+</script></body></html>
