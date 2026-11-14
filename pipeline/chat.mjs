@@ -36,12 +36,26 @@ Rules: use ONLY the CONTEXT. Answer in plain everyday words, in at most 120 word
 
 function run(eng, prompt) {
   return new Promise((resolve, reject) => {
-    const args = eng === 'codex' ? ['exec', '--skip-git-repo-check', '--sandbox', 'read-only', '-'] : ['-p', '--tools', '', '--no-session-persistence', '--system-prompt', SYSTEM];
+    // JSONL keeps Codex progress/status events out of the chat bubble. We only
+    // return the final agent_message to the browser.
+    const args = eng === 'codex' ? ['exec', '--skip-git-repo-check', '--sandbox', 'read-only', '--json', '-'] : ['-p', '--tools', '', '--no-session-persistence', '--system-prompt', SYSTEM];
     const p = spawn(eng, args, { cwd: tmpdir(), stdio: ['pipe', 'pipe', 'pipe'], env: process.env });
     let out = '', err = ''; const kill = setTimeout(() => { p.kill('SIGKILL'); reject(new Error('The AI took too long. Try again.')); }, 110000);
     p.stdout.on('data', (d) => (out += d)); p.stderr.on('data', (d) => (err += d));
     p.on('error', (e) => { clearTimeout(kill); reject(e); });
-    p.on('close', (code) => { clearTimeout(kill); if (code === 0 && out.trim()) resolve(out.trim()); else reject(new Error(clip(err || 'The AI returned nothing', 300))); });
+    p.on('close', (code) => {
+      clearTimeout(kill);
+      if (code !== 0) return reject(new Error(clip(err || 'The AI could not answer. Check that its CLI is signed in and available to the app.', 500)));
+      if (eng !== 'codex') return out.trim() ? resolve(out.trim()) : reject(new Error('The AI returned nothing. Try again.'));
+      const messages = out.split(/\r?\n/).flatMap((line) => {
+        try {
+          const event = JSON.parse(line);
+          return event.type === 'item.completed' && event.item?.type === 'agent_message' ? [event.item.text] : [];
+        } catch { return []; }
+      }).filter(Boolean);
+      if (messages.length) resolve(messages.at(-1).trim());
+      else reject(new Error('Codex finished without a final answer. Try again.'));
+    });
     p.stdin.end(eng === 'codex' ? SYSTEM + '\n\n' + prompt : prompt);
   });
 }
