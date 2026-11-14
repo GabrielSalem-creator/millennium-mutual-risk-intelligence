@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="theme-color" content="#171421"/><title>Quote Desk — Millennium Mutual</title><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/><link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet"/><link rel="stylesheet" href="underwriting.css"/><script src="underwriting.js" defer></script></head>
+<body><div class="app">
+  <header class="topbar"><a class="brand" href="/"><i>MM</i><span>MILLENNIUM <b>MUTUAL</b></span></a><nav><a href="/">SIGNALS</a><span>QUOTE DESK</span></nav><small class="live"><i></i><b id="data-state">Loading company data…</b></small></header>
+  <main>
+    <section class="heading"><div><small>PART 02 / PROFILE → PRICE → DECISION</small><h1>What is this risk<br/><em>worth to insure?</em></h1><p>Choose a real portfolio profile. See how its claim pattern changes the price and long-run result.</p></div><div class="scope"><b id="data-period">Connecting the supplied policies + claims…</b><span id="money-note">Currency not specified in the files.</span></div></section>
+    <section class="desk">
+      <form class="profile" id="quote-form">
+        <header><small>01 · CHOOSE A PROFILE</small><h2>Start with a real example</h2></header>
+        <label>Portfolio profile<select id="profile-select"></select></label>
+        <div id="profile-story" class="profile-story">This is a city and product pattern from the company data, not a claim about this individual customer.</div>
+        <label>Competitor annual quote <span>optional</span><input id="market" type="number" min="0" placeholder="Enter same-coverage price"/></label>
+        <div class="targets"><div class="targets-head"><small>PRICING SCENARIO</small><span>Editable examples · not in the CSVs</span></div><div class="target-row"><label>Expenses per $100 premium<input id="expense" type="number" min="0" max="99" step="0.1" value="25"/><small>Example: $25 for operations and claims handling</small></label><label>Desired profit per $100 premium<input id="margin" type="number" min="0" max="99" step="0.1" value="8"/><small>Example: keep $8 after claims + expenses</small></label></div></div>
+        <label class="volume-label">Similar policies in the book<input id="volume" type="number" min="1" step="1" value="1"/><small>Use 1 to see one policy; raise it to model a larger book.</small></label>
+        <button class="submit" type="submit">SHOW PRICE + OUTCOME <span>↗</span></button>
+      </form>
+      <section class="recommendation" aria-live="polite">
+        <div class="outcome-top"><small>02 · RECOMMENDATION</small><span id="outcome-tag" class="tag">READY</span></div>
+        <h2 id="outcome-title">Choose a profile to begin</h2><p id="outcome-reason">The recommendation is based on this city and product’s observed claims, premium and your pricing scenario.</p>
+        <div class="numbers"><article><small>INDICATED ANNUAL PRICE</small><b id="price">—</b><span>per similar policy</span></article><article><small>EXPECTED PROFIT* · 1 YEAR</small><b id="profit-one">—</b><span>before excluded costs</span></article><article><small>VS. COMPETITOR</small><b id="gap">—</b><span>same-coverage quote, if entered</span></article></div>
+        <div class="next-step"><small>WHAT THIS PROFILE MEANS</small><b id="next-step">A plain-language explanation appears here.</b></div>
+        <div id="long-run" class="long-run"></div>
+        <details class="equation"><summary>How did it calculate this?</summary><div id="equation-content"></div></details>
+        <p class="boundary">Portfolio-based scenario, not an individual rating. A human underwriter makes the final eligibility and price decision.</p>
+      </section>
+    </section>
+    <section class="signals"><header><div><small>03 · EVIDENCE BEHIND THE PRICE</small><h2 id="signals-title">Company experience</h2></div><span id="experience-note">Same exposure method across every city</span></header><div class="signal-metrics" id="signal-metrics"></div><div class="perils" id="peril-signals"></div></section>
+    <footer><span>Evidence: supplied policies.csv + claims.csv</span><a href="/">← All signals</a></footer>
+  </main>
+</div></body></html>

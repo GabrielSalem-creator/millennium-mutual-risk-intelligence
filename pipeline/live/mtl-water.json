@@ -1,0 +1,204 @@
+{
+  "issue": "mtl-water",
+  "generated": "2026-11-14T20:47:54.112Z",
+  "queries": [
+    "Montreal home insurance water damage claims higher than Toronto",
+    "Ottawa home insurance claims 2026 storm"
+  ],
+  "cards": [
+    {
+      "id": "LV-MTL-1",
+      "angle": "live-scrape",
+      "title": "Home Insurance Statistics Canada 2026 — Premiums & Claims",
+      "url": "https://home.insurancexpert.ca/insights/home-insurance-statistics/",
+      "publisher": "home.insurancexpert.ca",
+      "year": 2026,
+      "geo": "",
+      "claim": "Page reports: $23,550 Average cost of a water-damage home claim Insurance",
+      "stat": {
+        "value": "$23,550",
+        "what": "$23,550 Average cost of a water-damage home claim Insurance"
+      },
+      "stance": "context",
+      "relevance": "Matched query: Montreal home insurance water damage claims higher than Toronto",
+      "limit": "Auto-extracted sentence: verify in the source",
+      "snippet": "$23,550 Average cost of a water-damage home claim Insurance Bureau of Canada . ~$1,340 Estimated national average home premium Broker estimate, 2026 .",
+      "verified": true,
+      "fetchedOn": "2026-11-14",
+      "source": "live-scrape"
+    },
+    {
+      "id": "LV-MTL-2",
+      "angle": "live-scrape",
+      "title": "Home Insurance Statistics Canada 2026 — Premiums & Claims",
+      "url": "https://home.insurancexpert.ca/insights/home-insurance-statistics/",
+      "publisher": "home.insurancexpert.ca",
+      "year": 2026,
+      "geo": "",
+      "claim": "Page reports: insurance premiums rose about 45% between December 2019 and",
+      "stat": {
+        "value": "45%",
+        "what": "insurance premiums rose about 45% between December 2019 and"
+      },
+      "stance": "supports",
+      "relevance": "Matched query: Montreal home insurance water damage claims higher than Toronto",
+      "limit": "Auto-extracted sentence: verify in the source",
+      "snippet": "Home insurance premiums rose about 45% between December 2019 and 2025 — more than double general inflation over the same period (Statistics Canada; InsuranceXpert analysis).",
+      "verified": true,
+      "fetchedOn": "2026-11-14",
+      "source": "live-scrape"
+    },
+    {
+      "id": "LV-MTL-3",
+      "angle": "live-scrape",
+      "title": "Home Insurance Statistics Canada 2026 — Premiums & Claims",
+      "url": "https://home.insurancexpert.ca/insights/home-insurance-statistics/",
+      "publisher": "home.insurancexpert.ca",
+      "year": 2026,
+      "geo": "",
+      "claim": "Page reports: home claim — around 40%+ of claims, averaging about",
+      "stat": {
+        "value": "40%",
+        "what": "home claim — around 40%+ of claims, averaging about"
+      },
+      "stance": "context",
+      "relevance": "Matched query: Montreal home insurance water damage claims higher than Toronto",
+      "limit": "Auto-extracted sentence: verify in the source",
+      "snippet": "Water damage is now the single biggest home claim — around 40%+ of claims, averaging about $23,550 each, or roughly 17× a typical annual premium (IBC; InsuranceXpert analysis).",
+      "verified": true,
+      "fetchedOn": "2026-11-14",
+      "source": "live-scrape"
+    },
+    {
+      "id": "LV-MTL-4",
+      "angle": "live-scrape",
+      "title": "Montreal-water-claims-taper-as-northern-Ontario-wildfire-claims-emerge",
+      "url": "https://www.insuranceinstitute.ca/en/Insights-And-Publications/CanadianUnderwriterArticles/items/2026/07/17/Montreal-water-claims-taper-as-northern-Ontario-wildfire-claims-emerge",
+      "publisher": "insuranceinstitute.ca",
+      "year": 2024,
+      "geo": "",
+      "claim": "Page reports: (IBC) tallies more than $1.1 billion in insured damage",
+      "stat": {
+        "value": "$1.1 billion",
+        "what": "(IBC) tallies more than $1.1 billion in insured damage"
+      },
+      "stance": "context",
+      "relevance": "Matched query: Montreal home insurance water damage claims higher than Toronto",
+      "limit": "Auto-extracted sentence: verify in the source",
+      "snippet": "The shifting claims activity comes as Insurance Bureau of Canada (IBC) tallies more than $1.1 billion in insured damage from June storms in Manitoba and Saskatchewan and flooding in Montreal.",
+      "verified": true,
+      "fetchedOn": "2026-11-14",
+      "source": "live-scrape"
+    },
+    {
+      "id": "LV-MTL-5",
+      "angle": "live-scrape",
+      "title": "Montreal-water-claims-taper-as-northern-Ontario-wildfire-claims-emerge",
+      "url": "https://www.insuranceinstitute.ca/en/Insights-And-Publications/CanadianUnderwriterArticles/items/2026/07/17/Montreal-water-claims-taper-as-northern-Ontario-wildfire-claims-emerge",
+      "publisher": "insuranceinstitute.ca",
+      "year": 2024,
+      "geo": "",
+      "claim": "Page reports: 9–10 caused more than $728 million in insured damage,",
+      "stat": {
+        "value": "$728 million",
+        "what": "9–10 caused more than $728 million in insured damage,"
+      },
+      "stance": "context",
+      "relevance": "Matched query: Montreal home insurance water damage claims higher than Toronto",
+      "limit": "Auto-extracted sentence: verify in the source",
+      "snippet": "Storms that swept across Manitoba and Saskatchewan on June 9–10 caused more than $728 million in insured damage, IBC says, citing initial estimates from Catastrophe Indices and Quantification. (CatIQ).",
+      "verified": true,
+      "fetchedOn": "2026-11-14",
+      "source": "live-scrape"
+    },
+    {
+      "id": "LV-MTL-6",
+      "angle": "live-scrape",
+      "title": "Montreal-water-claims-taper-as-northern-Ontario-wildfire-claims-emerge",
+      "url": "https://www.insuranceinstitute.ca/en/Insights-And-Publications/CanadianUnderwriterArticles/items/2026/07/17/Montreal-water-claims-taper-as-northern-Ontario-wildfire-claims-emerge",
+      "publisher": "insuranceinstitute.ca",
+      "year": 2024,
+      "geo": "",
+      "claim": "Page reports: 20–21 caused more than $409 million in insured damage.",
+      "stat": {
+        "value": "$409 million",
+        "what": "20–21 caused more than $409 million in insured damage."
+      },
+      "stance": "context",
+      "relevance": "Matched query: Montreal home insurance water damage claims higher than Toronto",
+      "limit": "Auto-extracted sentence: verify in the source",
+      "snippet": "Separately, flooding in Montreal and the surrounding area on June 20–21 caused more than $409 million in insured damage.",
+      "verified": true,
+      "fetchedOn": "2026-11-14",
+      "source": "live-scrape"
+    },
+    {
+      "id": "LV-MTL-7",
+      "angle": "live-scrape",
+      "title": "Montreal water claims taper as northern Ontario wildfire claims emerge",
+      "url": "https://www.canadianunderwriter.ca/news/montreal-water-claims-taper-as-northern-ontario-wildfire-claims-emerge/",
+      "publisher": "canadianunderwriter.ca",
+      "year": 2026,
+      "geo": "",
+      "claim": "Page reports: (IBC) tallies more than $1.1 billion in insured damage",
+      "stat": {
+        "value": "$1.1 billion",
+        "what": "(IBC) tallies more than $1.1 billion in insured damage"
+      },
+      "stance": "context",
+      "relevance": "Matched query: Montreal home insurance water damage claims higher than Toronto",
+      "limit": "Auto-extracted sentence: verify in the source",
+      "snippet": "The shifting claims activity comes as Insurance Bureau of Canada (IBC) tallies more than $1.1 billion in insured damage from June storms in Manitoba and Saskatchewan and flooding in Montreal.",
+      "verified": true,
+      "fetchedOn": "2026-11-14",
+      "source": "live-scrape"
+    },
+    {
+      "id": "LV-MTL-8",
+      "angle": "live-scrape",
+      "title": "Montreal water claims taper as northern Ontario wildfire claims emerge",
+      "url": "https://www.canadianunderwriter.ca/news/montreal-water-claims-taper-as-northern-ontario-wildfire-claims-emerge/",
+      "publisher": "canadianunderwriter.ca",
+      "year": 2026,
+      "geo": "",
+      "claim": "Page reports: 9–10 caused more than $728 million in insured damage,",
+      "stat": {
+        "value": "$728 million",
+        "what": "9–10 caused more than $728 million in insured damage,"
+      },
+      "stance": "context",
+      "relevance": "Matched query: Montreal home insurance water damage claims higher than Toronto",
+      "limit": "Auto-extracted sentence: verify in the source",
+      "snippet": "Storms that swept across Manitoba and Saskatchewan on June 9–10 caused more than $728 million in insured damage, IBC says, citing initial estimates from Catastrophe Indices and Quantification . (CatIQ).",
+      "verified": true,
+      "fetchedOn": "2026-11-14",
+      "source": "live-scrape"
+    },
+    {
+      "id": "LV-MTL-9",
+      "angle": "live-scrape",
+      "title": "Montreal water claims taper as northern Ontario wildfire claims emerge",
+      "url": "https://www.canadianunderwriter.ca/news/montreal-water-claims-taper-as-northern-ontario-wildfire-claims-emerge/",
+      "publisher": "canadianunderwriter.ca",
+      "year": 2026,
+      "geo": "",
+      "claim": "Page reports: 20–21 caused more than $409 million in insured damage.",
+      "stat": {
+        "value": "$409 million",
+        "what": "20–21 caused more than $409 million in insured damage."
+      },
+      "stance": "context",
+      "relevance": "Matched query: Montreal home insurance water damage claims higher than Toronto",
+      "limit": "Auto-extracted sentence: verify in the source",
+      "snippet": "Separately, flooding in Montreal and the surrounding area on June 20–21 caused more than $409 million in insured damage.",
+      "verified": true,
+      "fetchedOn": "2026-11-14",
+      "source": "live-scrape"
+    }
+  ],
+  "stats": {
+    "searches": 0,
+    "pagesFetched": 0,
+    "cards": 9
+  }
+}

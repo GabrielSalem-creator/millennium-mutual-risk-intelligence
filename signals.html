@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#191229" /><title>Signal Explorer — Millennium Mutual</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="signals.css" /><script src="signals.js" defer></script>
+</head>
+<body>
+  <div class="page">
+    <header class="bar"><a class="brand" href="/"><i>MM</i><span>MILLENNIUM <b>MUTUAL</b></span></a><nav><a class="active" href="/">SIGNALS</a><a href="/insurance">PORTFOLIO</a><a href="/underwriting">UNDERWRITING</a><a href="/presentation">PRESENTATION</a></nav><span id="data-status" class="status">CONNECTING TO CSVs</span></header>
+    <main>
+      <section class="hero"><div><small>TRACK_03 // INSURANCE INTELLIGENCE</small><h1>Find the pattern.<br /><em>Then challenge the why.</em></h1><p>Every city gets the same scan. Read each signal by claim count, reported amount, time and peer comparison. Open one to test competing causes and the long-run math.</p></div><aside><small>THE RULE</small><b>Observation first.<br />Cause only after evidence.</b><span>Reported claim amount is not profit. A city gap is not a city cause.</span></aside></section>
+      <section class="stats"><article><small>PLACES SCANNED</small><b id="city-count">—</b><span>same method across the dataset</span></article><article><small>CITY × PERIL SIGNALS</small><b id="signal-count">—</b><span>Home + Auto; amount-ranked</span></article><article><small>PORTFOLIO SIGNALS</small><b id="portfolio-count">—</b><span>additional cross-book patterns</span></article><article class="warning"><small>PROFIT STATUS</small><b>NOT PROVEN</b><span>earned exposure + full expenses needed</span></article></section>
+      <section class="toolbar"><div><small>THE SIGNAL QUEUE</small><h2>Signals across every city</h2><p>Switch lenses: dollars reported, claim count, or claims per policy row. None alone equals profit or risk.</p></div><div class="filters"><label>City<select id="city-filter"><option value="all">All cities</option><option>Montreal</option><option>Toronto</option><option>Calgary</option><option>Ottawa</option><option>Quebec City</option></select></label><label>Product<select id="product-filter"><option value="all">Home + Auto</option><option>Home</option><option>Auto</option></select></label><label>Rank by<select id="sort-filter"><option value="amount">Reported amount</option><option value="claims">Claim count</option><option value="rate">Claims / 100 rows</option></select></label><button id="show-all" type="button">SHOW ALL SIGNALS</button></div></section>
+      <section id="city-feed" class="feed"><div class="loading">Reading the supplied CSV files…</div></section>
+      <section class="portfolio-section"><header><div><small>ALSO SCANNED ACROSS THE BOOK</small><h2>Patterns that cross city lines</h2></div><a href="/insurance">Open the full portfolio analysis ↗</a></header><div id="portfolio-feed" class="portfolio-feed"></div></section>
+      <footer><span>MILLENNIUM MUTUAL · SIGNAL EXPLORER</span><span id="source-note">Source: supplied policies.csv + claims.csv</span></footer>
+    </main>
+  </div>
+</body>
+</html>

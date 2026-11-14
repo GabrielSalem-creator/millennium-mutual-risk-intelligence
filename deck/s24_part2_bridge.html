@@ -1,0 +1,26 @@
+<section class="slide">
+<div class="kicker">From analysis to action · Part 2</div>
+<h2>The same math, run on every new customer before we quote.</h2>
+<div class="kid"><b>In kid words:</b> a new person asks for a price. The machine looks up which group they belong to, works out the average bill for that group, and only says yes if we can charge more than that and still be cheaper than other insurers.</div>
+<div class="flow">
+ <div class="st"><b>1 APPLICANT</b><span>Product, city, age, risk band, deductible, sales source.</span><div class="out">→ profile</div></div>
+ <div class="st"><b>2 CATEGORY</b><span>Profile is mapped to its group using the factors learned from the data (e.g. the Montreal water factor).</span><div class="out">→ risk factors</div></div>
+ <div class="st"><b>3 RANDOM VARIABLE</b><span>Claims N ~ Poisson, cost X per claim, S = ΣX.</span><div class="out">→ model of one year</div></div>
+ <div class="st"><b>4 EXPECTATION</b><span>E[S] = E[N]·E[X] plus a 14% claims-handling load and a 90% range.</span><div class="out">→ expected loss</div></div>
+ <div class="st"><b>5 DECIDE</b><span>Blocked source (B07)? Price needed far above market? Then refer or decline.</span><div class="out">→ accept / decline</div></div>
+ <div class="st"><b>6 PRICE</b><span>Pick the price that maximises chance-to-win × profit.</span><div class="out">→ optimal competitive quote</div></div>
+</div>
+<div class="grid2">
+ <div class="card" style="font-family:ui-monospace,Menlo,monospace;font-size:14px">
+  <div class="mute">platform.html · example screen</div>
+  <div style="margin-top:10px">Applicant: Home · Montreal · Medium · $1,000 ded · Agent · not bundled</div>
+  <div class="warn-t" style="margin-top:6px">Category: water-exposed city (Montreal)</div>
+  <div style="margin-top:6px">Expected loss: 2,795 / yr (3,186 with handling)</div>
+  <div style="margin-top:6px">Break-even: 4,551 · Market proxy: 1,286</div>
+  <div class="bad-t" style="margin-top:10px;font-weight:700">DECLINE: needs price far above market</div>
+  <div class="mute" style="margin-top:6px">…then a 1,000-policy simulation shows the book loses money.</div></div>
+ <div class="card"><h3>Three outcomes</h3><ul class="tight"><li><span class="tag good">ACCEPT</span>we can match or beat the market and keep our margin.</li><li><span class="tag warn">ACCEPT · PREMIUM</span>we need a price a little above market; the win rate will be lower.</li><li><span class="tag bad">DECLINE / REFER</span>competitive price loses money in the long run, or the sales source is blocked.</li></ul>
+ <p class="mute" style="margin:10px 0 0;font-size:14px">Open <b>platform.html</b> (the live app) to try your own applicant. Expense load, margin and price sensitivity are sliders because the data has no quote or conversion records.</p></div>
+</div>
+<div class="limits">Break-even = expected loss with handling ÷ (1 − 0.30 expense load) = 2,795 × 1.14 ÷ 0.70 = 3,186 ÷ 0.70 ≈ 4,551 (same assumptions as the previous slide; the app recalculates live). The 30% expense load and 14% claims-handling load are sourced assumptions (Definity 2025 expense ratio 29.6%; MSA Research claims-handling cost 8–11 points of premium). The example screen illustrates the app's logic, not a saved result.</div>
+</section>

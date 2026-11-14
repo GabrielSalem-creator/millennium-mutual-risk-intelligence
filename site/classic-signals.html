@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Signals — Millennium Mutual</title>
+<link rel="stylesheet" href="/shared.css">
+<style>
+.wrap section{margin:26px 0}
+h2{font-size:19px;margin:0 0 4px}h2 small{font-weight:400;color:var(--mute);font-size:13px}
+.sig{display:grid;grid-template-columns:34px 1fr;gap:12px}.sig .no{font:700 20px ui-monospace,Menlo,monospace;color:var(--accent)}
+.sig h3{margin:0 0 6px;font-size:15.5px;line-height:1.35}
+.plain{background:var(--panel2);border-left:3px solid var(--accent);border-radius:6px;padding:6px 10px;margin:8px 0;font-size:13.5px}
+.cards{display:grid;gap:12px}
+.row{border-top:1px solid var(--line);padding:8px 0}
+.row>summary{list-style:none;display:grid;grid-template-columns:32px auto 1fr auto;gap:8px;align-items:start;color:var(--ink);font-size:14px}
+.row>summary::-webkit-details-marker{display:none}
+.row .rk{font:600 12px ui-monospace,monospace;color:var(--mute);padding-top:3px}
+.row .imp{font-variant-numeric:tabular-nums;font-weight:600;white-space:nowrap}
+.det{padding:8px 0 4px 32px;font-size:13.5px}.det h4{margin:10px 0 4px;font-size:12px;color:var(--mute);text-transform:uppercase;letter-spacing:.06em}
+.kv{display:grid;grid-template-columns:minmax(110px,max-content) 1fr;gap:2px 12px}.kv span:nth-child(odd){color:var(--mute)}
+.scroll{overflow-x:auto}
+.viz{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:12px}
+.viz svg{width:100%;height:auto;display:block}.viz text{fill:var(--ink);font:11px system-ui}.viz .m{fill:var(--mute)}
+.hm td.h{text-align:center;font-variant-numeric:tabular-nums}
+.pov .g{margin:6px 0}.pov .g b{font-size:12px;color:var(--mute)}.pov ul{margin:2px 0 0;padding-left:18px;font-size:13.5px}
+.lg{display:inline-block;width:10px;height:10px;border-radius:2px;margin:0 4px 0 10px}
+@media(max-width:560px){.row>summary{grid-template-columns:28px 1fr}.row>summary .imp{grid-column:2}.det{padding-left:0}.sig{grid-template-columns:26px 1fr}.bars .r{grid-template-columns:90px 1fr 60px}}
+</style></head>
+<body><div class="wrap" id="app"><h1>Signals</h1><p class="lede">Loading…</p></div>
+<script src="/shared.js"></script>
+<script src="/classic-signals.js"></script>
+</body></html>

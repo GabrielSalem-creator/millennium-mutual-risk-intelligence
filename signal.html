@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#191229" /><title>Signal Investigation — Millennium Mutual</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="signal.css" /><script src="signal.js" defer></script>
+</head>
+<body>
+  <div class="page">
+    <header class="bar"><a class="brand" href="/"><i>MM</i><span>MILLENNIUM <b>MUTUAL</b></span></a><nav><a href="/">SIGNALS</a><a href="/insurance">PORTFOLIO</a><a href="/underwriting">UNDERWRITING</a></nav><span class="status">INVESTIGATION WORKSPACE</span></header>
+    <main>
+      <a class="back" href="/">← ALL SIGNALS</a>
+      <section class="hero"><div><small id="signal-kicker">SIGNAL INVESTIGATION</small><h1 id="signal-title">Loading signal…</h1><p id="signal-summary">Reading evidence from the supplied CSV files.</p></div><aside><small>CURRENT VERDICT</small><b id="signal-verdict">Checking data…</b><span id="verdict-caveat"></span></aside></section>
+      <section id="signal-stats" class="stat-grid"></section>
+      <section class="lens-panel"><header><div><small>ONE SIGNAL · SEVERAL READINGS</small><h2>Choose the angle before choosing a cause</h2></div><span>Observed values stay separate from explanations.</span></header><div id="lenses" class="lenses"></div></section>
+      <section class="peer-panel"><header><div><small>THE SAME MEASURE IN EVERY CITY</small><h2 id="peer-title">Compare city peers</h2></div><span>Same product + peril · same CSV definitions</span></header><div id="peer-table"></div><p id="peer-note" class="note"></p></section>
+      <section class="season-panel"><header><div><small>WHEN DOES IT SHOW UP?</small><h2>Loss-month pattern</h2></div><span>Claims in the extract · month is not a cause</span></header><div id="season-chart"></div><p class="note">This combines the available loss months across the extract. Test against weather-event dates, insured-years and repair dates before saying why a month is high.</p></section>
+      <section id="experience-panel" class="experience-panel"><header><div><small>LONG-RUN VIEW · EMPIRICAL SCREEN</small><h2>What happens over many similar policy-years?</h2></div><span>CSV-based frequency × severity · adjustable assumptions</span></header><div id="experience-content"><div class="loading">Calculating city experience…</div></div></section>
+      <section class="research-panel"><header><div><small>STEP 02 · QUESTION THE SIGNAL</small><h2>Find the why. Try to disprove it.</h2></div><span id="research-status" class="provider-tag">CURATED SOURCES + SEARCH PLAN</span></header>
+        <p class="research-intro">The evidence below is already sourced. Search prompts open targeted web queries. The current local app does not scrape every search result; it does not pretend that a search link is evidence.</p>
+        <div id="hypotheses" class="hypotheses"></div>
+        <div class="query-panel"><div class="query-head"><div><small>GENERATED SEARCH PLAN</small><b>Open each query in Google</b></div><button id="copy-prompt" type="button">COPY RESEARCH BRIEF</button></div><div id="queries" class="queries"></div></div>
+        <div class="source-capture"><div><small>ADD A SOURCE TO THIS SIGNAL</small><b>Save the source and what it supports or challenges.</b><span>Stored in this browser only. Do not add personal or claim-identifying information.</span></div><form id="source-form"><input id="source-title" placeholder="Article / dataset title" required /><input id="source-url" type="url" placeholder="https://…" required /><textarea id="source-note" placeholder="What evidence does it add? Which city, dates and outcome?" required></textarea><button type="submit">SAVE SOURCE</button></form></div><div id="saved-sources" class="saved-sources"></div>
+      </section>
+      <section class="verdict-panel"><header><div><small>STEP 03 · DECIDE AFTER THE EVIDENCE</small><h2>What the signal can support today</h2></div></header><div id="verdict-grid" class="verdict-grid"></div></section>
+      <footer><span>MILLENNIUM MUTUAL · SIGNAL INVESTIGATION</span><span id="source-footer">Evidence: supplied CSVs + cited public sources</span></footer>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>3 · What to do — Millennium Mutual</title><link rel="stylesheet" href="/shared.css"></head>
+<body><div class="wrap" id="app"><div class="card">Reading the data…</div></div>
+<script src="/shared.js"></script><script src="/simple.js"></script><script src="/story.js"></script><script src="/common.js"></script>
+<script>
+const AUTO={R1:'Holds a broker whose claims look abnormal',R2:'Sends claims just under $10,000 to a second check',R3:'Chases claims that are getting old, before the customer leaves',R4:'Opens a price review when a group costs too much',R5:'Fixes dirty data when new files arrive'};
+function render(state){
+  const stories=STORY(state), app=document.getElementById('app'), D=state.decisions;
+  const first=t=>String(t).split(/(?<=\.)\s/)[0];
+  app.innerHTML=PG.hero('What should we do?','One clear action for each problem: what, where, when, how and why. Each has its proof one click away.')
+  +`<h2 style="margin:6px 0 10px">Who was right?</h2><div class="who">${D.stakeholders.map(w=>`<div class="card"><div style="display:flex;gap:8px;align-items:center;margin-bottom:6px"><b>${S.esc(w.who)}</b><span class="verd ${w.verdict==='right'?'right':'partly'}">${w.verdict.toUpperCase()}</span></div><p class="note" style="margin:0 0 6px;font-style:italic">${S.esc(w.said)}</p><p style="margin:0;font-size:14px">${S.esc(first(w.answer))}</p></div>`).join('')}</div>`
+  +`<h2 style="margin:26px 0 10px">The decisions</h2>`
+  +stories.map((s,i)=>`<article class="story" id="${s.id}" style="margin-bottom:16px"><div class="top"><span class="ic">${s.icon}</span><span class="sev ${s.severity.split(' ')[0]}">${s.severity.toUpperCase()}</span><span class="note">Decision ${i+1}</span></div><h2>${S.esc(s.headline)}</h2><div class="bigdo">→ ${S.esc(s.do.what)}</div>
+    <div class="dorows"><b>WHERE</b><span>${S.esc(s.do.where)}</span><b>WHEN</b><span>${S.esc(s.do.when)}</span><b>HOW</b><span>${S.esc(s.do.how)}</span><b>WHY</b><span>${S.esc(s.do.why)}</span></div>
+    <p class="note">If we’re wrong: ${S.esc(s.wrong)}</p>${PG.btns(s.id,s)}</article>`).join('')
+  +`<h2 style="margin:26px 0 10px">What the system now does by itself</h2><div class="card">${D.automations.map(a=>`<details class="rowsig" style="display:block"><summary><b>${S.esc(AUTO[a.id]||a.name)}</b> <span class="tag ${a.status==='FIRED'?'bad':''}">${a.status==='FIRED'?'TRIGGERED':'quiet'} · ${a.matched.count} found</span></summary><p class="note"><b>Rule:</b> ${S.esc(a.condition)}</p><p class="note"><b>Then:</b> ${a.actions.map(x=>S.esc(x.do)+' → '+S.esc(x.to)).join('; ')}</p><p class="note"><b>Tells:</b> ${a.notify.map(S.esc).join(', ')}. <b>If wrong:</b> ${S.esc(a.ifWrong)}</p></details>`).join('')}</div>`
+  +`<p style="margin-top:20px">Next: <a href="/platform.html" target="_blank">price a single new customer with the same logic →</a></p>`;
+  PG.wire(app,stories,state);
+}
+MM.boot('decisions',render);
+</script></body></html>

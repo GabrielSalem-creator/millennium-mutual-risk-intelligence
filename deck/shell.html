@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Why We Lose Money — Insurance Pattern Study</title>
+<style>
+:root{--bg:#0f0e17;--panel:#1a1826;--panel2:#232035;--ink:#f4f2fb;--mute:#a19fb5;--line:#322f47;--accent:#8b82ff;--good:#4cd6a0;--bad:#ff7a6e;--warn:#f0b958;--cyan:#6fd8ee}
+@media (prefers-color-scheme:light){:root{--bg:#f7f5f0;--panel:#fff;--panel2:#f0ede5;--ink:#1c1b22;--mute:#6b6a75;--line:#e1ddd2;--accent:#4b3fd6;--good:#12805c;--bad:#c2362b;--warn:#b7791f;--cyan:#0a7f96}}
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font:18px/1.5 system-ui,-apple-system,Segoe UI,sans-serif;overflow:hidden}
+.deck{height:100%;position:relative}
+.slide{position:absolute;inset:0;padding:5vh 6vw 8vh;display:none;overflow:auto;animation:in .35s ease}
+.slide.on{display:block}@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.kicker{font:600 13px/1 ui-monospace,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+h1{font-size:clamp(34px,5vw,64px);line-height:1.05;margin:0 0 18px;letter-spacing:-.02em}
+h2{font-size:clamp(26px,3.3vw,42px);line-height:1.1;margin:0 0 14px;letter-spacing:-.01em}
+h3{font-size:19px;margin:0 0 6px}
+.lede{font-size:clamp(18px,1.7vw,23px);color:var(--mute);max-width:62ch;margin:0 0 22px}
+.kid{background:var(--panel2);border-left:4px solid var(--accent);border-radius:8px;padding:12px 16px;margin:14px 0;font-size:clamp(17px,1.5vw,21px)}
+.kid b{color:var(--accent)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media(max-width:900px){.grid2,.grid3,.grid4{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.card.bad{border-color:var(--bad)}.card.good{border-color:var(--good)}.card.warn{border-color:var(--warn)}
+.stat{font-size:clamp(34px,4vw,54px);font-weight:700;line-height:1;letter-spacing:-.02em}.stat small{display:block;font-size:14px;font-weight:400;color:var(--mute);letter-spacing:0;margin-top:6px;line-height:1.35}
+.bad-t{color:var(--bad)}.good-t{color:var(--good)}.warn-t{color:var(--warn)}.mute{color:var(--mute)}
+.tag{display:inline-block;font:600 12px ui-monospace,Menlo,monospace;letter-spacing:.06em;padding:3px 9px;border-radius:99px;background:var(--panel2);border:1px solid var(--line);color:var(--mute);margin-right:6px}
+.tag.bad{color:var(--bad);border-color:var(--bad)}.tag.good{color:var(--good);border-color:var(--good)}.tag.warn{color:var(--warn);border-color:var(--warn)}
+.bars .r{display:grid;grid-template-columns:120px 1fr 74px;gap:10px;align-items:center;margin:7px 0;font-size:15px}
+.bars .t{height:16px;background:var(--panel2);border-radius:8px;overflow:hidden}.bars .t i{display:block;height:100%;background:var(--accent);border-radius:8px}
+.bars .r.hot .t i{background:var(--bad)}.bars .r.cool .t i{background:var(--good)}.bars .v{text-align:right;font-variant-numeric:tabular-nums}
+.flow{display:flex;flex-wrap:wrap;gap:10px;align-items:stretch;margin:14px 0}
+.flow .st{flex:1 1 150px;min-width:150px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px;position:relative}
+.flow .st:not(:last-child)::after{content:"→";position:absolute;right:-14px;top:50%;transform:translateY(-50%);color:var(--accent);font-size:20px;z-index:2}
+.flow .st b{display:block;font-size:12px;letter-spacing:.1em;color:var(--accent);font-family:ui-monospace,Menlo,monospace}.flow .st span{font-size:14px;color:var(--mute);display:block;margin-top:4px}
+.flow .st .out{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);color:var(--good);font-size:13px}
+table.t{width:100%;border-collapse:collapse;font-size:15px}table.t th,table.t td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:right;font-variant-numeric:tabular-nums}table.t th:first-child,table.t td:first-child{text-align:left}table.t th{color:var(--mute);font-weight:500}table.t tr.hot td{color:var(--bad);font-weight:600}table.t tr.cool td{color:var(--good)}
+.src{font-size:13px;color:var(--mute)}.src a{color:var(--cyan);text-decoration:none}.src a:hover{text-decoration:underline}.src li{margin:4px 0}
+ul.tight{margin:6px 0 0 18px;padding:0}ul.tight li{margin:4px 0}
+.limits{font-size:13.5px;color:var(--mute);border-top:1px solid var(--line);margin-top:16px;padding-top:10px}
+.nav{position:fixed;left:0;right:0;bottom:0;height:5.5vh;min-height:40px;display:flex;align-items:center;justify-content:space-between;padding:0 6vw;background:linear-gradient(transparent,var(--bg) 40%);z-index:9;font:12px ui-monospace,Menlo,monospace;color:var(--mute)}
+.nav button{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:6px 14px;cursor:pointer;font:inherit}
+.prog{position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:10;transition:width .3s}
+svg text{fill:var(--mute);font-size:12px}
+</style></head><body>
+<div class="prog" id="prog"></div>
+<div class="deck" id="deck">
+<!--SLIDES-->
+</div>
+<div class="nav"><button id="prev">← Prev</button><span id="count"></span><button id="next">Next →</button></div>
+<script>
+const S=[...document.querySelectorAll('.slide')];let i=Math.min(S.length-1,Math.max(0,(+location.hash.slice(1)||1)-1));
+function show(n){i=Math.max(0,Math.min(S.length-1,n));S.forEach((s,k)=>s.classList.toggle('on',k===i));document.getElementById('count').textContent=(i+1)+' / '+S.length;document.getElementById('prog').style.width=((i+1)/S.length*100)+'%';history.replaceState(null,'','#'+(i+1));S[i].scrollTop=0}
+document.getElementById('prev').onclick=()=>show(i-1);document.getElementById('next').onclick=()=>show(i+1);
+addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();show(i+1)}if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(i-1)}});
+show(i);
+</script></body></html>

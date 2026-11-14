@@ -1,0 +1,11 @@
+.env
+.env.*
+!.env.example
+node_modules/
+.DS_Store
+pipeline/uploads/
+pipeline/runs/
+pipeline/live/cache/
+*.log
+.env
+node_modules

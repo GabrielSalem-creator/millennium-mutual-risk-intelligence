@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Underwriting Platform — Company Console</title>
+<style>
+:root{--bg:#0f0e17;--panel:#1a1826;--panel2:#232035;--ink:#f4f2fb;--mute:#a19fb5;--line:#322f47;--accent:#8b82ff;--good:#4cd6a0;--bad:#ff7a6e;--warn:#f0b958;--cyan:#6fd8ee;--goodbg:#12302a;--badbg:#391c1a;--warnbg:#362b13}
+@media (prefers-color-scheme:light){:root{--bg:#f6f4ef;--panel:#fff;--panel2:#f0ede5;--ink:#1c1b22;--mute:#6b6a75;--line:#e1ddd2;--accent:#4b3fd6;--good:#12805c;--bad:#c2362b;--warn:#b7791f;--cyan:#0a7f96;--goodbg:#e4f5ee;--badbg:#fbe7e4;--warnbg:#fbf1dc}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+a{color:var(--cyan);text-decoration:none}a:hover{text-decoration:underline}
+header.top{position:sticky;top:0;z-index:20;background:var(--bg);border-bottom:1px solid var(--line);padding:10px 20px;display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+header.top h1{font-size:18px;margin:0}header.top .sub{color:var(--mute);font-size:13px;flex:1}
+.pill{font:600 11px ui-monospace,Menlo,monospace;letter-spacing:.06em;padding:3px 9px;border-radius:99px;border:1px solid var(--line);color:var(--mute);background:var(--panel2)}
+.pill.good{color:var(--good);border-color:var(--good)}.pill.bad{color:var(--bad);border-color:var(--bad)}.pill.warn{color:var(--warn);border-color:var(--warn)}.pill.acc{color:var(--accent);border-color:var(--accent)}
+.layout{display:grid;grid-template-columns:350px 1fr;gap:16px;padding:16px 20px 80px;max-width:1500px;margin:auto}
+@media(max-width:1000px){.layout{grid-template-columns:1fr}}
+.rail{display:grid;gap:14px;align-content:start}
+@media(min-width:1001px){.rail{position:sticky;top:64px;max-height:calc(100vh - 80px);overflow:auto;padding-right:4px}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px}
+.card>h2,.card>h3.h{font:600 11px ui-monospace,Menlo,monospace;letter-spacing:.12em;text-transform:uppercase;color:var(--mute);margin:0 0 10px}
+.cases .grp{font:600 11px ui-monospace,Menlo,monospace;letter-spacing:.1em;color:var(--accent);margin:10px 0 6px}
+.case{display:grid;grid-template-columns:30px 1fr auto;gap:8px;align-items:center;padding:8px 10px;border:1px solid var(--line);border-radius:10px;margin:5px 0;cursor:pointer;background:var(--panel2)}
+.case:hover{border-color:var(--accent)}.case.on{border-color:var(--accent);box-shadow:0 0 0 2px color-mix(in srgb,var(--accent) 30%,transparent)}
+.case b{display:block;font-size:13.5px;line-height:1.25}.case small{color:var(--mute);font-size:12px}.case .ic{font-size:20px}
+.case .v{font:700 11px ui-monospace,Menlo,monospace;text-align:right;line-height:1.3}.case .v.good{color:var(--good)}.case .v.bad{color:var(--bad)}.case .v.warn{color:var(--warn)}
+label{display:block;font-size:12.5px;color:var(--mute);margin:9px 0 3px}
+select,input[type=number],input[type=text]{width:100%;padding:8px 9px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:inherit}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.slot{transition:background .5s,border-color .5s}.slot.flash{background:color-mix(in srgb,var(--accent) 25%,transparent)!important;border-color:var(--accent)!important}
+.chk{display:flex;gap:8px;align-items:flex-start;font-size:13px;margin:6px 0;color:var(--ink)}.chk input{margin-top:3px}
+button.btn{width:100%;margin-top:12px;padding:10px;border:0;border-radius:10px;background:var(--accent);color:#fff;font:600 14px inherit;cursor:pointer}
+button.ghost{background:var(--panel2);color:var(--ink);border:1px solid var(--line)}
+.main{display:grid;gap:14px;align-content:start;min-width:0}
+.verdict{position:sticky;top:58px;z-index:10;border-radius:14px;padding:12px 16px;border:1px solid var(--line);display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;background:var(--panel)}
+.verdict.accept{background:var(--goodbg);border-color:var(--good)}.verdict.cond{background:var(--warnbg);border-color:var(--warn)}.verdict.decline{background:var(--badbg);border-color:var(--bad)}.verdict.refer{background:var(--warnbg);border-color:var(--warn)}
+.verdict .tag{font:700 12px ui-monospace,Menlo,monospace;letter-spacing:.1em}
+.verdict.accept .tag{color:var(--good)}.verdict.cond .tag,.verdict.refer .tag{color:var(--warn)}.verdict.decline .tag{color:var(--bad)}
+.verdict .big{font-size:26px;font-weight:700;line-height:1.1}.verdict .why{font-size:13.5px}
+@media(max-width:700px){.verdict{grid-template-columns:1fr}.verdict{position:static}}
+.step{opacity:0;transform:translateY(12px);transition:all .45s;display:none}.step.show{display:block;opacity:1;transform:none}
+.step .n{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--accent);color:#fff;font:700 12px inherit;margin-right:8px}
+.step>h2{display:flex;align-items:center}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:8px 0}
+.kpi{background:var(--panel2);border-radius:10px;padding:9px 12px}.kpi small{display:block;color:var(--mute);font-size:12px}.kpi b{font-size:20px;line-height:1.2}.kpi span{display:block;font-size:12px;color:var(--mute)}
+.good-t{color:var(--good)}.bad-t{color:var(--bad)}.warn-t{color:var(--warn)}.mute{color:var(--mute)}
+.note{color:var(--mute);font-size:12.5px;margin-top:8px}
+.eq{font:14px/1.7 ui-monospace,Menlo,monospace;background:var(--panel2);border-radius:10px;padding:10px 14px;overflow:auto;white-space:pre-wrap}
+table.t{width:100%;border-collapse:collapse;font-size:13.5px}table.t th,table.t td{padding:6px 7px;border-bottom:1px solid var(--line);text-align:right;vertical-align:top}table.t th:first-child,table.t td:first-child{text-align:left}table.t th{color:var(--mute);font-weight:500}table.t tr.me td{font-weight:700;color:var(--accent)}
+.src-tag{font:600 10.5px ui-monospace,Menlo,monospace;padding:2px 7px;border-radius:6px;border:1px solid var(--line);color:var(--mute)}.src-tag.data{color:var(--good);border-color:var(--good)}.src-tag.ext{color:var(--warn);border-color:var(--warn)}.src-tag.rule{color:var(--accent);border-color:var(--accent)}
+.ref{font-size:11px;vertical-align:super;margin-left:2px}
+svg text{fill:var(--mute);font-size:11px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}@media(max-width:900px){.grid2{grid-template-columns:1fr}}
+.zone{height:10px;border-radius:5px;background:linear-gradient(90deg,var(--bad) 0 33%,var(--warn) 33% 60%,var(--good) 60%);margin:2px 0 10px;opacity:.8}
+.big-slider{margin:6px 0 2px}.big-slider input{height:34px}
+.lo{display:flex;justify-content:space-between;font-size:12px;color:var(--mute)}
+.pain{display:grid;grid-template-columns:110px 1fr 70px;gap:8px;align-items:center;margin:6px 0;font-size:13px}.pain .tr{height:12px;background:var(--panel2);border-radius:6px;overflow:hidden}.pain .tr i{display:block;height:100%;border-radius:6px}
+details summary{cursor:pointer;color:var(--accent);font-size:13px}
+.refs li{margin:5px 0;font-size:12.5px;color:var(--mute)}
+.skip{font-size:12px}
+</style>
+</head>
+<body>
+<header class="top">
+  <h1>Underwriting Platform <span class="mute" style="font-weight:400">· company console</span></h1>
+  <span class="sub">Pick a profile (or type one in) → category → hazards → expected loss → customer cost → competition → long-run verdict.</span>
+  <span class="pill acc" id="modelpill">model</span><span class="pill warn">assumptions editable</span>
+</header>
+<div class="layout">
+  <aside class="rail">
+    <div class="card cases"><h2>1 · Predefined profiles — click to analyse</h2><div id="cases"></div></div>
+    <div class="card"><h2>2 · Applicant slots — or fill your own</h2>
+      <div class="row2"><div><label>Product</label><select id="f-type" class="slot"><option>Home</option><option>Auto</option></select></div>
+      <div><label>City</label><select id="f-city" class="slot"></select></div></div>
+      <div class="row2"><div><label>Age</label><input id="f-age" class="slot" type="number" min="18" max="95" value="40"></div>
+      <div><label>Our risk band</label><select id="f-risk" class="slot"><option>Low</option><option>Medium</option><option>High</option></select></div></div>
+      <div class="row2"><div><label>Deductible</label><select id="f-ded" class="slot"><option>500</option><option>1000</option><option>2500</option></select></div>
+      <div><label>Sales channel</label><select id="f-channel" class="slot"><option>Agent</option><option>Broker</option><option>Online</option></select></div></div>
+      <div class="row2"><div><label>Also holds our other line?</label><select id="f-bundle" class="slot"><option value="no">No</option><option value="yes">Yes (bundle)</option></select></div>
+      <div><label>Broker code</label><select id="f-broker" class="slot"><option value="none">— none —</option></select></div></div>
+      <label>Policy start month</label><select id="f-month" class="slot"></select>
+      <div id="extbox"></div>
+      <button class="btn" id="analyse">Analyse this applicant</button>
+      <button class="btn ghost" id="skip">Skip animation</button>
+    </div>
+    <div class="card"><h2>3 · Business assumptions</h2>
+      <label>Expense load (commission, admin) <b id="v-exp"></b></label><input type="range" id="a-exp" min="15" max="45" value="30">
+      <label>Claims handling (LAE) as % of losses <b id="v-lae"></b></label><input type="range" id="a-lae" min="0" max="20" value="10">
+      <label>Target margin on premium <b id="v-mar"></b></label><input type="range" id="a-mar" min="0" max="15" value="5">
+      <label>Customer price sensitivity (slope) <b id="v-k"></b></label><input type="range" id="a-k" min="2" max="16" value="8">
+      <div class="note" id="assume-note"></div>
+    </div>
+  </aside>
+  <main class="main" id="main">
+    <div class="verdict" id="verdict" style="display:none"></div>
+    <div id="steps"></div>
+  </main>
+</div>
+<script src="underwriting_model.js"></script>
+<script src="platform_data.js"></script>
+<script src="platform_cases.js"></script>
+<script src="platform_ext.js"></script>
+<script src="platform.js"></script>
+</body>
+</html>

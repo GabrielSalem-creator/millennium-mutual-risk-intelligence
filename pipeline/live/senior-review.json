@@ -1,0 +1,121 @@
+{
+  "issue": "senior-review",
+  "generated": "2026-11-14T20:48:04.176Z",
+  "queries": [
+    "claims authority levels senior review cycle time home water claim",
+    "straight-through processing low complexity claims fast track",
+    "claims adjuster workload benchmark caseload catastrophe surge staffing"
+  ],
+  "cards": [
+    {
+      "id": "LV-SEN-1",
+      "angle": "live-scrape",
+      "title": "Claims cycle time benchmarks for P&C insurers | Assured",
+      "url": "https://www.assured.com/blog/claims-cycle-time-benchmarks",
+      "publisher": "assured.com",
+      "year": 2026,
+      "geo": "",
+      "claim": "Page reports: to be resolved in 11 days, but the industry",
+      "stat": {
+        "value": "11 days",
+        "what": "to be resolved in 11 days, but the industry"
+      },
+      "stance": "context",
+      "relevance": "Matched query: claims authority levels senior review cycle time home water claim",
+      "limit": "Auto-extracted sentence: verify in the source",
+      "snippet": "Policyholders expect their claims to be resolved in 11 days, but the industry average for claims cycle time is 23.9 days .",
+      "verified": true,
+      "fetchedOn": "2026-11-14",
+      "source": "live-scrape"
+    },
+    {
+      "id": "LV-SEN-2",
+      "angle": "live-scrape",
+      "title": "Claims cycle time benchmarks for P&C insurers | Assured",
+      "url": "https://www.assured.com/blog/claims-cycle-time-benchmarks",
+      "publisher": "assured.com",
+      "year": 2026,
+      "geo": "",
+      "claim": "Page reports: close claims in just 15 days.",
+      "stat": {
+        "value": "15 days",
+        "what": "close claims in just 15 days."
+      },
+      "stance": "context",
+      "relevance": "Matched query: claims authority levels senior review cycle time home water claim",
+      "limit": "Auto-extracted sentence: verify in the source",
+      "snippet": "Digital-first carriers, however, close claims in just 15 days.",
+      "verified": true,
+      "fetchedOn": "2026-11-14",
+      "source": "live-scrape"
+    },
+    {
+      "id": "LV-SEN-3",
+      "angle": "live-scrape",
+      "title": "Claims cycle time benchmarks for P&C insurers | Assured",
+      "url": "https://www.assured.com/blog/claims-cycle-time-benchmarks",
+      "publisher": "assured.com",
+      "year": 2026,
+      "geo": "",
+      "claim": "Page reports: Personal auto claims average 15-30 days, with digital-first carriers",
+      "stat": {
+        "value": "30 days",
+        "what": "Personal auto claims average 15-30 days, with digital-first carriers"
+      },
+      "stance": "challenges",
+      "relevance": "Matched query: claims authority levels senior review cycle time home water claim",
+      "limit": "Auto-extracted sentence: verify in the source",
+      "snippet": "Personal auto claims average 15-30 days, with digital-first carriers consistently hitting the lower end of that range.",
+      "verified": true,
+      "fetchedOn": "2026-11-14",
+      "source": "live-scrape"
+    },
+    {
+      "id": "LV-SEN-4",
+      "angle": "live-scrape",
+      "title": "How to Reduce Claims Cycle Time with Spatial Documentation | Matterport",
+      "url": "https://matterport.com/learn/property-insurance-restoration/claims-cycle-time",
+      "publisher": "matterport.com",
+      "year": null,
+      "geo": "",
+      "claim": "Page reports: claim cycle time as 32.4 days —though this is",
+      "stat": {
+        "value": "32.4 days",
+        "what": "claim cycle time as 32.4 days —though this is"
+      },
+      "stance": "challenges",
+      "relevance": "Matched query: claims authority levels senior review cycle time home water claim",
+      "limit": "Auto-extracted sentence: verify in the source",
+      "snippet": "One study reports the current average claim cycle time as 32.4 days —though this is the longest average since they began collecting data in 2008 and is not considered an ideal target.",
+      "verified": true,
+      "fetchedOn": "2026-11-14",
+      "source": "live-scrape"
+    },
+    {
+      "id": "LV-SEN-5",
+      "angle": "live-scrape",
+      "title": "How to Reduce Claims Cycle Time with Spatial Documentation | Matterport",
+      "url": "https://matterport.com/learn/property-insurance-restoration/claims-cycle-time",
+      "publisher": "matterport.com",
+      "year": null,
+      "geo": "",
+      "claim": "Page reports: handling issues account for 62.5% of all insurance complaints.",
+      "stat": {
+        "value": "62.5%",
+        "what": "handling issues account for 62.5% of all insurance complaints."
+      },
+      "stance": "context",
+      "relevance": "Matched query: claims authority levels senior review cycle time home water claim",
+      "limit": "Auto-extracted sentence: verify in the source",
+      "snippet": "Policyholder satisfaction: Claims handling issues account for 62.5% of all insurance complaints.",
+      "verified": true,
+      "fetchedOn": "2026-11-14",
+      "source": "live-scrape"
+    }
+  ],
+  "stats": {
+    "searches": 1,
+    "pagesFetched": 4,
+    "cards": 5
+  }
+}

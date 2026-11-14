@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Decisions · Millennium Mutual</title>
+<link rel="stylesheet" href="/shared.css">
+<style>
+.wrap{font-size:16px}
+.sec{margin:34px 0 10px}.sec h2{font-size:24px}
+.stk .q{font-style:italic;font-size:16px;margin:8px 0}
+.badge{display:inline-block;font-weight:700;font-size:13px;padding:3px 12px;border-radius:99px}
+.badge.right{background:var(--goodbg);color:var(--good)}.badge.partly{background:var(--warnbg);color:var(--warn)}
+.dec{margin:18px 0;scroll-margin-top:120px}
+.dec h3{font-size:22px;margin:6px 0}
+.dec .head{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.plain{background:var(--panel2);border-radius:10px;padding:10px 14px;font-size:17px;margin:10px 0}
+.sub{font:700 12px ui-monospace,Menlo,monospace;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin:16px 0 6px}
+.test{display:grid;grid-template-columns:110px 1fr;gap:10px;padding:8px 0;border-bottom:1px solid var(--line)}
+.vc{font:700 11px ui-monospace,Menlo,monospace;padding:3px 8px;border-radius:8px;text-align:center;height:fit-content;text-transform:uppercase}
+.vc.confirmed{background:var(--badbg);color:var(--bad)}.vc.ruled-out{background:var(--goodbg);color:var(--good)}.vc.open{background:var(--panel2);color:var(--mute);border:1px solid var(--line)}.vc.caution{background:var(--warnbg);color:var(--warn)}
+table.dt{width:100%;border-collapse:collapse}table.dt th{width:90px;text-align:left;vertical-align:top;padding:8px;background:var(--panel2);color:var(--accent);font:700 13px ui-monospace,Menlo,monospace;border-bottom:1px solid var(--bg)}table.dt td{padding:8px 10px;border-bottom:1px solid var(--line)}
+.up{color:var(--bad);font-weight:600}.down{color:var(--good);font-weight:600}
+.kv{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px}
+.ev{border-top:1px solid var(--line);padding:9px 0}.ev .st{font-size:12.5px;color:var(--mute)}
+.stat{display:inline-block;background:var(--panel2);border-radius:8px;padding:2px 8px;font-size:12.5px;margin:3px 0}
+.imp{height:12px;background:var(--panel2);border-radius:6px;overflow:hidden;margin:4px 0}.imp i{display:block;height:100%;background:var(--bad)}
+.scroll{overflow-x:auto}
+.auto h3{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.feed .l{font:13px ui-monospace,Menlo,monospace;padding:5px 0;border-bottom:1px solid var(--line)}
+.sim input[type=range]{width:100%}
+.sim label{display:block;font-weight:600;margin-top:8px}
+.foot{margin-top:30px;display:flex;gap:14px;flex-wrap:wrap}
+code{background:var(--panel2);padding:2px 6px;border-radius:6px}
+@media(max-width:600px){.wrap{padding:14px 16px 80px}.test{grid-template-columns:1fr}table.dt th{width:64px}}
+</style></head>
+<body><div class="wrap" id="app"><div class="card">Loading…</div></div>
+<script src="/shared.js"></script><script src="/classic-decisions.js"></script></body></html>

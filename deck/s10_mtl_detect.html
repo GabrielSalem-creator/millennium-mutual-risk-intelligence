@@ -1,0 +1,32 @@
+<section class="slide">
+  <div class="kicker">Pattern 2 · Step 1 of 6 · Detect</div>
+  <h1>Montreal homes get wet <span class="bad-t">3× more often</span>.</h1>
+  <p class="lede">We counted Home water-damage claims per insured year (exposure-adjusted, broker B07 removed) in all five cities.</p>
+  <div class="grid2">
+    <div class="card">
+      <h3>Water-damage claims per policy-year</h3>
+      <div class="bars">
+        <div class="r hot"><span>Montreal</span><div class="t"><i style="width:100%"></i></div><span class="v">0.205</span></div>
+        <div class="r"><span>Ottawa</span><div class="t"><i style="width:46%"></i></div><span class="v">0.095</span></div>
+        <div class="r"><span>Toronto</span><div class="t"><i style="width:33%"></i></div><span class="v">0.068</span></div>
+        <div class="r"><span>Calgary</span><div class="t"><i style="width:30%"></i></div><span class="v">0.061</span></div>
+        <div class="r cool"><span>Quebec City</span><div class="t"><i style="width:21%"></i></div><span class="v">0.043</span></div>
+      </div>
+      <p class="mute" style="font-size:14px">Montreal 77 claims / 376 policy-years · Toronto 28 / 410.</p>
+      <div class="stat bad-t" style="margin-top:10px">3.0×<small>Montreal ÷ Toronto water-claim rate · 95% CI 1.95–4.63</small></div>
+    </div>
+    <div class="card">
+      <h3>Is it everything, or just water?</h3>
+      <table class="t">
+        <tr><th>Peril (per policy-year)</th><th>Montreal</th><th>Toronto</th><th>Ratio (95% CI)</th></tr>
+        <tr class="hot"><td>Water damage</td><td>0.205</td><td>0.068</td><td>3.00 (1.95–4.63)</td></tr>
+        <tr><td>Theft</td><td>0.037</td><td>0.032</td><td>1.18 (0.55–2.50)</td></tr>
+        <tr><td>Wind / Hail</td><td>0.032</td><td>0.059</td><td>0.55 (0.27–1.09)</td></tr>
+        <tr><td>Fire</td><td>0.008</td><td>0.015</td><td>0.55 (0.14–2.18)</td></tr>
+      </table>
+      <p style="margin-top:12px"><b>Only water is out of line.</b> Cost per water claim is about the same (Montreal 8,578 vs Toronto 9,083), so this is a <i>how often</i> problem, not a <i>how big</i> problem. All Home claims together: 1.63× (CI 1.21–2.20).</p>
+    </div>
+  </div>
+  <div class="kid"><b>Explained simply:</b> basements get wet in Montreal more often, and we charge the same price as everywhere else.</div>
+  <div class="limits">Source: policies.csv + claims.csv, Home policies excluding broker B07, 12-month term assumed, units unspecified. Rate = claims ÷ insured years. City-level only: no property or postal data.</div>
+</section>

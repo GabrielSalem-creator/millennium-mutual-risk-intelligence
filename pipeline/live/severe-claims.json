@@ -1,0 +1,205 @@
+{
+  "issue": "severe-claims",
+  "generated": "2026-11-14T20:47:57.567Z",
+  "queries": [
+    "large loss concentration property insurance share of losses top 10% claims",
+    "fire claim average severity Canada insurance",
+    "severe insurance claims large loss share of total cost"
+  ],
+  "cards": [
+    {
+      "id": "LV-SEV-1",
+      "angle": "live-scrape",
+      "title": "Canada Insurance Industry Statistics | 2026 Edition",
+      "url": "https://worldmetrics.org/canada-insurance-industry-statistics/",
+      "publisher": "worldmetrics.org",
+      "year": 2026,
+      "geo": "",
+      "claim": "Page reports: in Canada was CAD 12,500 in 2022.",
+      "stat": {
+        "value": "12,500",
+        "what": "in Canada was CAD 12,500 in 2022."
+      },
+      "stance": "context",
+      "relevance": "Matched query: large loss concentration property insurance share of losses top 10% claims",
+      "limit": "Auto-extracted sentence: verify in the source",
+      "snippet": "Average property claim size in Canada was CAD 12,500 in 2022.",
+      "verified": true,
+      "fetchedOn": "2026-11-14",
+      "source": "live-scrape"
+    },
+    {
+      "id": "LV-SEV-2",
+      "angle": "live-scrape",
+      "title": "Canada Insurance Industry Statistics | 2026 Edition",
+      "url": "https://worldmetrics.org/canada-insurance-industry-statistics/",
+      "publisher": "worldmetrics.org",
+      "year": 2026,
+      "geo": "",
+      "claim": "Page reports: claim size was CAD 3,800 in 2022.",
+      "stat": {
+        "value": "3,800",
+        "what": "claim size was CAD 3,800 in 2022."
+      },
+      "stance": "context",
+      "relevance": "Matched query: large loss concentration property insurance share of losses top 10% claims",
+      "limit": "Auto-extracted sentence: verify in the source",
+      "snippet": "Average auto claim size was CAD 3,800 in 2022.",
+      "verified": true,
+      "fetchedOn": "2026-11-14",
+      "source": "live-scrape"
+    },
+    {
+      "id": "LV-SEV-3",
+      "angle": "live-scrape",
+      "title": "Canada Insurance Industry Statistics | 2026 Edition",
+      "url": "https://worldmetrics.org/canada-insurance-industry-statistics/",
+      "publisher": "worldmetrics.org",
+      "year": 2026,
+      "geo": "",
+      "claim": "Page reports: Catastrophic claims (over CAD 100 million) in Canada cost",
+      "stat": {
+        "value": "100 million",
+        "what": "Catastrophic claims (over CAD 100 million) in Canada cost"
+      },
+      "stance": "context",
+      "relevance": "Matched query: large loss concentration property insurance share of losses top 10% claims",
+      "limit": "Auto-extracted sentence: verify in the source",
+      "snippet": "Catastrophic claims (over CAD 100 million) in Canada cost insurers CAD 4.2 billion in 2022.",
+      "verified": true,
+      "fetchedOn": "2026-11-14",
+      "source": "live-scrape"
+    },
+    {
+      "id": "LV-SEV-4",
+      "angle": "live-scrape",
+      "title": "Property and Casualty Insurance Market Size, Share & 2031 Growth Trends Report",
+      "url": "https://www.mordorintelligence.com/industry-reports/property-and-casualty-insurance-market",
+      "publisher": "mordorintelligence.com",
+      "year": 2026,
+      "geo": "",
+      "claim": "Page reports: at a CAGR of 6.82% from 2026 to 2031.",
+      "stat": {
+        "value": "6.82%",
+        "what": "at a CAGR of 6.82% from 2026 to 2031."
+      },
+      "stance": "supports",
+      "relevance": "Matched query: large loss concentration property insurance share of losses top 10% claims",
+      "limit": "Auto-extracted sentence: verify in the source",
+      "snippet": "The Property And Casualty Insurance Market size is projected to be USD 2.79 trillion in 2025, USD 2.97 trillion in 2026, and reach USD 4.13 trillion by 2031, growing at a CAGR of 6.82% from 2026 to 2031.",
+      "verified": true,
+      "fetchedOn": "2026-11-14",
+      "source": "live-scrape"
+    },
+    {
+      "id": "LV-SEV-5",
+      "angle": "live-scrape",
+      "title": "Property and Casualty Insurance Market Size, Share & 2031 Growth Trends Report",
+      "url": "https://www.mordorintelligence.com/industry-reports/property-and-casualty-insurance-market",
+      "publisher": "mordorintelligence.com",
+      "year": 2026,
+      "geo": "",
+      "claim": "Page reports: and floods accounting for 92% of the USD 107",
+      "stat": {
+        "value": "92%",
+        "what": "and floods accounting for 92% of the USD 107"
+      },
+      "stance": "context",
+      "relevance": "Matched query: large loss concentration property insurance share of losses top 10% claims",
+      "limit": "Auto-extracted sentence: verify in the source",
+      "snippet": "Secondary perils are shaping the next phase of the property and casualty insurance market, with wildfires, severe convective storms, and floods accounting for 92% of the USD 107 billion in global insured natural catastro",
+      "verified": true,
+      "fetchedOn": "2026-11-14",
+      "source": "live-scrape"
+    },
+    {
+      "id": "LV-SEV-6",
+      "angle": "live-scrape",
+      "title": "Property and Casualty Insurance Market Size, Share & 2031 Growth Trends Report",
+      "url": "https://www.mordorintelligence.com/industry-reports/property-and-casualty-insurance-market",
+      "publisher": "mordorintelligence.com",
+      "year": 2026,
+      "geo": "",
+      "claim": "Page reports: expected to exceed USD 152 billion in future years,",
+      "stat": {
+        "value": "152 billion",
+        "what": "expected to exceed USD 152 billion in future years,"
+      },
+      "stance": "context",
+      "relevance": "Matched query: large loss concentration property insurance share of losses top 10% claims",
+      "limit": "Auto-extracted sentence: verify in the source",
+      "snippet": "Verisk’s modeled view reinforces that pressure, with average annual global catastrophe losses expected to exceed USD 152 billion in future years, up from a USD 132 billion five-year historical average, keeping risk prici",
+      "verified": true,
+      "fetchedOn": "2026-11-14",
+      "source": "live-scrape"
+    },
+    {
+      "id": "LV-SEV-7",
+      "angle": "live-scrape",
+      "title": "What's a Fire Damage Claim Worth? Average Insurance Payouts",
+      "url": "https://www.naiche.org/post/what-a-fire-damage-claim-is-actually-worth",
+      "publisher": "naiche.org",
+      "year": 2019,
+      "geo": "",
+      "claim": "Page reports: claim is worth about $88,170, according to Insurance Information",
+      "stat": {
+        "value": "$88,170,",
+        "what": "claim is worth about $88,170, according to Insurance Information"
+      },
+      "stance": "context",
+      "relevance": "Matched query: fire claim average severity Canada insurance",
+      "limit": "Auto-extracted sentence: verify in the source",
+      "snippet": "The average fire and lightning claim is worth about $88,170, according to Insurance Information Institute data for 2019 through 2023, making fire the single most expensive category of homeowners insurance claim.",
+      "verified": true,
+      "fetchedOn": "2026-11-14",
+      "source": "live-scrape"
+    },
+    {
+      "id": "LV-SEV-8",
+      "angle": "live-scrape",
+      "title": "What's a Fire Damage Claim Worth? Average Insurance Payouts",
+      "url": "https://www.naiche.org/post/what-a-fire-damage-claim-is-actually-worth",
+      "publisher": "naiche.org",
+      "year": 2019,
+      "geo": "",
+      "claim": "Page reports: events has found that 74% of policyholders were underinsured",
+      "stat": {
+        "value": "74%",
+        "what": "events has found that 74% of policyholders were underinsured"
+      },
+      "stance": "context",
+      "relevance": "Matched query: fire claim average severity Canada insurance",
+      "limit": "Auto-extracted sentence: verify in the source",
+      "snippet": "The critical difference from other claims is that a serious fire tests the limits of your policy rather than just the scope of the damage, and research on major fire events has found that 74% of policyholders were underi",
+      "verified": true,
+      "fetchedOn": "2026-11-14",
+      "source": "live-scrape"
+    },
+    {
+      "id": "LV-SEV-9",
+      "angle": "live-scrape",
+      "title": "What's a Fire Damage Claim Worth? Average Insurance Payouts",
+      "url": "https://www.naiche.org/post/what-a-fire-damage-claim-is-actually-worth",
+      "publisher": "naiche.org",
+      "year": 2019,
+      "geo": "",
+      "claim": "Page reports: claim is worth approximately $88,170, and it is by",
+      "stat": {
+        "value": "$88,170,",
+        "what": "claim is worth approximately $88,170, and it is by"
+      },
+      "stance": "context",
+      "relevance": "Matched query: fire claim average severity Canada insurance",
+      "limit": "Auto-extracted sentence: verify in the source",
+      "snippet": "The average fire damage claim is worth approximately $88,170, and it is by a wide margin the costliest peril a homeowner can claim.",
+      "verified": true,
+      "fetchedOn": "2026-11-14",
+      "source": "live-scrape"
+    }
+  ],
+  "stats": {
+    "searches": 2,
+    "pagesFetched": 3,
+    "cards": 9
+  }
+}

@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quote Desk — Underwriting Engine</title>
+<style>
+:root{--bg:#f6f4ef;--card:#fff;--ink:#1c1b22;--mute:#6b6a75;--line:#e4e1d8;--accent:#4b3fd6;--good:#12805c;--bad:#c2362b;--warn:#b7791f;--goodbg:#e4f5ee;--badbg:#fbe7e4;--warnbg:#fbf1dc}
+@media (prefers-color-scheme:dark){:root{--bg:#14131a;--card:#1d1c25;--ink:#f1f0f5;--mute:#9e9cab;--line:#2d2b38;--accent:#8b82ff;--good:#4cd6a0;--bad:#ff7a6e;--warn:#f0b958;--goodbg:#14332a;--badbg:#3a1d1a;--warnbg:#3a2e14}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,Segoe UI,sans-serif}
+header{padding:20px 16px 8px;max-width:1180px;margin:auto}h1{font-size:24px;margin:0}header p{margin:4px 0 0;color:var(--mute)}
+.wrap{max-width:1180px;margin:auto;padding:12px 16px 60px;display:grid;grid-template-columns:330px 1fr;gap:16px}
+@media(max-width:900px){.wrap{grid-template-columns:1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+.card h2{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute);margin:0 0 10px}
+label{display:block;font-size:13px;color:var(--mute);margin:10px 0 3px}
+select,input[type=number]{width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:9px;background:var(--bg);color:var(--ink);font:inherit}
+input[type=range]{width:100%}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+button.go{margin-top:14px;width:100%;padding:11px;border:0;border-radius:10px;background:var(--accent);color:#fff;font:600 15px inherit;cursor:pointer}
+.stack{display:grid;gap:16px}
+.decision{border-radius:14px;padding:18px;border:1px solid var(--line)}
+.decision.accept{background:var(--goodbg);border-color:var(--good)}.decision.decline{background:var(--badbg);border-color:var(--bad)}.decision.refer{background:var(--warnbg);border-color:var(--warn)}
+.decision .tag{font-size:12px;letter-spacing:.1em;font-weight:700}
+.decision.accept .tag{color:var(--good)}.decision.decline .tag{color:var(--bad)}.decision.refer .tag{color:var(--warn)}
+.decision .price{font-size:40px;font-weight:700;margin:4px 0}.decision .why{color:var(--ink)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.kpi{background:var(--bg);border-radius:10px;padding:10px 12px}.kpi small{color:var(--mute);display:block;font-size:12px}.kpi b{font-size:20px}
+.steps{display:grid;gap:8px}.step{display:grid;grid-template-columns:28px 1fr;gap:10px;align-items:start}
+.step i{width:28px;height:28px;border-radius:50%;background:var(--accent);color:#fff;display:grid;place-items:center;font-style:normal;font-weight:700;font-size:13px}
+.step b{display:block}.step span{color:var(--mute);font-size:13.5px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}.chip{background:var(--bg);border:1px solid var(--line);border-radius:99px;padding:3px 10px;font-size:12.5px}
+.chip.hot{border-color:var(--bad);color:var(--bad)}
+table{width:100%;border-collapse:collapse;font-size:13.5px}th,td{padding:6px 4px;text-align:right;border-bottom:1px solid var(--line)}th:first-child,td:first-child{text-align:left}th{color:var(--mute);font-weight:500}
+tr.me td{font-weight:700}
+svg text{fill:var(--mute);font-size:11px}.note{color:var(--mute);font-size:12.5px;margin-top:8px}
+details summary{cursor:pointer;color:var(--accent);font-size:13px;margin-top:6px}
+.neg{color:var(--bad)}.pos{color:var(--good)}
+</style>
+</head>
+<body>
+<header>
+  <h1>Quote Desk <span style="color:var(--mute);font-weight:400">· underwriting engine</span></h1>
+  <p>Enter an applicant → we find their risk category → expected loss → accept / decline → the price that stays competitive and still wins in the long run.</p>
+</header>
+<div class="wrap">
+  <aside class="stack">
+    <div class="card">
+      <h2>1 · Applicant</h2>
+      <label>Product</label><select id="type"><option>Home</option><option>Auto</option></select>
+      <label>City</label><select id="city"></select>
+      <div class="row2"><div><label>Age</label><input type="number" id="age" value="42" min="18" max="95"></div>
+      <div><label>Risk band (our rating)</label><select id="risk"><option>Low</option><option selected>Medium</option><option>High</option></select></div></div>
+      <div class="row2"><div><label>Deductible</label><select id="ded"><option>500</option><option selected>1000</option><option>2500</option></select></div>
+      <div><label>Sales source</label><select id="src"><option>Direct / Online / Agent</option><option>Broker B01</option><option>Broker B02</option><option>Broker B03</option><option>Broker B04</option><option>Broker B05</option><option>Broker B06</option><option>Broker B07</option><option>Broker B08</option><option>Broker B09</option><option>Broker B10</option></select></div></div>
+      <label>Competitor quote ($/yr) — blank = market proxy</label><input type="number" id="comp" placeholder="auto">
+    </div>
+    <div class="card">
+      <h2>2 · Business assumptions</h2>
+      <label>Expense load <b id="eV">30%</b> (not in data — assumption)</label><input type="range" id="exp" min="15" max="45" value="30">
+      <label>Target underwriting margin <b id="mV">5%</b></label><input type="range" id="mar" min="0" max="15" value="5">
+      <label>Price sensitivity (win-rate slope) <b id="kV">8</b></label><input type="range" id="k" min="2" max="16" value="8">
+      <label>Max premium above market we'd still quote <b id="tV">+20%</b></label><input type="range" id="tol" min="0" max="50" value="20">
+      <p class="note">The data has no quote/conversion records, so price sensitivity is an assumption you can stress-test, not an estimate.</p>
+    </div>
+    <button class="go" id="run" style="margin-top:0">Run underwriting</button>
+  </aside>
+  <main class="stack" id="out"></main>
+</div>
+<script src="underwriting_model.js"></script>
+<script>
+const M=window.UW_MODEL, $=s=>document.querySelector(s), fmt=(x,d=0)=>(x<0?'-':'')+'$'+Math.abs(x).toLocaleString('en-CA',{maximumFractionDigits:d,minimumFractionDigits:d});
+const pct=x=>(x*100).toFixed(1)+'%';
+M.levels.city.forEach(c=>$('#city').add(new Option(c)));$('#city').value='Montreal';
+const ageBand=a=>a<25?'18-24':a<35?'25-34':a<45?'35-44':a<55?'45-54':a<65?'55-64':'65+';
+function xvec(m,pr){return m.cols.map(c=>{if(c==='intercept')return 1;const[f,l]=c.split('=');return String({city:pr.city,risk:pr.risk,age:pr.age,ded:pr.ded}[f])===l?1:0});}
+function predict(key,pr){const m=M.models[key],x=xvec(m,pr);const lg=x.reduce((a,v,j)=>a+v*m.beta[j],0);let v=0;for(let i=0;i<x.length;i++)if(x[i])for(let j=0;j<x.length;j++)if(x[j])v+=m.cov[i][j];return{lam:Math.exp(lg),sd:Math.sqrt(v),x,m};}
+function components(pr){
+  if(pr.type==='Auto'){const a=predict('auto',pr);return[{name:'Auto claims',p:a,sev:M.severity.auto}];}
+  return[{name:'Water damage',p:predict('homeWater',pr),sev:M.severity.homeWater},{name:'Other perils',p:predict('homeOther',pr),sev:M.severity.homeOther}];
+}
+const EL=(cs,z=0)=>cs.reduce((a,c)=>a+c.p.lam*Math.exp(z*c.p.sd)*c.sev.mean,0);
+const VAR=cs=>cs.reduce((a,c)=>{const s=c.sev.cv*c.sev.mean;return a+c.p.lam*(s*s+c.sev.mean**2)},0);
+function marketOf(pr){const r=M.currentPremium[[pr.type,pr.city,pr.risk].join('|')];return r&&r.n>=5?r.avg:M.currentPremiumByType[pr.type];}
+function getProfile(){return{type:$('#type').value,city:$('#city').value,age:ageBand(+$('#age').value||42),ded:$('#ded').value,risk:$('#risk').value};}
+const randn=()=>{let u=0,v=0;while(!u)u=Math.random();v=Math.random();return Math.sqrt(-2*Math.log(u))*Math.cos(2*Math.PI*v)};
+function poisson(l){if(l<30){let L=Math.exp(-l),k=0,p=1;do{k++;p*=Math.random()}while(p>L);return k-1}return Math.max(0,Math.round(l+Math.sqrt(l)*randn()))}
+function simulate(cs,n,premiumPerPolicy,e,sims=1500){
+  const out=[];for(let s=0;s<sims;s++){let loss=0;for(const c of cs){const N=poisson(n*c.p.lam),sg=Math.sqrt(Math.log(1+c.sev.cv**2)),mu=Math.log(c.sev.mean)-sg*sg/2;for(let i=0;i<N;i++)loss+=Math.exp(mu+sg*randn());}out.push((n*premiumPerPolicy*(1-e)-loss)/n);}return out;}
+function normCdf(z){const t=1/(1+.2316419*Math.abs(z)),d=.3989423*Math.exp(-z*z/2),p=d*t*(.3193815+t*(-.3565638+t*(1.781478+t*(-1.821256+t*1.330274))));return z>0?1-p:p}
+function run(){
+  const pr=getProfile(),e=+$('#exp').value/100,m=+$('#mar').value/100,k=+$('#k').value,tol=1+(+$('#tol').value)/100;
+  $('#eV').textContent=pct(e).replace('.0','');$('#mV').textContent=pct(m).replace('.0','');$('#kV').textContent=k;$('#tV').textContent='+'+$('#tol').value+'%';
+  const cs=components(pr),el=EL(cs),lo=EL(cs,-1.645),hi=EL(cs,1.645),sd=Math.sqrt(VAR(cs));
+  const market=+$('#comp').value>0?+$('#comp').value:marketOf(pr),userComp=+$('#comp').value>0;
+  const breakeven=el/(1-e),tech=el/(1-e-m);
+  const win=p=>1/(1+Math.exp(k*Math.log(p/market))),ep=p=>win(p)*(p*(1-e)-el);
+  let best={p:market,v:-1e9};const curve=[];for(let r=.4;r<=2.6;r+=.01){const p=market*r,v=ep(p);curve.push([p,v,win(p)]);if(v>best.v)best={p,v};}
+  const ratio=tech/market, src=$('#src').value, b07=src==='Broker B07';
+  let kind,title,reason,price=Math.max(best.p,breakeven);
+  if(b07){kind='refer';title='REFER · BLOCKED SOURCE';price=null;reason='Broker B07 business is held for review: 173 policies in 2026 produced 60 theft claims where about 3 were expected, with a median claim 37 days after policy start. Rule fires before pricing.';}
+  else if(ratio>tol){kind='decline';title='DECLINE';price=null;reason=`To earn a ${pct(m)} margin we would need ${fmt(tech)}, which is ${((ratio-1)*100).toFixed(0)}% above the ${userComp?'competitor quote':'market proxy'} of ${fmt(market)}. Our cap is +${((tol-1)*100).toFixed(0)}%. At a competitive price this client loses money in the long run.`;}
+  else if(ratio>1){kind='accept';title='ACCEPT · PREMIUM PRICE';reason=`Technical price ${fmt(tech)} sits ${((ratio-1)*100).toFixed(0)}% above market. We can accept, but expect a lower win rate (${pct(win(price))}).`;}
+  else{kind='accept';title='ACCEPT';reason=price<=market?`We can match or undercut the market and still clear a ${pct(m)} margin. The price below maximises expected profit per quote.`:`Our technical price (${fmt(tech)}) is within market. The price below maximises win-rate × profit and sits ${((price/market-1)*100).toFixed(0)}% above the ${userComp?'competitor quote':'market proxy'}, so expect a win rate of ${pct(win(price))}.`;}
+  const profit=price?price*(1-e)-el:null;
+  // tags
+  const tags=[];for(const c of cs){c.p.m.cols.forEach((col,i)=>{if(col!=='intercept'&&c.p.x[i]&&Math.abs(c.p.m.beta[i])>.25)tags.push({t:`${c.name} · ${col.replace('=',' ')} ×${Math.exp(c.p.m.beta[i]).toFixed(2)}`,hot:c.p.m.beta[i]>.25});});}
+  // city comparison
+  const cityRows=M.levels.city.map(ci=>{const q={...pr,city:ci},c2=components(q),l=EL(c2),t=l/(1-e-m),mk=marketOf(q);return{ci,l,t,mk,gap:t/mk-1};});
+  $('#out').innerHTML=`
+  <div class="decision ${kind}"><div class="tag">${title}</div><div class="price">${price?fmt(price)+' <span style="font-size:16px;font-weight:400">/ year</span>':'—'}</div><div class="why">${reason}</div>
+  ${price?`<div class="kpis" style="margin-top:12px"><div class="kpi"><small>Win probability at this price</small><b>${pct(win(price))}</b></div><div class="kpi"><small>Expected profit if won</small><b class="${profit>=0?'pos':'neg'}">${fmt(profit)}</b></div><div class="kpi"><small>Expected profit per quote</small><b>${fmt(ep(price))}</b></div></div>`:''}</div>
+  <div class="card"><h2>Workflow · what just happened</h2><div class="steps">
+   <div class="step"><i>1</i><div><b>Category assigned</b><span>${pr.type} · ${pr.city} · ${pr.risk} risk · age ${pr.age} · ${fmt(+pr.ded)} deductible</span><div class="chips">${tags.map(t=>`<span class="chip ${t.hot?'hot':''}">${t.t}</span>`).join('')||'<span class="chip">no strong factor</span>'}</div></div></div>
+   <div class="step"><i>2</i><div><b>Random variable fitted to that category</b><span>Claims per year N ~ Poisson(${cs.map(c=>c.p.lam.toFixed(3)).join(' + ')}); each claim costs X with mean ${cs.map(c=>fmt(c.sev.mean)).join(' / ')}. Annual loss S = X₁+…+X_N.</span></div></div>
+   <div class="step"><i>3</i><div><b>Expectation</b><span>E[S] = E[N]·E[X] = <b>${fmt(el)}</b> per policy-year (90% range ${fmt(lo)}–${fmt(hi)}); standard deviation of one policy-year ${fmt(sd)}.</span></div></div>
+   <div class="step"><i>4</i><div><b>Price floors</b><span>Break-even ${fmt(breakeven)} (covers loss + ${pct(e)} expenses). Target-margin price ${fmt(tech)}.</span></div></div>
+   <div class="step"><i>5</i><div><b>Competition check</b><span>${userComp?'Competitor quote':'Market proxy (what we currently charge this segment)'}: ${fmt(market)}. Price maximising win-rate × profit: ${fmt(best.p)}.</span></div></div>
+   <div class="step"><i>6</i><div><b>Decision</b><span>${title}${b07?'':'. Technical/market ratio '+ratio.toFixed(2)+' vs cap '+tol.toFixed(2)+'.'}</span></div></div></div></div>
+  <div class="card"><h2>Optimal price · stays competitive</h2><div id="curve"></div><p class="note">Curve = win probability × profit if won. Left of break-even we lose on every sale; far right nobody buys. Peak is the price we quote.</p></div>
+  <div class="card"><h2>Law of large numbers · what happens with many clients like this</h2>
+    <label>Number of such policies: <b id="nV">1,000</b></label><input type="range" id="n" min="0" max="4" step=".05" value="3">
+    <div id="lln"></div><div id="llnk" class="kpis"></div>
+    <p class="note" id="cheb"></p></div>
+  <div class="card"><h2>Why this city looks the way it does · same product, same risk band</h2>
+   <table><tr><th>City</th><th>Expected loss</th><th>Price needed</th><th>Market proxy</th><th>Gap</th></tr>${cityRows.map(r=>`<tr class="${r.ci===pr.city?'me':''}"><td>${r.ci}</td><td>${fmt(r.l)}</td><td>${fmt(r.t)}</td><td>${fmt(r.mk)}</td><td class="${r.gap>.1?'neg':r.gap<-.1?'pos':''}">${r.gap>0?'+':''}${(r.gap*100).toFixed(0)}%</td></tr>`).join('')}</table>
+   <p class="note">Positive gap = we under-charge relative to the risk (win-rate-agnostic technical price vs current average premium).</p></div>
+  <details class="card"><summary>Model validation & limits</summary><div class="note">Trained on ${M.trained_on.policies} policies / ${M.trained_on.claims} claims (excludes ${M.trained_on.excluded}). Poisson GLM with ridge penalty, exposure offset. Out-of-time check (fit on pre-2026 starts, predict 2026 starts): ${M.validation.outOfTime.map(o=>`${o.model}: ${o.actual} actual vs ${o.predicted} predicted claims`).join('; ')}. Severity is incurred-loss proxy (paid; denied=0; open claims estimated). Expense load, margin and price sensitivity are assumptions. Not an actuarial filing; rating variables must pass fairness/regulatory review.</div></details>`;
+  // curve svg
+  const W=620,H=230,pd={l:46,r:12,t:10,b:28},xs=curve.map(c=>c[0]),xmin=xs[0],xmax=xs[xs.length-1],ys=curve.map(c=>c[1]),ymin=Math.min(...ys,0),ymax=Math.max(...ys,1);
+  const X=v=>pd.l+(v-xmin)/(xmax-xmin)*(W-pd.l-pd.r),Y=v=>H-pd.b-(v-ymin)/(ymax-ymin)*(H-pd.t-pd.b);
+  $('#curve').innerHTML=`<svg viewBox="0 0 ${W} ${H}" width="100%"><line x1="${pd.l}" x2="${W-pd.r}" y1="${Y(0)}" y2="${Y(0)}" stroke="currentColor" opacity=".25"/><polyline fill="none" stroke="var(--accent)" stroke-width="2.5" points="${curve.map(c=>X(c[0])+','+Y(c[1])).join(' ')}"/>
+  ${[['Break-even',breakeven,'var(--bad)'],['Market',market,'var(--mute)'],['Best',best.p,'var(--good)']].map(([l,v,c],i)=>`<line x1="${X(v)}" x2="${X(v)}" y1="${pd.t}" y2="${H-pd.b}" stroke="${c}" stroke-dasharray="4 3"/><text x="${X(v)+4}" y="${pd.t+12+i*13}" style="fill:${c}">${l} ${fmt(v)}</text>`).join('')}
+  <text x="${pd.l}" y="${H-8}">${fmt(xmin)}</text><text x="${W-pd.r-40}" y="${H-8}">${fmt(xmax)}</text><text x="4" y="${Y(0)-4}">$0</text><text x="4" y="${Y(ymax)+10}">${fmt(ymax)}</text></svg>`;
+  const pp=price||market; // declined/referred: show what happens if we matched the market anyway
+  function drawLLN(){
+    const n=Math.round(10**+$('#n').value);$('#nV').textContent=n.toLocaleString();
+    const prof=pp*(1-e)-el,sdp=sd,se=sdp/Math.sqrt(n);
+    const sims=simulate(cs,n,pp,e,n>3000?600:1500).sort((a,b)=>a-b),pl=sims.filter(v=>v<0).length/sims.length;
+    const W2=620,H2=190,L=40,B=26,bins=36,mn=sims[Math.floor(sims.length*.005)],mx=sims[Math.floor(sims.length*.995)],bw=(mx-mn)/bins||1,h=Array(bins).fill(0);
+    sims.forEach(v=>{const i=Math.min(bins-1,Math.max(0,Math.floor((v-mn)/bw)));h[i]++;});const hm=Math.max(...h);
+    const X2=v=>L+(v-mn)/(mx-mn)*(W2-L-10);
+    $('#lln').innerHTML=`<svg viewBox="0 0 ${W2} ${H2}" width="100%">${h.map((c,i)=>{const x=X2(mn+i*bw),w=(W2-L-10)/bins-1,hh=c/hm*(H2-B-10);return`<rect x="${x}" y="${H2-B-hh}" width="${w}" height="${hh}" fill="${mn+i*bw+bw/2<0?'var(--bad)':'var(--good)'}" opacity=".75"/>`}).join('')}
+    ${mn<0&&mx>0?`<line x1="${X2(0)}" x2="${X2(0)}" y1="4" y2="${H2-B}" stroke="currentColor" stroke-dasharray="3 3"/><text x="${X2(0)+3}" y="14">$0 profit</text>`:''}
+    <text x="${L}" y="${H2-8}">${fmt(mn)}</text><text x="${W2-60}" y="${H2-8}">${fmt(mx)}</text><text x="${W2/2-60}" y="${H2-8}">profit per policy (1,500 simulated books)</text></svg>`;
+        $('#llnk').innerHTML=`<div class="kpi"><small>Expected profit / policy</small><b class="${prof>=0?'pos':'neg'}">${fmt(prof)}</b></div><div class="kpi"><small>Book expected profit</small><b class="${prof>=0?'pos':'neg'}">${fmt(prof*n)}</b></div><div class="kpi"><small>Chance the book loses money</small><b>${pct(pl)}</b></div><div class="kpi"><small>Spread of avg per policy (±1σ)</small><b>${fmt(se)}</b></div>`;
+    const need=prof>0?Math.ceil(sd*sd/(.05*prof*prof)):null;
+    $('#cheb').textContent=prof>0?`As n grows the spread shrinks like σ/√n while the expected profit stays ${fmt(prof)}, so the chance of a loss heads to 0. Chebyshev (conservative): ${need.toLocaleString()} policies guarantee P(average profit misses its expected value by more than the whole margin) ≤ 5%.`:`The expected profit per policy is negative (${fmt(prof)}). More clients does not fix that — it makes the loss certain. The house loses in the long run.`;
+  }
+  $('#n').oninput=drawLLN;drawLLN();
+}
+$('#run').onclick=run;['type','city','age','risk','ded','src','comp','exp','mar','k','tol'].forEach(i=>$('#'+i).addEventListener('input',run));run();
+</script>
+</body>
+</html>

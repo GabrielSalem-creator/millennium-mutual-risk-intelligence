@@ -1,0 +1,3570 @@
+{
+ "meta": {
+  "generated": "2026-11-14T20:52:50.029Z",
+  "asOf": "2026-10-31",
+  "policies": 4684,
+  "customers": 3276,
+  "claimsUnique": 847,
+  "bookLossRatio": 0.702,
+  "bookFrequency": 0.239,
+  "earnedPremium": 5091572,
+  "incurredProxy": 3571756,
+  "threshold": 10000,
+  "method": "earned premium = annual premium × exposure (12-month term assumed); incurred proxy = paid, denied=0, open claims estimated from the paid/amount ratio of the same peril"
+ },
+ "signals": [
+  {
+   "lens": "FIN",
+   "stakeholders": [
+    "CFO"
+   ],
+   "issue": "home-pricing",
+   "kind": "league-table",
+   "headline": "Home insurance: claims consume 69% of written premium versus 38% for Auto.",
+   "metric": {
+    "name": "paid claims ÷ written premium",
+    "value": 0.69,
+    "baseline": 0.378,
+    "ratio": 1.83
+   },
+   "exposureView": {
+    "name": "earned loss ratio (incurred proxy ÷ earned premium)",
+    "home": 1.03,
+    "auto": 0.53
+   },
+   "n": 1842,
+   "segment": {
+    "dimension": "product",
+    "value": "Home"
+   },
+   "impactUSD": 575478,
+   "caveats": [
+    "Paid ÷ written ignores unexpired premium and open claims; the earned view is on the same row."
+   ],
+   "queries": [
+    "Canada home insurance loss ratio vs auto insurance loss ratio 2025",
+    "home insurance combined ratio Canada water damage claims"
+   ],
+   "id": "S01",
+   "lensName": "Finance (CFO)",
+   "rank": 1
+  },
+  {
+   "lens": "PRI",
+   "stakeholders": [
+    "CFO",
+    "VP Claims"
+   ],
+   "issue": "mtl-water",
+   "kind": "league-table",
+   "headline": "Regional pricing: Ottawa (61%) and Montreal (55%) have the highest claims-to-premium ratios; Quebec City is lowest (37%).",
+   "metric": {
+    "name": "paid claims ÷ written premium",
+    "value": 0.614,
+    "baseline": 0.487,
+    "ratio": 1.26
+   },
+   "table": [
+    {
+     "city": "Ottawa",
+     "paidOverWritten": 0.614,
+     "earnedLR": 0.83,
+     "policies": 527
+    },
+    {
+     "city": "Montreal",
+     "paidOverWritten": 0.555,
+     "earnedLR": 0.83,
+     "policies": 1284
+    },
+    {
+     "city": "Toronto",
+     "paidOverWritten": 0.497,
+     "earnedLR": 0.71,
+     "policies": 1449
+    },
+    {
+     "city": "Calgary",
+     "paidOverWritten": 0.371,
+     "earnedLR": 0.52,
+     "policies": 837
+    },
+    {
+     "city": "Quebec City",
+     "paidOverWritten": 0.367,
+     "earnedLR": 0.55,
+     "policies": 587
+    }
+   ],
+   "n": 527,
+   "segment": {
+    "dimension": "city",
+    "value": "Ottawa"
+   },
+   "caveats": [
+    "City totals mix products: the cause sits in Home water (see the Montréal signals)."
+   ],
+   "queries": [
+    "Montreal home insurance water damage claims higher than Toronto",
+    "Ottawa home insurance claims 2026 storm"
+   ],
+   "id": "S02",
+   "lensName": "Pricing / actuarial",
+   "rank": 2
+  },
+  {
+   "lens": "DIS",
+   "stakeholders": [
+    "Head of Distribution",
+    "CFO"
+   ],
+   "issue": "broker-channel",
+   "kind": "league-table",
+   "headline": "Distribution channel: broker policies cost 61.3% of premium in paid claims versus 43% Online and 42% Agent. Without broker B07 the broker figure is 45%.",
+   "metric": {
+    "name": "paid claims ÷ written premium",
+    "value": 0.613,
+    "baseline": 0.422,
+    "ratio": 1.45
+   },
+   "table": [
+    {
+     "channel": "Broker",
+     "paidOverWritten": 0.613,
+     "earnedLR": 0.89,
+     "policies": 1649,
+     "paidOverWrittenExB07": 0.451
+    },
+    {
+     "channel": "Online",
+     "paidOverWritten": 0.428,
+     "earnedLR": 0.6,
+     "policies": 1262,
+     "paidOverWrittenExB07": 0.428
+    },
+    {
+     "channel": "Agent",
+     "paidOverWritten": 0.416,
+     "earnedLR": 0.61,
+     "policies": 1773,
+     "paidOverWrittenExB07": 0.416
+    }
+   ],
+   "n": 1649,
+   "segment": {
+    "dimension": "channel",
+    "value": "Broker"
+   },
+   "caveats": [
+    "One broker (B07) explains most of the gap; blaming the whole channel would be wrong."
+   ],
+   "queries": [
+    "broker vs direct channel loss ratio Canadian personal lines",
+    "insurance broker oversight loss ratio trigger binding authority"
+   ],
+   "id": "S03",
+   "lensName": "Distribution",
+   "rank": 3
+  },
+  {
+   "lens": "PRI",
+   "stakeholders": [
+    "CFO"
+   ],
+   "issue": "home-pricing",
+   "kind": "league-table",
+   "headline": "Risk classification: Medium-risk policies cost 52% of premium vs 51% for High-risk (all lines). In Home the Medium band loss ratio is 1.29 vs 0.98 for High, so the bands look mis-priced.",
+   "metric": {
+    "name": "paid claims ÷ written premium",
+    "value": 0.515,
+    "baseline": 0.506,
+    "ratio": 1.02
+   },
+   "table": [
+    {
+     "homeBand": "Low",
+     "earnedLR": 0.66,
+     "avgPremium": 1059,
+     "claimsPerPolicyYear": 0.128
+    },
+    {
+     "homeBand": "Medium",
+     "earnedLR": 1.29,
+     "avgPremium": 1324,
+     "claimsPerPolicyYear": 0.243
+    },
+    {
+     "homeBand": "High",
+     "earnedLR": 0.98,
+     "avgPremium": 1879,
+     "claimsPerPolicyYear": 0.289
+    }
+   ],
+   "n": 1790,
+   "segment": {
+    "dimension": "risk band (Home)",
+    "value": "Medium"
+   },
+   "caveats": [
+    "Excludes broker B07. Bands are our own classification; Auto bands behave correctly (loss ratios 0.39/0.46/0.51)."
+   ],
+   "queries": [
+    "insurance risk classification validation loss ratio by tier lift",
+    "home insurance rating variables water risk tiers Canada"
+   ],
+   "id": "S04",
+   "lensName": "Pricing / actuarial",
+   "rank": 4
+  },
+  {
+   "lens": "SEV",
+   "stakeholders": [
+    "CFO"
+   ],
+   "issue": "mtl-water",
+   "kind": "league-table",
+   "headline": "Claim-type concentration: Water Damage and Theft account for 52.6% of total claims paid.",
+   "metric": {
+    "name": "share of paid claims",
+    "value": 0.526,
+    "baseline": null,
+    "ratio": null
+   },
+   "table": [
+    {
+     "claimType": "Water Damage",
+     "paid": 870326,
+     "share": 0.266
+    },
+    {
+     "claimType": "Theft",
+     "paid": 848663,
+     "share": 0.26
+    },
+    {
+     "claimType": "Collision",
+     "paid": 734286,
+     "share": 0.225
+    },
+    {
+     "claimType": "Liability",
+     "paid": 352677,
+     "share": 0.108
+    },
+    {
+     "claimType": "Fire",
+     "paid": 255162,
+     "share": 0.078
+    },
+    {
+     "claimType": "Wind/Hail",
+     "paid": 196872,
+     "share": 0.06
+    },
+    {
+     "claimType": "Glass",
+     "paid": 8468,
+     "share": 0.003
+    }
+   ],
+   "n": 847,
+   "segment": {
+    "dimension": "claim type",
+    "value": "Water Damage + Theft"
+   },
+   "caveats": [
+    "Theft share is inflated by broker B07 (60 theft claims)."
+   ],
+   "queries": [
+    "water damage share of home insurance claims Canada",
+    "auto theft claims Canada cost 2025"
+   ],
+   "id": "S05",
+   "lensName": "Severity / exposure",
+   "rank": 5
+  },
+  {
+   "lens": "SEV",
+   "stakeholders": [
+    "CFO",
+    "VP Claims"
+   ],
+   "issue": "severe-claims",
+   "kind": "league-table",
+   "headline": "Severe claims: 88 claims (10%) are $10,000 or more and carry 32% of claim dollars; the 13 Fire claims average $30,165.",
+   "metric": {
+    "name": "share of claim dollars in claims ≥ $10k",
+    "value": 0.318,
+    "baseline": 0.104,
+    "ratio": 3.06
+   },
+   "table": [
+    {
+     "claimType": "Water Damage",
+     "claimsOver10k": 41
+    },
+    {
+     "claimType": "Theft",
+     "claimsOver10k": 8
+    },
+    {
+     "claimType": "Fire",
+     "claimsOver10k": 13
+    },
+    {
+     "claimType": "Liability",
+     "claimsOver10k": 17
+    },
+    {
+     "claimType": "Collision",
+     "claimsOver10k": 7
+    },
+    {
+     "claimType": "Wind/Hail",
+     "claimsOver10k": 2
+    }
+   ],
+   "n": 88,
+   "segment": {
+    "dimension": "claim size",
+    "value": "≥ $10,000"
+   },
+   "caveats": [
+    "Fire has only 13 records: high volatility, low credibility."
+   ],
+   "queries": [
+    "large loss concentration property insurance share of losses top 10% claims",
+    "fire claim average severity Canada insurance"
+   ],
+   "id": "S06",
+   "lensName": "Severity / exposure",
+   "rank": 6
+  },
+  {
+   "lens": "PRI",
+   "stakeholders": [
+    "CFO"
+   ],
+   "issue": "home-pricing",
+   "kind": "scan",
+   "headline": "product = Auto: earned loss ratio is 0.53 versus 1.03 for the rest of the book (×0.51).",
+   "metric": {
+    "name": "earned loss ratio",
+    "value": 0.5289,
+    "baseline": 1.0291,
+    "ratio": 0.51
+   },
+   "stats": {
+    "test": "screen + bootstrap",
+    "ci95": [
+     0.47,
+     0.57
+    ],
+    "p": "<1e-12",
+    "z": -13.2
+   },
+   "n": 2842,
+   "segment": {
+    "dimension": "product",
+    "value": "Auto"
+   },
+   "impactUSD": -1667802,
+   "caveats": [
+    "Favourable gap: check it is not a survivorship effect."
+   ],
+   "queries": [],
+   "id": "S07",
+   "lensName": "Pricing / actuarial",
+   "rank": 7
+  },
+  {
+   "lens": "DIS",
+   "stakeholders": [
+    "CFO",
+    "Head of Distribution"
+   ],
+   "issue": "b07-fraud",
+   "kind": "scan",
+   "headline": "broker = B07: earned loss ratio is 4.29 versus 0.62 for the rest of the book (×6.92).",
+   "metric": {
+    "name": "earned loss ratio",
+    "value": 4.2949,
+    "baseline": 0.6208,
+    "ratio": 6.92
+   },
+   "stats": {
+    "test": "screen + bootstrap",
+    "ci95": [
+     5.22,
+     9.16
+    ],
+    "p": "<1e-12",
+    "z": 13.5
+   },
+   "n": 173,
+   "segment": {
+    "dimension": "broker",
+    "value": "B07"
+   },
+   "impactUSD": 410965,
+   "caveats": [
+    "Association in one book, not proof of cause."
+   ],
+   "queries": [],
+   "id": "S08",
+   "lensName": "Distribution",
+   "rank": 8
+  },
+  {
+   "lens": "PRI",
+   "stakeholders": [
+    "CFO"
+   ],
+   "issue": "home-pricing",
+   "kind": "scan",
+   "headline": "product = Home: earned loss ratio is 1.03 versus 0.53 for the rest of the book (×1.95).",
+   "metric": {
+    "name": "earned loss ratio",
+    "value": 1.0291,
+    "baseline": 0.5289,
+    "ratio": 1.95
+   },
+   "stats": {
+    "test": "screen + bootstrap",
+    "ci95": [
+     1.69,
+     2.24
+    ],
+    "p": "<1e-12",
+    "z": 9.3
+   },
+   "n": 1842,
+   "segment": {
+    "dimension": "product",
+    "value": "Home"
+   },
+   "impactUSD": 878663,
+   "caveats": [
+    "Association in one book, not proof of cause."
+   ],
+   "queries": [],
+   "id": "S09",
+   "lensName": "Pricing / actuarial",
+   "rank": 9
+  },
+  {
+   "lens": "DIS",
+   "stakeholders": [
+    "CFO",
+    "Head of Distribution"
+   ],
+   "issue": "b07-fraud",
+   "kind": "scan",
+   "headline": "broker = B07: claim frequency per policy-year is 0.841 per policy-year versus 0.225 per policy-year for the rest of the book (×3.74).",
+   "metric": {
+    "name": "claim frequency per policy-year",
+    "value": 0.8412,
+    "baseline": 0.2246,
+    "ratio": 3.74
+   },
+   "stats": {
+    "test": "Poisson rate ratio (exposure offset)",
+    "ci95": [
+     2.93,
+     4.78
+    ],
+    "p": "<1e-12",
+    "z": 10.6
+   },
+   "n": 173,
+   "segment": {
+    "dimension": "broker",
+    "value": "B07"
+   },
+   "impactUSD": 352123,
+   "caveats": [
+    "Association in one book, not proof of cause."
+   ],
+   "queries": [],
+   "id": "S10",
+   "lensName": "Distribution",
+   "rank": 10
+  },
+  {
+   "lens": "PRI",
+   "stakeholders": [
+    "CFO"
+   ],
+   "issue": "home-pricing",
+   "kind": "scan",
+   "headline": "risk band = Low: claim frequency per policy-year is 0.169 per policy-year versus 0.308 per policy-year for the rest of the book (×0.55).",
+   "metric": {
+    "name": "claim frequency per policy-year",
+    "value": 0.1692,
+    "baseline": 0.3078,
+    "ratio": 0.55
+   },
+   "stats": {
+    "test": "Poisson rate ratio (exposure offset)",
+    "ci95": [
+     0.48,
+     0.63
+    ],
+    "p": "<1e-12",
+    "z": -8.3
+   },
+   "n": 2337,
+   "segment": {
+    "dimension": "risk band",
+    "value": "Low"
+   },
+   "impactUSD": -1082614,
+   "caveats": [
+    "Favourable gap: check it is not a survivorship effect."
+   ],
+   "queries": [],
+   "id": "S11",
+   "lensName": "Pricing / actuarial",
+   "rank": 11
+  },
+  {
+   "lens": "PRI",
+   "stakeholders": [
+    "CFO"
+   ],
+   "issue": "mtl-water",
+   "kind": "scan",
+   "headline": "product × city = Home · Montreal: earned loss ratio is 1.63 versus 0.61 for the rest of the book (×2.69).",
+   "metric": {
+    "name": "earned loss ratio",
+    "value": 1.6317,
+    "baseline": 0.6072,
+    "ratio": 2.69
+   },
+   "stats": {
+    "test": "screen + bootstrap",
+    "ci95": [
+     2.16,
+     3.35
+    ],
+    "p": "<1e-12",
+    "z": 8.8
+   },
+   "n": 510,
+   "segment": {
+    "dimension": "product × city",
+    "value": "Home · Montreal"
+   },
+   "impactUSD": 480298,
+   "caveats": [
+    "Association in one book, not proof of cause."
+   ],
+   "queries": [],
+   "id": "S12",
+   "lensName": "Pricing / actuarial",
+   "rank": 12
+  },
+  {
+   "lens": "PRI",
+   "stakeholders": [
+    "CFO"
+   ],
+   "issue": "home-pricing",
+   "kind": "scan",
+   "headline": "risk band = High: claim frequency per policy-year is 0.382 per policy-year versus 0.213 per policy-year for the rest of the book (×1.79).",
+   "metric": {
+    "name": "claim frequency per policy-year",
+    "value": 0.3817,
+    "baseline": 0.2127,
+    "ratio": 1.79
+   },
+   "stats": {
+    "test": "Poisson rate ratio (exposure offset)",
+    "ci95": [
+     1.54,
+     2.1
+    ],
+    "p": "<1e-12",
+    "z": 7.4
+   },
+   "n": 712,
+   "segment": {
+    "dimension": "risk band",
+    "value": "High"
+   },
+   "impactUSD": 361030,
+   "caveats": [
+    "Association in one book, not proof of cause."
+   ],
+   "queries": [],
+   "id": "S13",
+   "lensName": "Pricing / actuarial",
+   "rank": 13
+  },
+  {
+   "lens": "DIS",
+   "stakeholders": [
+    "Head of Distribution"
+   ],
+   "issue": "broker-channel",
+   "kind": "scan",
+   "headline": "channel = Broker: earned loss ratio is 0.89 versus 0.6 for the rest of the book (×1.48).",
+   "metric": {
+    "name": "earned loss ratio",
+    "value": 0.8944,
+    "baseline": 0.6044,
+    "ratio": 1.48
+   },
+   "stats": {
+    "test": "screen + bootstrap",
+    "ci95": [
+     1.3,
+     1.69
+    ],
+    "p": 6e-9,
+    "z": 5.8
+   },
+   "n": 1649,
+   "segment": {
+    "dimension": "channel",
+    "value": "Broker"
+   },
+   "impactUSD": 494605,
+   "caveats": [
+    "Association in one book, not proof of cause."
+   ],
+   "queries": [],
+   "id": "S14",
+   "lensName": "Distribution",
+   "rank": 14
+  },
+  {
+   "lens": "PRI",
+   "stakeholders": [
+    "CFO"
+   ],
+   "issue": "mtl-water",
+   "kind": "scan",
+   "headline": "product × city = Auto · Montreal: earned loss ratio is 0.4 versus 0.76 for the rest of the book (×0.53).",
+   "metric": {
+    "name": "earned loss ratio",
+    "value": 0.4031,
+    "baseline": 0.7633,
+    "ratio": 0.53
+   },
+   "stats": {
+    "test": "screen + bootstrap",
+    "ci95": [
+     0.43,
+     0.65
+    ],
+    "p": 1.1e-9,
+    "z": -6.1
+   },
+   "n": 774,
+   "segment": {
+    "dimension": "product × city",
+    "value": "Auto · Montreal"
+   },
+   "impactUSD": -314819,
+   "caveats": [
+    "Favourable gap: check it is not a survivorship effect."
+   ],
+   "queries": [],
+   "id": "S15",
+   "lensName": "Pricing / actuarial",
+   "rank": 15
+  },
+  {
+   "lens": "PRI",
+   "stakeholders": [
+    "Head of Retention"
+   ],
+   "issue": "bundle-opportunity",
+   "kind": "scan",
+   "headline": "bundle = bundled: claim frequency per policy-year is 0.214 per policy-year versus 0.277 per policy-year for the rest of the book (×0.77).",
+   "metric": {
+    "name": "claim frequency per policy-year",
+    "value": 0.2143,
+    "baseline": 0.2775,
+    "ratio": 0.77
+   },
+   "stats": {
+    "test": "Poisson rate ratio (exposure offset)",
+    "ci95": [
+     0.67,
+     0.88
+    ],
+    "p": 0.00018,
+    "z": -3.7
+   },
+   "n": 2810,
+   "segment": {
+    "dimension": "bundle",
+    "value": "bundled"
+   },
+   "impactUSD": -587344,
+   "caveats": [
+    "Favourable gap: check it is not a survivorship effect."
+   ],
+   "queries": [],
+   "id": "S16",
+   "lensName": "Pricing / actuarial",
+   "rank": 16
+  },
+  {
+   "lens": "PRI",
+   "stakeholders": [],
+   "issue": "other",
+   "kind": "scan",
+   "headline": "age band = 18-24: claim frequency per policy-year is 0.372 per policy-year versus 0.227 per policy-year for the rest of the book (×1.63).",
+   "metric": {
+    "name": "claim frequency per policy-year",
+    "value": 0.3716,
+    "baseline": 0.2275,
+    "ratio": 1.63
+   },
+   "stats": {
+    "test": "Poisson rate ratio (exposure offset)",
+    "ci95": [
+     1.33,
+     2
+    ],
+    "p": 0.0000023,
+    "z": 4.7
+   },
+   "n": 357,
+   "segment": {
+    "dimension": "age band",
+    "value": "18-24"
+   },
+   "impactUSD": 134918,
+   "caveats": [
+    "Association in one book, not proof of cause."
+   ],
+   "queries": [],
+   "id": "S17",
+   "lensName": "Pricing / actuarial",
+   "rank": 17
+  },
+  {
+   "lens": "PRI",
+   "stakeholders": [
+    "CFO",
+    "Head of Distribution"
+   ],
+   "issue": "b07-fraud",
+   "kind": "scan",
+   "headline": "start half-year = 2026H1: earned loss ratio is 0.9 versus 0.65 for the rest of the book (×1.39).",
+   "metric": {
+    "name": "earned loss ratio",
+    "value": 0.9014,
+    "baseline": 0.6479,
+    "ratio": 1.39
+   },
+   "stats": {
+    "test": "screen + bootstrap",
+    "ci95": [
+     1.18,
+     1.64
+    ],
+    "p": 0.000064,
+    "z": 4
+   },
+   "n": 1288,
+   "segment": {
+    "dimension": "start half-year",
+    "value": "2026H1"
+   },
+   "impactUSD": 272964,
+   "caveats": [
+    "Association in one book, not proof of cause."
+   ],
+   "queries": [],
+   "id": "S18",
+   "lensName": "Pricing / actuarial",
+   "rank": 18
+  },
+  {
+   "lens": "PRI",
+   "stakeholders": [
+    "Head of Retention"
+   ],
+   "issue": "bundle-opportunity",
+   "kind": "scan",
+   "headline": "bundle = single line: claim frequency per policy-year is 0.277 per policy-year versus 0.214 per policy-year for the rest of the book (×1.29).",
+   "metric": {
+    "name": "claim frequency per policy-year",
+    "value": 0.2775,
+    "baseline": 0.2143,
+    "ratio": 1.29
+   },
+   "stats": {
+    "test": "Poisson rate ratio (exposure offset)",
+    "ci95": [
+     1.13,
+     1.48
+    ],
+    "p": 0.00018,
+    "z": 3.7
+   },
+   "n": 1874,
+   "segment": {
+    "dimension": "bundle",
+    "value": "single line"
+   },
+   "impactUSD": 360043,
+   "caveats": [
+    "Association in one book, not proof of cause."
+   ],
+   "queries": [],
+   "id": "S19",
+   "lensName": "Pricing / actuarial",
+   "rank": 19
+  },
+  {
+   "lens": "FRD",
+   "stakeholders": [
+    "CFO",
+    "Head of Distribution"
+   ],
+   "issue": "b07-fraud",
+   "kind": "scan",
+   "headline": "broker = B07: share of claims within 45 days of policy start is 62.9% versus 18.7% for the rest of the book (×3.37).",
+   "metric": {
+    "name": "share of claims within 45 days of policy start",
+    "value": 0.6286,
+    "baseline": 0.1866,
+    "ratio": 3.37
+   },
+   "stats": {
+    "test": "two-proportion z-test",
+    "ci95": null,
+    "p": "<1e-12",
+    "z": 8.5
+   },
+   "n": 70,
+   "segment": {
+    "dimension": "broker",
+    "value": "B07"
+   },
+   "impactUSD": null,
+   "caveats": [
+    "Association in one book, not proof of cause."
+   ],
+   "queries": [],
+   "id": "S20",
+   "lensName": "Fraud / integrity",
+   "rank": 20
+  },
+  {
+   "lens": "PRI",
+   "stakeholders": [
+    "CFO"
+   ],
+   "issue": "home-pricing",
+   "kind": "scan",
+   "headline": "product × city = Auto · Calgary: earned loss ratio is 0.47 versus 0.73 for the rest of the book (×0.64).",
+   "metric": {
+    "name": "earned loss ratio",
+    "value": 0.4695,
+    "baseline": 0.7327,
+    "ratio": 0.64
+   },
+   "stats": {
+    "test": "screen + bootstrap",
+    "ci95": [
+     0.5,
+     0.82
+    ],
+    "p": 0.0003,
+    "z": -3.6
+   },
+   "n": 497,
+   "segment": {
+    "dimension": "product × city",
+    "value": "Auto · Calgary"
+   },
+   "impactUSD": -158819,
+   "caveats": [
+    "Favourable gap: check it is not a survivorship effect."
+   ],
+   "queries": [],
+   "id": "S21",
+   "lensName": "Pricing / actuarial",
+   "rank": 21
+  },
+  {
+   "lens": "PRI",
+   "stakeholders": [
+    "CFO"
+   ],
+   "issue": "home-pricing",
+   "kind": "scan",
+   "headline": "product × city = Auto · Toronto: claim frequency per policy-year is 0.301 per policy-year versus 0.225 per policy-year for the rest of the book (×1.34).",
+   "metric": {
+    "name": "claim frequency per policy-year",
+    "value": 0.3007,
+    "baseline": 0.225,
+    "ratio": 1.34
+   },
+   "stats": {
+    "test": "Poisson rate ratio (exposure offset)",
+    "ci95": [
+     1.14,
+     1.57
+    ],
+    "p": 0.00036,
+    "z": 3.6
+   },
+   "n": 879,
+   "segment": {
+    "dimension": "product × city",
+    "value": "Auto · Toronto"
+   },
+   "impactUSD": 163766,
+   "caveats": [
+    "Association in one book, not proof of cause."
+   ],
+   "queries": [],
+   "id": "S22",
+   "lensName": "Pricing / actuarial",
+   "rank": 22
+  },
+  {
+   "lens": "SEV",
+   "stakeholders": [
+    "VP Claims",
+    "Head of Retention"
+   ],
+   "issue": "senior-review",
+   "kind": "scan",
+   "headline": "claim type = Water Damage: share of claims ≥ $10k (senior review) is 28.7% versus 6.7% for the rest of the book (×4.29).",
+   "metric": {
+    "name": "share of claims ≥ $10k (senior review)",
+    "value": 0.2867,
+    "baseline": 0.0668,
+    "ratio": 4.29
+   },
+   "stats": {
+    "test": "two-proportion z-test",
+    "ci95": null,
+    "p": "<1e-12",
+    "z": 7.9
+   },
+   "n": 143,
+   "segment": {
+    "dimension": "claim type",
+    "value": "Water Damage"
+   },
+   "impactUSD": null,
+   "caveats": [
+    "Association in one book, not proof of cause."
+   ],
+   "queries": [],
+   "id": "S23",
+   "lensName": "Severity / exposure",
+   "rank": 23
+  },
+  {
+   "lens": "SEV",
+   "stakeholders": [
+    "VP Claims",
+    "Head of Retention"
+   ],
+   "issue": "senior-review",
+   "kind": "scan",
+   "headline": "product = Auto: share of claims ≥ $10k (senior review) is 5.1% versus 20.8% for the rest of the book (×0.25).",
+   "metric": {
+    "name": "share of claims ≥ $10k (senior review)",
+    "value": 0.0514,
+    "baseline": 0.2085,
+    "ratio": 0.25
+   },
+   "stats": {
+    "test": "two-proportion z-test",
+    "ci95": null,
+    "p": 1.6e-12,
+    "z": -7.1
+   },
+   "n": 564,
+   "segment": {
+    "dimension": "product",
+    "value": "Auto"
+   },
+   "impactUSD": null,
+   "caveats": [
+    "Favourable gap: check it is not a survivorship effect."
+   ],
+   "queries": [],
+   "id": "S24",
+   "lensName": "Severity / exposure",
+   "rank": 24
+  },
+  {
+   "lens": "SEV",
+   "stakeholders": [
+    "VP Claims",
+    "Head of Retention"
+   ],
+   "issue": "senior-review",
+   "kind": "scan",
+   "headline": "product = Home: share of claims ≥ $10k (senior review) is 20.8% versus 5.1% for the rest of the book (×4.05).",
+   "metric": {
+    "name": "share of claims ≥ $10k (senior review)",
+    "value": 0.2085,
+    "baseline": 0.0514,
+    "ratio": 4.05
+   },
+   "stats": {
+    "test": "two-proportion z-test",
+    "ci95": null,
+    "p": 1.6e-12,
+    "z": 7.1
+   },
+   "n": 283,
+   "segment": {
+    "dimension": "product",
+    "value": "Home"
+   },
+   "impactUSD": null,
+   "caveats": [
+    "Association in one book, not proof of cause."
+   ],
+   "queries": [],
+   "id": "S25",
+   "lensName": "Severity / exposure",
+   "rank": 25
+  },
+  {
+   "lens": "FRD",
+   "stakeholders": [
+    "CFO",
+    "Head of Distribution"
+   ],
+   "issue": "b07-fraud",
+   "kind": "scan",
+   "headline": "start half-year = 2026H2: share of claims within 45 days of policy start is 65.7% versus 20.4% for the rest of the book (×3.21).",
+   "metric": {
+    "name": "share of claims within 45 days of policy start",
+    "value": 0.6571,
+    "baseline": 0.2044,
+    "ratio": 3.21
+   },
+   "stats": {
+    "test": "two-proportion z-test",
+    "ci95": null,
+    "p": 3e-10,
+    "z": 6.3
+   },
+   "n": 35,
+   "segment": {
+    "dimension": "start half-year",
+    "value": "2026H2"
+   },
+   "impactUSD": null,
+   "caveats": [
+    "Association in one book, not proof of cause."
+   ],
+   "queries": [],
+   "id": "S26",
+   "lensName": "Fraud / integrity",
+   "rank": 26
+  },
+  {
+   "lens": "SEV",
+   "stakeholders": [
+    "VP Claims",
+    "Head of Retention"
+   ],
+   "issue": "senior-review",
+   "kind": "scan",
+   "headline": "claim type = Liability: share of claims ≥ $10k (senior review) is 35.4% versus 8.9% for the rest of the book (×3.99).",
+   "metric": {
+    "name": "share of claims ≥ $10k (senior review)",
+    "value": 0.3542,
+    "baseline": 0.0889,
+    "ratio": 3.99
+   },
+   "stats": {
+    "test": "two-proportion z-test",
+    "ci95": null,
+    "p": 4.9e-9,
+    "z": 5.9
+   },
+   "n": 48,
+   "segment": {
+    "dimension": "claim type",
+    "value": "Liability"
+   },
+   "impactUSD": null,
+   "caveats": [
+    "Association in one book, not proof of cause."
+   ],
+   "queries": [],
+   "id": "S27",
+   "lensName": "Severity / exposure",
+   "rank": 27
+  },
+  {
+   "lens": "SEV",
+   "stakeholders": [
+    "VP Claims",
+    "Head of Retention"
+   ],
+   "issue": "senior-review",
+   "kind": "scan",
+   "headline": "claim type = Collision: share of claims ≥ $10k (senior review) is 2.3% versus 14.8% for the rest of the book (×0.16).",
+   "metric": {
+    "name": "share of claims ≥ $10k (senior review)",
+    "value": 0.0233,
+    "baseline": 0.1481,
+    "ratio": 0.16
+   },
+   "stats": {
+    "test": "two-proportion z-test",
+    "ci95": null,
+    "p": 1.3e-8,
+    "z": -5.7
+   },
+   "n": 300,
+   "segment": {
+    "dimension": "claim type",
+    "value": "Collision"
+   },
+   "impactUSD": null,
+   "caveats": [
+    "Favourable gap: check it is not a survivorship effect."
+   ],
+   "queries": [],
+   "id": "S28",
+   "lensName": "Severity / exposure",
+   "rank": 28
+  },
+  {
+   "lens": "FRD",
+   "stakeholders": [
+    "CFO",
+    "Head of Distribution"
+   ],
+   "issue": "b07-fraud",
+   "kind": "scan",
+   "headline": "start half-year = 2026H1: share of claims within 45 days of policy start is 35.1% versus 18.1% for the rest of the book (×1.94).",
+   "metric": {
+    "name": "share of claims within 45 days of policy start",
+    "value": 0.3507,
+    "baseline": 0.1808,
+    "ratio": 1.94
+   },
+   "stats": {
+    "test": "two-proportion z-test",
+    "ci95": null,
+    "p": 2.8e-7,
+    "z": 5.1
+   },
+   "n": 211,
+   "segment": {
+    "dimension": "start half-year",
+    "value": "2026H1"
+   },
+   "impactUSD": null,
+   "caveats": [
+    "Association in one book, not proof of cause."
+   ],
+   "queries": [],
+   "id": "S29",
+   "lensName": "Fraud / integrity",
+   "rank": 29
+  },
+  {
+   "lens": "SEV",
+   "stakeholders": [
+    "CFO"
+   ],
+   "issue": "mtl-water",
+   "kind": "scan",
+   "headline": "product × city = Home · Montreal: share of claims ≥ $10k (senior review) is 23.5% versus 8.3% for the rest of the book (×2.82).",
+   "metric": {
+    "name": "share of claims ≥ $10k (senior review)",
+    "value": 0.2348,
+    "baseline": 0.0833,
+    "ratio": 2.82
+   },
+   "stats": {
+    "test": "two-proportion z-test",
+    "ci95": null,
+    "p": 7.5e-7,
+    "z": 4.9
+   },
+   "n": 115,
+   "segment": {
+    "dimension": "product × city",
+    "value": "Home · Montreal"
+   },
+   "impactUSD": null,
+   "caveats": [
+    "Association in one book, not proof of cause."
+   ],
+   "queries": [],
+   "id": "S30",
+   "lensName": "Severity / exposure",
+   "rank": 30
+  },
+  {
+   "lens": "FRD",
+   "stakeholders": [
+    "Head of Distribution"
+   ],
+   "issue": "broker-channel",
+   "kind": "scan",
+   "headline": "channel = Broker: share of claims within 45 days of policy start is 30.9% versus 17.2% for the rest of the book (×1.8).",
+   "metric": {
+    "name": "share of claims within 45 days of policy start",
+    "value": 0.3091,
+    "baseline": 0.1717,
+    "ratio": 1.8
+   },
+   "stats": {
+    "test": "two-proportion z-test",
+    "ci95": null,
+    "p": 0.0000033,
+    "z": 4.6
+   },
+   "n": 317,
+   "segment": {
+    "dimension": "channel",
+    "value": "Broker"
+   },
+   "impactUSD": null,
+   "caveats": [
+    "Association in one book, not proof of cause."
+   ],
+   "queries": [],
+   "id": "S31",
+   "lensName": "Fraud / integrity",
+   "rank": 31
+  },
+  {
+   "lens": "FRD",
+   "stakeholders": [
+    "Head of Distribution"
+   ],
+   "issue": "broker-channel",
+   "kind": "scan",
+   "headline": "broker = (none): share of claims within 45 days of policy start is 17.2% versus 30.9% for the rest of the book (×0.56).",
+   "metric": {
+    "name": "share of claims within 45 days of policy start",
+    "value": 0.1717,
+    "baseline": 0.3091,
+    "ratio": 0.56
+   },
+   "stats": {
+    "test": "two-proportion z-test",
+    "ci95": null,
+    "p": 0.0000033,
+    "z": -4.6
+   },
+   "n": 530,
+   "segment": {
+    "dimension": "broker",
+    "value": "(none)"
+   },
+   "impactUSD": null,
+   "caveats": [
+    "Favourable gap: check it is not a survivorship effect."
+   ],
+   "queries": [],
+   "id": "S32",
+   "lensName": "Fraud / integrity",
+   "rank": 32
+  },
+  {
+   "lens": "SEV",
+   "stakeholders": [
+    "VP Claims",
+    "Head of Retention"
+   ],
+   "issue": "senior-review",
+   "kind": "scan",
+   "headline": "product × city = Home · Toronto: share of claims ≥ $10k (senior review) is 24.1% versus 9.0% for the rest of the book (×2.68).",
+   "metric": {
+    "name": "share of claims ≥ $10k (senior review)",
+    "value": 0.2405,
+    "baseline": 0.0898,
+    "ratio": 2.68
+   },
+   "stats": {
+    "test": "two-proportion z-test",
+    "ci95": null,
+    "p": 0.000029,
+    "z": 4.2
+   },
+   "n": 79,
+   "segment": {
+    "dimension": "product × city",
+    "value": "Home · Toronto"
+   },
+   "impactUSD": null,
+   "caveats": [
+    "Association in one book, not proof of cause."
+   ],
+   "queries": [],
+   "id": "S33",
+   "lensName": "Severity / exposure",
+   "rank": 33
+  },
+  {
+   "lens": "SEV",
+   "stakeholders": [
+    "CFO",
+    "VP Claims"
+   ],
+   "issue": "severe-claims",
+   "kind": "scan",
+   "headline": "claim type = Water Damage: mean claim amount is $8,489 versus $5,042 for the rest of the book (×1.68).",
+   "metric": {
+    "name": "mean claim amount",
+    "value": 8489.3925,
+    "baseline": 5041.5201,
+    "ratio": 1.68
+   },
+   "stats": {
+    "test": "screen + bootstrap",
+    "ci95": null,
+    "p": 0.001,
+    "z": null
+   },
+   "n": 143,
+   "segment": {
+    "dimension": "claim type",
+    "value": "Water Damage"
+   },
+   "impactUSD": null,
+   "caveats": [
+    "Association in one book, not proof of cause."
+   ],
+   "queries": [],
+   "id": "S34",
+   "lensName": "Severity / exposure",
+   "rank": 34
+  },
+  {
+   "lens": "SEV",
+   "stakeholders": [
+    "CFO",
+    "VP Claims"
+   ],
+   "issue": "severe-claims",
+   "kind": "scan",
+   "headline": "claim type = Glass: mean claim amount is $707 versus $6,406 for the rest of the book (×0.11).",
+   "metric": {
+    "name": "mean claim amount",
+    "value": 706.6553,
+    "baseline": 6406.3092,
+    "ratio": 0.11
+   },
+   "stats": {
+    "test": "screen + bootstrap",
+    "ci95": null,
+    "p": 0.001,
+    "z": null
+   },
+   "n": 115,
+   "segment": {
+    "dimension": "claim type",
+    "value": "Glass"
+   },
+   "impactUSD": null,
+   "caveats": [
+    "Favourable gap: check it is not a survivorship effect."
+   ],
+   "queries": [],
+   "id": "S35",
+   "lensName": "Severity / exposure",
+   "rank": 35
+  },
+  {
+   "lens": "SEV",
+   "stakeholders": [
+    "CFO",
+    "VP Claims"
+   ],
+   "issue": "severe-claims",
+   "kind": "scan",
+   "headline": "claim type = Liability: mean claim amount is $10,196 versus $5,360 for the rest of the book (×1.9).",
+   "metric": {
+    "name": "mean claim amount",
+    "value": 10196.1613,
+    "baseline": 5359.9115,
+    "ratio": 1.9
+   },
+   "stats": {
+    "test": "screen + bootstrap",
+    "ci95": null,
+    "p": 0.001,
+    "z": null
+   },
+   "n": 48,
+   "segment": {
+    "dimension": "claim type",
+    "value": "Liability"
+   },
+   "impactUSD": null,
+   "caveats": [
+    "Association in one book, not proof of cause."
+   ],
+   "queries": [],
+   "id": "S36",
+   "lensName": "Severity / exposure",
+   "rank": 36
+  },
+  {
+   "lens": "RET",
+   "stakeholders": [
+    "Head of Retention"
+   ],
+   "issue": "claim-wait-retention",
+   "kind": "scan",
+   "headline": "age band = 18-24: non-renewal rate is 24.6% versus 15.7% for the rest of the book (×1.57).",
+   "metric": {
+    "name": "non-renewal rate",
+    "value": 0.2463,
+    "baseline": 0.1573,
+    "ratio": 1.57
+   },
+   "stats": {
+    "test": "two-proportion z-test",
+    "ci95": null,
+    "p": 0.0011,
+    "z": 3.3
+   },
+   "n": 203,
+   "segment": {
+    "dimension": "age band",
+    "value": "18-24"
+   },
+   "impactUSD": null,
+   "caveats": [
+    "Association in one book, not proof of cause."
+   ],
+   "queries": [],
+   "id": "S37",
+   "lensName": "Retention",
+   "rank": 37
+  },
+  {
+   "lens": "FRD",
+   "stakeholders": [
+    "Head of Distribution",
+    "CFO"
+   ],
+   "issue": "b07-fraud",
+   "kind": "detector",
+   "detector": "early-claim + threshold-structuring",
+   "headline": "Broker B07: 60 theft claims where about 2.6 were expected; median claim 37 days after policy start (book 147), 83% of its claims sit at $8,000–$9,999 just under the $10,000 senior-review line (book 13%).",
+   "metric": {
+    "name": "broker loss ratio (earned)",
+    "value": 4.29,
+    "baseline": 0.7,
+    "ratio": 6.1
+   },
+   "stats": {
+    "test": "binomial tail vs book rate (early ≤45d; near-threshold band)",
+    "p": "<1e-12"
+   },
+   "evidence": {
+    "expectedTheft": 2.6,
+    "theftClaims": 60,
+    "policies": 173,
+    "claims": 70,
+    "theftShare": 0.86,
+    "earlyShare": 0.63,
+    "bookEarlyShare": 0.22,
+    "nearThresholdShare": 0.83,
+    "denied": 0,
+    "firstPolicyStart": "2026-01-07",
+    "meanTheftClaim": 8908,
+    "earnedPremium": 111854,
+    "incurred": 480403
+   },
+   "n": 70,
+   "segment": {
+    "dimension": "broker",
+    "value": "B07"
+   },
+   "impactUSD": 428950,
+   "caveats": [
+    "Consistent with organised early-claim fraud or adverse selection; needs investigation (SIU). Not proof.",
+    "Automatic action should be a hold + review, not a termination."
+   ],
+   "queries": [
+    "insurance early claim fraud indicators claim soon after policy inception",
+    "broker fraud ghost brokering Canada insurance",
+    "claims structured below approval threshold insurance fraud"
+   ],
+   "id": "S38",
+   "lensName": "Fraud / integrity",
+   "rank": 38
+  },
+  {
+   "lens": "OPS",
+   "stakeholders": [
+    "VP Claims",
+    "Head of Retention"
+   ],
+   "issue": "senior-review",
+   "kind": "detector",
+   "detector": "authority-threshold delay",
+   "headline": "Senior review: claims of $10,000 or more take a median 30 days to close versus 13 days for smaller claims; 41 of the 88 large claims are Water Damage.",
+   "metric": {
+    "name": "median days report → close",
+    "value": 30,
+    "baseline": 13,
+    "ratio": 2.31
+   },
+   "table": [
+    {
+     "team": "Team A",
+     "cities": "Toronto + Ottawa",
+     "medianClose": 12,
+     "under10k": 11,
+     "over10k": 33,
+     "open": 5,
+     "intakeSurge": 1.36
+    },
+    {
+     "team": "Team B",
+     "cities": "Calgary",
+     "medianClose": 13,
+     "under10k": 12,
+     "over10k": 35,
+     "open": 5,
+     "intakeSurge": 0.86
+    },
+    {
+     "team": "Team C",
+     "cities": "Montreal + Quebec City",
+     "medianClose": 18,
+     "under10k": 17,
+     "over10k": 27,
+     "open": 38,
+     "intakeSurge": 2.07
+    }
+   ],
+   "n": 88,
+   "segment": {
+    "dimension": "claim size",
+    "value": "≥ $10,000"
+   },
+   "caveats": [
+    "Closed claims only; open claims (48) are still waiting."
+   ],
+   "queries": [
+    "claims authority levels senior review cycle time home water claim",
+    "straight-through processing low complexity claims fast track"
+   ],
+   "id": "S39",
+   "lensName": "Claims operations",
+   "rank": 39
+  },
+  {
+   "lens": "OPS",
+   "stakeholders": [
+    "VP Claims"
+   ],
+   "issue": "senior-review",
+   "kind": "detector",
+   "detector": "workload surge",
+   "headline": "Team C (Montreal + Quebec City) intake is 2.1× its earlier monthly pace (last 3 months 24, 22, 31 vs 12.4), holds 38 of 48 open claims and has the slowest median close (18 days).",
+   "metric": {
+    "name": "monthly claim intake (last 3 months ÷ earlier)",
+    "value": 25.7,
+    "baseline": 12.4,
+    "ratio": 2.07
+   },
+   "n": 338,
+   "segment": {
+    "dimension": "adjuster team",
+    "value": "Team C"
+   },
+   "caveats": [
+    "Teams map one-to-one to cities, so \"team\" and \"city\" effects cannot be separated."
+   ],
+   "queries": [
+    "claims adjuster workload benchmark caseload catastrophe surge staffing"
+   ],
+   "id": "S40",
+   "lensName": "Claims operations",
+   "rank": 40
+  },
+  {
+   "lens": "OPS",
+   "stakeholders": [
+    "VP Claims",
+    "CFO"
+   ],
+   "issue": "senior-review",
+   "kind": "detector",
+   "detector": "threshold bunching",
+   "headline": "Claim amounts bunch just under the $10,000 line (54 claims at $9–10k vs 15 at $10–11k); without the flagged brokers it is 25 vs 15.",
+   "metric": {
+    "name": "claims at $9–10k ÷ claims at $10–11k",
+    "value": 3.6,
+    "baseline": 1.67,
+    "ratio": null
+   },
+   "table": [
+    {
+     "range": "6–7k",
+     "all": 56,
+     "withoutFlagged": 54
+    },
+    {
+     "range": "7–8k",
+     "all": 41,
+     "withoutFlagged": 41
+    },
+    {
+     "range": "8–9k",
+     "all": 54,
+     "withoutFlagged": 25
+    },
+    {
+     "range": "9–10k",
+     "all": 54,
+     "withoutFlagged": 25
+    },
+    {
+     "range": "10–11k",
+     "all": 15,
+     "withoutFlagged": 15
+    },
+    {
+     "range": "11–12k",
+     "all": 10,
+     "withoutFlagged": 9
+    }
+   ],
+   "n": 847,
+   "segment": {
+    "dimension": "claim amount",
+    "value": "$9–10k"
+   },
+   "caveats": [
+    "A cliff in the distribution is a signal to audit, not a verdict on any claim."
+   ],
+   "queries": [
+    "claims structured below approval threshold insurance"
+   ],
+   "id": "S41",
+   "lensName": "Claims operations",
+   "rank": 41
+  },
+  {
+   "lens": "RET",
+   "stakeholders": [
+    "Head of Retention",
+    "VP Claims"
+   ],
+   "issue": "claim-wait-retention",
+   "kind": "detector",
+   "detector": "wait-time threshold search",
+   "headline": "Retention: customers whose claim took more than 30 days to close did not renew 55% of the time, versus 17% when it closed faster (84 vs 368 customers).",
+   "metric": {
+    "name": "non-renewal rate after slow claim",
+    "value": 0.548,
+    "baseline": 0.166,
+    "ratio": 3.3
+   },
+   "stats": {
+    "test": "two-proportion z-test at the best-separating cut-off (searched 10–30 days)",
+    "z": 7.4,
+    "p": "<1e-12"
+   },
+   "table": [
+    {
+     "wait": "0–10 days",
+     "policies": 153,
+     "nonRenewalRate": 0.163
+    },
+    {
+     "wait": "10–20 days",
+     "policies": 134,
+     "nonRenewalRate": 0.164
+    },
+    {
+     "wait": "20–30 days",
+     "policies": 81,
+     "nonRenewalRate": 0.173
+    },
+    {
+     "wait": ">30 days",
+     "policies": 84,
+     "nonRenewalRate": 0.548
+    }
+   ],
+   "evidence": {
+    "nSlow": 84,
+    "nFast": 368,
+    "nrSlow": 0.548,
+    "nrFast": 0.166,
+    "at20days": {
+     "slow": 165,
+     "fast": 287,
+     "nrSlow": 0.364,
+     "nrFast": 0.164
+    },
+    "cutoffDays": 30,
+    "excessNonRenewals": 32,
+    "premiumAtRisk": 49952,
+    "nonRenewalLargeClaimants": 0.388,
+    "nonRenewalSmallClaimants": 0.218
+   },
+   "n": 452,
+   "segment": {
+    "dimension": "claim wait",
+    "value": "> 30 days"
+   },
+   "impactUSD": 49952,
+   "caveats": [
+    "Cut-off was searched, so the effect size is optimistic; the monotone pattern across buckets is the safer evidence.",
+    "Observational: slow claims may also be bigger or harder claims."
+   ],
+   "queries": [
+    "claim cycle time customer satisfaction renewal intent insurance",
+    "J.D. Power claims satisfaction cycle time home insurance"
+   ],
+   "id": "S42",
+   "lensName": "Retention",
+   "rank": 42
+  },
+  {
+   "lens": "RET",
+   "stakeholders": [
+    "Head of Retention"
+   ],
+   "issue": "claim-wait-retention",
+   "kind": "detector",
+   "detector": "claim experience vs renewal",
+   "headline": "Having a claim raises non-renewal from 15% to 24%; price level does not (non-renewal is 16–17% in every premium quartile).",
+   "metric": {
+    "name": "non-renewal rate with a claim",
+    "value": 0.237,
+    "baseline": 0.147,
+    "ratio": 1.61
+   },
+   "stats": {
+    "test": "two-proportion z-test",
+    "z": 4.6,
+    "p": 0.0000042
+   },
+   "n": 2250,
+   "segment": {
+    "dimension": "claim history",
+    "value": "any claim"
+   },
+   "caveats": [
+    "Non-renewal may be insurer- or customer-initiated: the file does not say."
+   ],
+   "queries": [
+    "claims impact on customer retention personal lines insurance Canada"
+   ],
+   "id": "S43",
+   "lensName": "Retention",
+   "rank": 43
+  },
+  {
+   "lens": "PRI",
+   "stakeholders": [
+    "CFO"
+   ],
+   "issue": "mtl-water",
+   "kind": "detector",
+   "detector": "peer-city rate ratio",
+   "headline": "Montréal Home water damage: 0.205 claims per policy-year vs 0.068 in Toronto (×3, 95% CI 1.95–4.62); Québec City, same province and adjuster team, is 0.043.",
+   "metric": {
+    "name": "Home water claims per policy-year",
+    "value": 0.205,
+    "baseline": 0.068,
+    "ratio": 3
+   },
+   "stats": {
+    "test": "Poisson rate ratio with exposure",
+    "ci95": [
+     1.95,
+     4.62
+    ],
+    "z": 5,
+    "p": 6.5e-7
+   },
+   "table": [
+    {
+     "city": "Montreal",
+     "exposureYears": 376,
+     "waterClaims": 77,
+     "freq": 0.205,
+     "avgIncurredPerWater": 6904,
+     "springShare": 0.47
+    },
+    {
+     "city": "Toronto",
+     "exposureYears": 410,
+     "waterClaims": 28,
+     "freq": 0.068,
+     "avgIncurredPerWater": 7413,
+     "springShare": 0.29
+    },
+    {
+     "city": "Calgary",
+     "exposureYears": 261,
+     "waterClaims": 16,
+     "freq": 0.061,
+     "avgIncurredPerWater": 6059,
+     "springShare": 0.5
+    },
+    {
+     "city": "Ottawa",
+     "exposureYears": 137,
+     "waterClaims": 13,
+     "freq": 0.095,
+     "avgIncurredPerWater": 6003,
+     "springShare": 0.23
+    },
+    {
+     "city": "Quebec City",
+     "exposureYears": 164,
+     "waterClaims": 7,
+     "freq": 0.043,
+     "avgIncurredPerWater": 5625,
+     "springShare": 0
+    }
+   ],
+   "evidence": {
+    "montrealHomeLR": 1.52,
+    "montrealHomeLRexWater": 0.37
+   },
+   "n": 77,
+   "segment": {
+    "dimension": "product × city",
+    "value": "Home · Montréal"
+   },
+   "impactUSD": 360684,
+   "caveats": [
+    "Excludes broker B07. No postal code or property data, so the building-level cause cannot be tested."
+   ],
+   "queries": [
+    "Montreal basement flooding sewer backup claims causes",
+    "Montreal housing stock old plexes plumbing water damage",
+    "Toronto Calgary Ottawa home water damage claims comparison"
+   ],
+   "id": "S44",
+   "lensName": "Pricing / actuarial",
+   "rank": 44
+  },
+  {
+   "lens": "PRI",
+   "stakeholders": [
+    "CFO"
+   ],
+   "issue": "mtl-water",
+   "kind": "detector",
+   "detector": "seasonality",
+   "headline": "Montréal water claims peak in March–May (36 of 77) and again in October; Toronto is flat through the year.",
+   "metric": {
+    "name": "share of Montréal water claims in Mar–May",
+    "value": 0.47,
+    "baseline": 0.25,
+    "ratio": 1.87
+   },
+   "table": [
+    {
+     "month": 1,
+     "montreal": 2,
+     "toronto": 3
+    },
+    {
+     "month": 2,
+     "montreal": 4,
+     "toronto": 3
+    },
+    {
+     "month": 3,
+     "montreal": 12,
+     "toronto": 3
+    },
+    {
+     "month": 4,
+     "montreal": 14,
+     "toronto": 3
+    },
+    {
+     "month": 5,
+     "montreal": 10,
+     "toronto": 2
+    },
+    {
+     "month": 6,
+     "montreal": 5,
+     "toronto": 2
+    },
+    {
+     "month": 7,
+     "montreal": 3,
+     "toronto": 2
+    },
+    {
+     "month": 8,
+     "montreal": 3,
+     "toronto": 4
+    },
+    {
+     "month": 9,
+     "montreal": 5,
+     "toronto": 3
+    },
+    {
+     "month": 10,
+     "montreal": 10,
+     "toronto": 2
+    },
+    {
+     "month": 11,
+     "montreal": 3,
+     "toronto": 0
+    },
+    {
+     "month": 12,
+     "montreal": 6,
+     "toronto": 1
+    }
+   ],
+   "n": 77,
+   "segment": {
+    "dimension": "month of loss",
+    "value": "Mar–May"
+   },
+   "caveats": [
+    "Only ~2 years of data: seasonality is indicative."
+   ],
+   "queries": [
+    "Quebec spring thaw snowmelt water damage home claims peak",
+    "freeze thaw pipe burst claims winter Quebec"
+   ],
+   "id": "S45",
+   "lensName": "Pricing / actuarial",
+   "rank": 45
+  },
+  {
+   "lens": "PRI",
+   "stakeholders": [
+    "CFO"
+   ],
+   "issue": "home-pricing",
+   "kind": "detector",
+   "detector": "price vs risk",
+   "headline": "Home price does not follow water risk: Montréal pays $1,239 on average, Toronto $1,401, while Montréal costs 1.5× more per policy-year in claims.",
+   "metric": {
+    "name": "avg Home premium",
+    "value": 1239,
+    "baseline": 1401,
+    "ratio": null
+   },
+   "evidence": {
+    "lowBandMontrealPremium": 1007,
+    "lowBandMontrealLR": 1.44,
+    "lowBandTorontoPremium": 1175,
+    "lowBandTorontoLR": 0.32
+   },
+   "n": 501,
+   "segment": {
+    "dimension": "product × city",
+    "value": "Home · Montréal"
+   },
+   "caveats": [
+    "Premiums are what customers accepted, not a filed rate manual."
+   ],
+   "queries": [
+    "home insurance premium Montreal vs Toronto 2026",
+    "home insurance rating territory water risk Quebec"
+   ],
+   "id": "S46",
+   "lensName": "Pricing / actuarial",
+   "rank": 46
+  },
+  {
+   "lens": "FIN",
+   "stakeholders": [
+    "CFO",
+    "Head of Distribution"
+   ],
+   "issue": "b07-fraud",
+   "kind": "detector",
+   "detector": "cohort deterioration",
+   "headline": "\"More business, less money\": the 2026 policy cohorts run loss ratios of 0.9 and 0.98; without the flagged broker 0.58 and 0.62 (2025: 0.64, 0.68).",
+   "metric": {
+    "name": "earned loss ratio, 2026H1 cohort",
+    "value": 0.9,
+    "baseline": 0.58,
+    "ratio": 1.55
+   },
+   "table": [
+    {
+     "cohort": "2025H1",
+     "policies": 1201,
+     "lossRatio": 0.64,
+     "lossRatioExFlaggedBrokers": 0.64
+    },
+    {
+     "cohort": "2025H2",
+     "policies": 1158,
+     "lossRatio": 0.68,
+     "lossRatioExFlaggedBrokers": 0.68
+    },
+    {
+     "cohort": "2026H1",
+     "policies": 1288,
+     "lossRatio": 0.9,
+     "lossRatioExFlaggedBrokers": 0.58
+    },
+    {
+     "cohort": "2026H2",
+     "policies": 708,
+     "lossRatio": 0.98,
+     "lossRatioExFlaggedBrokers": 0.62
+    }
+   ],
+   "n": 4684,
+   "segment": {
+    "dimension": "start half-year",
+    "value": "2026"
+   },
+   "caveats": [
+    "2026 cohorts are partly unearned; loss ratios on thin exposure are noisy."
+   ],
+   "queries": [
+    "insurance rapid growth adverse selection new broker program loss ratio deterioration"
+   ],
+   "id": "S47",
+   "lensName": "Finance (CFO)",
+   "rank": 47
+  },
+  {
+   "lens": "DQ",
+   "stakeholders": [
+    "CFO"
+   ],
+   "issue": "data-quality",
+   "kind": "detector",
+   "detector": "data hygiene",
+   "headline": "Data quality: 140 premiums stored as text (\"$1,046.62\") and 108 dates in DD/MM/YYYY would silently distort totals; 15 duplicate claims and 11 city-label variants were cleaned.",
+   "metric": {
+    "name": "rows repaired",
+    "value": 263,
+    "baseline": null,
+    "ratio": null
+   },
+   "evidence": {
+    "claimRowsRaw": 862,
+    "duplicatesRemoved": 15,
+    "premiumAsText": 140,
+    "policyDatesDMY": 93,
+    "claimDatesDMY": 15,
+    "cityLabels": 16,
+    "cityCanonical": 5,
+    "ageMissing": 40,
+    "ageBelow18": 3
+   },
+   "n": 4684,
+   "segment": {
+    "dimension": "data",
+    "value": "all files"
+   },
+   "caveats": [],
+   "queries": [],
+   "id": "S48",
+   "lensName": "Data quality",
+   "rank": 48
+  }
+ ],
+ "issues": [
+  {
+   "id": "home-pricing",
+   "signalIds": [
+    "S01",
+    "S04",
+    "S07",
+    "S09",
+    "S11",
+    "S13",
+    "S21",
+    "S22",
+    "S46"
+   ],
+   "lenses": [
+    "Finance (CFO)",
+    "Pricing / actuarial"
+   ],
+   "impactUSD": 1667802
+  },
+  {
+   "id": "bundle-opportunity",
+   "signalIds": [
+    "S16",
+    "S19"
+   ],
+   "lenses": [
+    "Pricing / actuarial"
+   ],
+   "impactUSD": 587344
+  },
+  {
+   "id": "broker-channel",
+   "signalIds": [
+    "S03",
+    "S14",
+    "S31",
+    "S32"
+   ],
+   "lenses": [
+    "Distribution",
+    "Fraud / integrity"
+   ],
+   "impactUSD": 494605
+  },
+  {
+   "id": "mtl-water",
+   "signalIds": [
+    "S02",
+    "S05",
+    "S12",
+    "S15",
+    "S30",
+    "S44",
+    "S45"
+   ],
+   "lenses": [
+    "Pricing / actuarial",
+    "Severity / exposure"
+   ],
+   "impactUSD": 480298
+  },
+  {
+   "id": "b07-fraud",
+   "signalIds": [
+    "S08",
+    "S10",
+    "S18",
+    "S20",
+    "S26",
+    "S29",
+    "S38",
+    "S47"
+   ],
+   "lenses": [
+    "Distribution",
+    "Pricing / actuarial",
+    "Fraud / integrity",
+    "Finance (CFO)"
+   ],
+   "impactUSD": 428950
+  },
+  {
+   "id": "other",
+   "signalIds": [
+    "S17"
+   ],
+   "lenses": [
+    "Pricing / actuarial"
+   ],
+   "impactUSD": 134918
+  },
+  {
+   "id": "claim-wait-retention",
+   "signalIds": [
+    "S37",
+    "S42",
+    "S43"
+   ],
+   "lenses": [
+    "Retention"
+   ],
+   "impactUSD": 49952
+  },
+  {
+   "id": "severe-claims",
+   "signalIds": [
+    "S06",
+    "S34",
+    "S35",
+    "S36"
+   ],
+   "lenses": [
+    "Severity / exposure"
+   ],
+   "impactUSD": 0
+  },
+  {
+   "id": "senior-review",
+   "signalIds": [
+    "S23",
+    "S24",
+    "S25",
+    "S27",
+    "S28",
+    "S33",
+    "S39",
+    "S40",
+    "S41"
+   ],
+   "lenses": [
+    "Severity / exposure",
+    "Claims operations"
+   ],
+   "impactUSD": 0
+  },
+  {
+   "id": "data-quality",
+   "signalIds": [
+    "S48"
+   ],
+   "lenses": [
+    "Data quality"
+   ],
+   "impactUSD": 0
+  }
+ ],
+ "charts": {
+  "home-vs-auto": {
+   "id": "home-vs-auto",
+   "title": "Claims paid for every $1 of premium",
+   "type": "bars",
+   "unit": "ratio",
+   "series": [
+    {
+     "name": "paid ÷ written premium",
+     "points": [
+      {
+       "x": "Home",
+       "y": 0.69
+      },
+      {
+       "x": "Auto",
+       "y": 0.378
+      }
+     ]
+    },
+    {
+     "name": "earned loss ratio",
+     "points": [
+      {
+       "x": "Home",
+       "y": 1.029
+      },
+      {
+       "x": "Auto",
+       "y": 0.529
+      }
+     ]
+    }
+   ],
+   "plain": "For every $1 of Home premium we pay about 69 cents in claims; for Auto only 38 cents.",
+   "how": "Paid claims ÷ annual premium written, by product (policies.csv: policy_type, annual_premium; claims.csv: paid_amount joined by policy_id). The second bar uses premium actually earned so far.",
+   "source": "policies.csv + claims.csv"
+  },
+  "home-bands": {
+   "id": "home-bands",
+   "title": "Home vs Auto: losses by risk band",
+   "type": "groupbars",
+   "unit": "loss ratio",
+   "series": [
+    {
+     "name": "Home",
+     "points": [
+      {
+       "x": "Low",
+       "y": 0.66
+      },
+      {
+       "x": "Medium",
+       "y": 1.29
+      },
+      {
+       "x": "High",
+       "y": 0.98
+      }
+     ]
+    },
+    {
+     "name": "Auto",
+     "points": [
+      {
+       "x": "Low",
+       "y": 0.39
+      },
+      {
+       "x": "Medium",
+       "y": 0.46
+      },
+      {
+       "x": "High",
+       "y": 0.51
+      }
+     ]
+    }
+   ],
+   "plain": "In Auto, riskier bands cost more, as they should. In Home, the \"Medium\" band costs more than \"High\".",
+   "how": "Earned loss ratio = estimated claim cost ÷ earned premium, by risk_band, excluding broker B07.",
+   "source": "policies.csv + claims.csv",
+   "ref": 1
+  },
+  "city-water": {
+   "id": "city-water",
+   "title": "Home water-damage claims per policy-year",
+   "type": "bars",
+   "unit": "claims per policy-year",
+   "series": [
+    {
+     "name": "water claims per policy-year",
+     "points": [
+      {
+       "x": "Montréal",
+       "y": 0.205
+      },
+      {
+       "x": "Toronto",
+       "y": 0.068
+      },
+      {
+       "x": "Calgary",
+       "y": 0.061
+      },
+      {
+       "x": "Ottawa",
+       "y": 0.095
+      },
+      {
+       "x": "Québec City",
+       "y": 0.043
+      }
+     ]
+    }
+   ],
+   "plain": "Montréal homes have water claims about 3 times as often as Toronto homes.",
+   "how": "Water Damage claims on Home policies ÷ policy-years of exposure, by city (excluding broker B07).",
+   "source": "policies.csv + claims.csv"
+  },
+  "water-months": {
+   "id": "water-months",
+   "title": "Water claims by month of the year",
+   "type": "groupbars",
+   "unit": "claims",
+   "series": [
+    {
+     "name": "Montréal",
+     "points": [
+      {
+       "x": "J",
+       "y": 2
+      },
+      {
+       "x": "F",
+       "y": 4
+      },
+      {
+       "x": "M",
+       "y": 12
+      },
+      {
+       "x": "A",
+       "y": 14
+      },
+      {
+       "x": "M",
+       "y": 10
+      },
+      {
+       "x": "J",
+       "y": 5
+      },
+      {
+       "x": "J",
+       "y": 3
+      },
+      {
+       "x": "A",
+       "y": 3
+      },
+      {
+       "x": "S",
+       "y": 5
+      },
+      {
+       "x": "O",
+       "y": 10
+      },
+      {
+       "x": "N",
+       "y": 3
+      },
+      {
+       "x": "D",
+       "y": 6
+      }
+     ]
+    },
+    {
+     "name": "Toronto",
+     "points": [
+      {
+       "x": "J",
+       "y": 3
+      },
+      {
+       "x": "F",
+       "y": 3
+      },
+      {
+       "x": "M",
+       "y": 3
+      },
+      {
+       "x": "A",
+       "y": 3
+      },
+      {
+       "x": "M",
+       "y": 2
+      },
+      {
+       "x": "J",
+       "y": 2
+      },
+      {
+       "x": "J",
+       "y": 2
+      },
+      {
+       "x": "A",
+       "y": 4
+      },
+      {
+       "x": "S",
+       "y": 3
+      },
+      {
+       "x": "O",
+       "y": 2
+      },
+      {
+       "x": "N",
+       "y": 0
+      },
+      {
+       "x": "D",
+       "y": 1
+      }
+     ]
+    }
+   ],
+   "plain": "Montréal water claims peak in spring (March to May) and again in October. Toronto stays flat.",
+   "how": "Count of Water Damage claims on Home policies by calendar month of loss_date (broker B07 excluded).",
+   "source": "policies.csv + claims.csv"
+  },
+  "home-price-vs-cost": {
+   "id": "home-price-vs-cost",
+   "title": "Home: what we charge vs what it costs, per year",
+   "type": "groupbars",
+   "unit": "$ per policy-year",
+   "series": [
+    {
+     "name": "we charge",
+     "points": [
+      {
+       "x": "Montréal",
+       "y": 1235
+      },
+      {
+       "x": "Ottawa",
+       "y": 1186
+      },
+      {
+       "x": "Toronto",
+       "y": 1416
+      },
+      {
+       "x": "Calgary",
+       "y": 1290
+      },
+      {
+       "x": "Québec City",
+       "y": 1114
+      }
+     ]
+    },
+    {
+     "name": "claims cost",
+     "points": [
+      {
+       "x": "Montréal",
+       "y": 1878
+      },
+      {
+       "x": "Ottawa",
+       "y": 1019
+      },
+      {
+       "x": "Toronto",
+       "y": 1260
+      },
+      {
+       "x": "Calgary",
+       "y": 790
+      },
+      {
+       "x": "Québec City",
+       "y": 471
+      }
+     ]
+    }
+   ],
+   "plain": "Our Home price barely changes from city to city, but the claims cost changes a lot.",
+   "how": "Average earned premium and average estimated claim cost per policy-year, Home policies, by city (excluding broker B07).",
+   "source": "policies.csv + claims.csv"
+  },
+  "b07-days": {
+   "id": "b07-days",
+   "title": "How many days after the policy starts do claims arrive?",
+   "type": "groupbars",
+   "unit": "share of claims",
+   "series": [
+    {
+     "name": "Broker B07",
+     "points": [
+      {
+       "x": "0–30",
+       "y": 0.357
+      },
+      {
+       "x": "30–60",
+       "y": 0.543
+      },
+      {
+       "x": "60–90",
+       "y": 0
+      },
+      {
+       "x": "90–150",
+       "y": 0.029
+      },
+      {
+       "x": "150–220",
+       "y": 0.043
+      },
+      {
+       "x": "220–300",
+       "y": 0.029
+      },
+      {
+       "x": "300+",
+       "y": 0
+      }
+     ]
+    },
+    {
+     "name": "Everyone else",
+     "points": [
+      {
+       "x": "0–30",
+       "y": 0.118
+      },
+      {
+       "x": "30–60",
+       "y": 0.115
+      },
+      {
+       "x": "60–90",
+       "y": 0.077
+      },
+      {
+       "x": "90–150",
+       "y": 0.16
+      },
+      {
+       "x": "150–220",
+       "y": 0.201
+      },
+      {
+       "x": "220–300",
+       "y": 0.207
+      },
+      {
+       "x": "300+",
+       "y": 0.122
+      }
+     ]
+    }
+   ],
+   "plain": "Broker B07’s customers claim very soon after buying. Everyone else claims all year round.",
+   "how": "Days between policy start_date and claim loss_date, grouped; shown as a share of each group’s claims.",
+   "source": "policies.csv + claims.csv"
+  },
+  "b07-amounts": {
+   "id": "b07-amounts",
+   "title": "How big are the claims? (note the $10,000 line)",
+   "type": "groupbars",
+   "unit": "share of claims",
+   "series": [
+    {
+     "name": "Broker B07",
+     "points": [
+      {
+       "x": "4–5k",
+       "y": 0.047
+      },
+      {
+       "x": "5–6k",
+       "y": 0
+      },
+      {
+       "x": "6–7k",
+       "y": 0.031
+      },
+      {
+       "x": "7–8k",
+       "y": 0
+      },
+      {
+       "x": "8–9k",
+       "y": 0.453
+      },
+      {
+       "x": "9–10k",
+       "y": 0.453
+      },
+      {
+       "x": "10–11k",
+       "y": 0
+      },
+      {
+       "x": "11–12k",
+       "y": 0.016
+      },
+      {
+       "x": "12–14k",
+       "y": 0
+      }
+     ]
+    },
+    {
+     "name": "Everyone else",
+     "points": [
+      {
+       "x": "4–5k",
+       "y": 0.264
+      },
+      {
+       "x": "5–6k",
+       "y": 0.182
+      },
+      {
+       "x": "6–7k",
+       "y": 0.158
+      },
+      {
+       "x": "7–8k",
+       "y": 0.12
+      },
+      {
+       "x": "8–9k",
+       "y": 0.073
+      },
+      {
+       "x": "9–10k",
+       "y": 0.073
+      },
+      {
+       "x": "10–11k",
+       "y": 0.044
+      },
+      {
+       "x": "11–12k",
+       "y": 0.026
+      },
+      {
+       "x": "12–14k",
+       "y": 0.059
+      }
+     ]
+    }
+   ],
+   "plain": "Almost all of B07’s claims are just under $10,000, the amount where a senior person must review.",
+   "how": "claim_amount grouped in $1,000 steps, as a share of each group’s claims. Claims of $10,000 or more go to senior review.",
+   "source": "policies.csv + claims.csv",
+   "line": "9–10k"
+  },
+  "brokers": {
+   "id": "brokers",
+   "title": "Loss ratio by broker",
+   "type": "bars",
+   "unit": "loss ratio",
+   "series": [
+    {
+     "name": "earned loss ratio",
+     "points": [
+      {
+       "x": "B01",
+       "y": 0.5
+      },
+      {
+       "x": "B02",
+       "y": 0.54
+      },
+      {
+       "x": "B03",
+       "y": 0.91
+      },
+      {
+       "x": "B04",
+       "y": 0.83
+      },
+      {
+       "x": "B05",
+       "y": 0.61
+      },
+      {
+       "x": "B06",
+       "y": 0.32
+      },
+      {
+       "x": "B07",
+       "y": 4.29
+      },
+      {
+       "x": "B08",
+       "y": 0.81
+      },
+      {
+       "x": "B09",
+       "y": 0.74
+      },
+      {
+       "x": "B10",
+       "y": 0.51
+      }
+     ]
+    }
+   ],
+   "plain": "Nine brokers look normal. One (B07) loses about four dollars for every dollar of premium.",
+   "how": "Estimated claim cost ÷ earned premium for each broker code (policies.csv: broker_code).",
+   "source": "policies.csv + claims.csv",
+   "highlight": "B07"
+  },
+  "channels": {
+   "id": "channels",
+   "title": "Claims paid per $1 of premium, by sales channel",
+   "type": "groupbars",
+   "unit": "ratio",
+   "series": [
+    {
+     "name": "with B07",
+     "points": [
+      {
+       "x": "Broker",
+       "y": 0.613
+      },
+      {
+       "x": "Online",
+       "y": 0.428
+      },
+      {
+       "x": "Agent",
+       "y": 0.416
+      }
+     ]
+    },
+    {
+     "name": "without B07",
+     "points": [
+      {
+       "x": "Broker",
+       "y": 0.451
+      },
+      {
+       "x": "Online",
+       "y": 0.428
+      },
+      {
+       "x": "Agent",
+       "y": 0.416
+      }
+     ]
+    }
+   ],
+   "plain": "Brokers only look worse because of one broker. Without B07 they look like the other channels.",
+   "how": "Paid claims ÷ written premium by policies.csv channel; the second bar removes broker B07.",
+   "source": "policies.csv + claims.csv"
+  },
+  "close-size": {
+   "id": "close-size",
+   "title": "Days to close a claim: small vs big",
+   "type": "groupbars",
+   "unit": "median days",
+   "series": [
+    {
+     "name": "under $10,000",
+     "points": [
+      {
+       "x": "Team A (Toronto + Ottawa)",
+       "y": 11
+      },
+      {
+       "x": "Team B (Calgary)",
+       "y": 12
+      },
+      {
+       "x": "Team C (Montreal + Quebec City)",
+       "y": 17
+      }
+     ]
+    },
+    {
+     "name": "$10,000 or more",
+     "points": [
+      {
+       "x": "Team A (Toronto + Ottawa)",
+       "y": 33
+      },
+      {
+       "x": "Team B (Calgary)",
+       "y": 35
+      },
+      {
+       "x": "Team C (Montreal + Quebec City)",
+       "y": 27
+      }
+     ]
+    }
+   ],
+   "plain": "Claims of $10,000 or more take more than twice as long to close, in every team.",
+   "how": "Median days between reported_date and closed_date by adjuster_team, for closed claims below and above $10,000.",
+   "source": "policies.csv + claims.csv"
+  },
+  "team-intake": {
+   "id": "team-intake",
+   "title": "New claims per month, by team",
+   "type": "lines",
+   "unit": "claims per month",
+   "series": [
+    {
+     "name": "Team A",
+     "points": [
+      {
+       "x": "25-11",
+       "y": 16
+      },
+      {
+       "x": "25-12",
+       "y": 15
+      },
+      {
+       "x": "26-01",
+       "y": 19
+      },
+      {
+       "x": "26-02",
+       "y": 27
+      },
+      {
+       "x": "26-03",
+       "y": 37
+      },
+      {
+       "x": "26-04",
+       "y": 26
+      },
+      {
+       "x": "26-05",
+       "y": 20
+      },
+      {
+       "x": "26-06",
+       "y": 29
+      },
+      {
+       "x": "26-07",
+       "y": 17
+      },
+      {
+       "x": "26-08",
+       "y": 28
+      },
+      {
+       "x": "26-09",
+       "y": 25
+      },
+      {
+       "x": "26-10",
+       "y": 8
+      }
+     ]
+    },
+    {
+     "name": "Team B",
+     "points": [
+      {
+       "x": "25-11",
+       "y": 7
+      },
+      {
+       "x": "25-12",
+       "y": 8
+      },
+      {
+       "x": "26-01",
+       "y": 12
+      },
+      {
+       "x": "26-02",
+       "y": 11
+      },
+      {
+       "x": "26-03",
+       "y": 10
+      },
+      {
+       "x": "26-04",
+       "y": 3
+      },
+      {
+       "x": "26-05",
+       "y": 10
+      },
+      {
+       "x": "26-06",
+       "y": 6
+      },
+      {
+       "x": "26-07",
+       "y": 9
+      },
+      {
+       "x": "26-08",
+       "y": 5
+      },
+      {
+       "x": "26-09",
+       "y": 2
+      },
+      {
+       "x": "26-10",
+       "y": 9
+      }
+     ]
+    },
+    {
+     "name": "Team C",
+     "points": [
+      {
+       "x": "25-11",
+       "y": 16
+      },
+      {
+       "x": "25-12",
+       "y": 25
+      },
+      {
+       "x": "26-01",
+       "y": 10
+      },
+      {
+       "x": "26-02",
+       "y": 14
+      },
+      {
+       "x": "26-03",
+       "y": 24
+      },
+      {
+       "x": "26-04",
+       "y": 20
+      },
+      {
+       "x": "26-05",
+       "y": 14
+      },
+      {
+       "x": "26-06",
+       "y": 14
+      },
+      {
+       "x": "26-07",
+       "y": 14
+      },
+      {
+       "x": "26-08",
+       "y": 24
+      },
+      {
+       "x": "26-09",
+       "y": 22
+      },
+      {
+       "x": "26-10",
+       "y": 31
+      }
+     ]
+    }
+   ],
+   "plain": "Team C (Montréal and Québec City) has about twice as many new claims a month as before.",
+   "how": "Count of claims by reported_date month and adjuster_team (last 12 months). The latest month in the file may be incomplete.",
+   "source": "policies.csv + claims.csv"
+  },
+  "wait-renewal": {
+   "id": "wait-renewal",
+   "title": "How long the claim took vs. did the customer renew?",
+   "type": "bars",
+   "unit": "share who did NOT renew",
+   "series": [
+    {
+     "name": "did not renew",
+     "points": [
+      {
+       "x": "0–10 days",
+       "y": 0.163
+      },
+      {
+       "x": "10–20 days",
+       "y": 0.164
+      },
+      {
+       "x": "20–30 days",
+       "y": 0.173
+      },
+      {
+       "x": ">30 days",
+       "y": 0.548
+      }
+     ]
+    }
+   ],
+   "plain": "When a claim takes more than 30 days, more than half of customers do not renew.",
+   "how": "For customers with a closed claim: share marked \"Not Renewed\" (policies.csv renewal_status), by days from reported_date to closed_date (the longest claim if several).",
+   "source": "policies.csv + claims.csv",
+   "line": ">30 days"
+  },
+  "big-claims": {
+   "id": "big-claims",
+   "title": "Which claims are $10,000 or more?",
+   "type": "bars",
+   "unit": "number of claims",
+   "series": [
+    {
+     "name": "claims ≥ $10,000",
+     "points": [
+      {
+       "x": "Water Damage",
+       "y": 41
+      },
+      {
+       "x": "Liability",
+       "y": 17
+      },
+      {
+       "x": "Fire",
+       "y": 13
+      },
+      {
+       "x": "Theft",
+       "y": 8
+      },
+      {
+       "x": "Collision",
+       "y": 7
+      },
+      {
+       "x": "Wind/Hail",
+       "y": 2
+      }
+     ]
+    }
+   ],
+   "plain": "One claim in ten is $10,000 or more, and they carry a third of all claim dollars. Almost half are water damage.",
+   "how": "Count of claims with claim_amount ≥ $10,000, by claim_type.",
+   "source": "policies.csv + claims.csv"
+  },
+  "claim-types": {
+   "id": "claim-types",
+   "title": "Where the claim money goes",
+   "type": "bars",
+   "unit": "share of claims paid",
+   "series": [
+    {
+     "name": "share of paid",
+     "points": [
+      {
+       "x": "Water Damage",
+       "y": 0.266
+      },
+      {
+       "x": "Theft",
+       "y": 0.26
+      },
+      {
+       "x": "Collision",
+       "y": 0.225
+      },
+      {
+       "x": "Liability",
+       "y": 0.108
+      },
+      {
+       "x": "Fire",
+       "y": 0.078
+      },
+      {
+       "x": "Wind/Hail",
+       "y": 0.06
+      },
+      {
+       "x": "Glass",
+       "y": 0.003
+      }
+     ]
+    }
+   ],
+   "plain": "Water damage and theft are more than half of everything we pay.",
+   "how": "paid_amount summed by claim_type ÷ total paid.",
+   "source": "policies.csv + claims.csv"
+  },
+  "cohorts": {
+   "id": "cohorts",
+   "title": "Is business getting worse? Loss ratio by year of sale",
+   "type": "groupbars",
+   "unit": "loss ratio",
+   "series": [
+    {
+     "name": "all policies",
+     "points": [
+      {
+       "x": "2025H1",
+       "y": 0.64
+      },
+      {
+       "x": "2025H2",
+       "y": 0.68
+      },
+      {
+       "x": "2026H1",
+       "y": 0.9
+      },
+      {
+       "x": "2026H2",
+       "y": 0.98
+      }
+     ]
+    },
+    {
+     "name": "without B07",
+     "points": [
+      {
+       "x": "2025H1",
+       "y": 0.64
+      },
+      {
+       "x": "2025H2",
+       "y": 0.68
+      },
+      {
+       "x": "2026H1",
+       "y": 0.58
+      },
+      {
+       "x": "2026H2",
+       "y": 0.62
+      }
+     ]
+    }
+   ],
+   "plain": "Business looks like it got worse in 2026, but it is one broker. Without B07, 2026 is normal.",
+   "how": "Earned loss ratio by policy start half-year, with and without the flagged broker.",
+   "source": "policies.csv + claims.csv"
+  },
+  "bundle": {
+   "id": "bundle",
+   "title": "Customers with both Auto and Home",
+   "type": "groupbars",
+   "unit": "claims per policy-year",
+   "series": [
+    {
+     "name": "claims per policy-year",
+     "points": [
+      {
+       "x": "Both lines",
+       "y": 0.214
+      },
+      {
+       "x": "One line",
+       "y": 0.277
+      }
+     ]
+    }
+   ],
+   "plain": "Customers who buy both Auto and Home claim less often.",
+   "how": "Claims ÷ policy-years, split by whether the same customer_id holds both Auto and Home.",
+   "source": "policies.csv + claims.csv"
+  }
+ },
+ "tables": {
+  "brokers": [
+   {
+    "broker": "B01",
+    "policies": 149,
+    "claims": 23,
+    "lossRatio": 0.5,
+    "earlyShare": 0.3,
+    "nearThresholdShare": 0.04,
+    "theftShare": 0.13,
+    "flagged": false
+   },
+   {
+    "broker": "B02",
+    "policies": 140,
+    "claims": 27,
+    "lossRatio": 0.54,
+    "earlyShare": 0.26,
+    "nearThresholdShare": 0.04,
+    "theftShare": 0.15,
+    "flagged": false
+   },
+   {
+    "broker": "B03",
+    "policies": 192,
+    "claims": 35,
+    "lossRatio": 0.91,
+    "earlyShare": 0.17,
+    "nearThresholdShare": 0.03,
+    "theftShare": 0.09,
+    "flagged": false
+   },
+   {
+    "broker": "B04",
+    "policies": 157,
+    "claims": 28,
+    "lossRatio": 0.83,
+    "earlyShare": 0.14,
+    "nearThresholdShare": 0.07,
+    "theftShare": 0.25,
+    "flagged": false
+   },
+   {
+    "broker": "B05",
+    "policies": 171,
+    "claims": 32,
+    "lossRatio": 0.61,
+    "earlyShare": 0.28,
+    "nearThresholdShare": 0.13,
+    "theftShare": 0.06,
+    "flagged": false
+   },
+   {
+    "broker": "B06",
+    "policies": 166,
+    "claims": 21,
+    "lossRatio": 0.32,
+    "earlyShare": 0.19,
+    "nearThresholdShare": 0.05,
+    "theftShare": 0.1,
+    "flagged": false
+   },
+   {
+    "broker": "B07",
+    "policies": 173,
+    "claims": 70,
+    "lossRatio": 4.29,
+    "earlyShare": 0.63,
+    "nearThresholdShare": 0.83,
+    "theftShare": 0.86,
+    "flagged": true
+   },
+   {
+    "broker": "B08",
+    "policies": 163,
+    "claims": 26,
+    "lossRatio": 0.81,
+    "earlyShare": 0.27,
+    "nearThresholdShare": 0,
+    "theftShare": 0.08,
+    "flagged": false
+   },
+   {
+    "broker": "B09",
+    "policies": 185,
+    "claims": 29,
+    "lossRatio": 0.74,
+    "earlyShare": 0.28,
+    "nearThresholdShare": 0.03,
+    "theftShare": 0.1,
+    "flagged": false
+   },
+   {
+    "broker": "B10",
+    "policies": 153,
+    "claims": 26,
+    "lossRatio": 0.51,
+    "earlyShare": 0.08,
+    "nearThresholdShare": 0.12,
+    "theftShare": 0.12,
+    "flagged": false
+   }
+  ],
+  "teams": [
+   {
+    "team": "Team A",
+    "claims": 375,
+    "cities": "Toronto + Ottawa",
+    "medianClose": 12,
+    "medianCloseUnder10k": 11,
+    "medianCloseOver10k": 33,
+    "over10k": 33,
+    "open": 5,
+    "monthlyIntakeLast3": [
+     28,
+     25,
+     8
+    ],
+    "monthlyIntakeBefore": 15,
+    "surge": 1.36
+   },
+   {
+    "team": "Team B",
+    "claims": 134,
+    "cities": "Calgary",
+    "medianClose": 13,
+    "medianCloseUnder10k": 12,
+    "medianCloseOver10k": 35,
+    "over10k": 13,
+    "open": 5,
+    "monthlyIntakeLast3": [
+     5,
+     2,
+     9
+    ],
+    "monthlyIntakeBefore": 6.2,
+    "surge": 0.86
+   },
+   {
+    "team": "Team C",
+    "claims": 338,
+    "cities": "Montreal + Quebec City",
+    "medianClose": 18,
+    "medianCloseUnder10k": 17,
+    "medianCloseOver10k": 27,
+    "over10k": 42,
+    "open": 38,
+    "monthlyIntakeLast3": [
+     24,
+     22,
+     31
+    ],
+    "monthlyIntakeBefore": 12.4,
+    "surge": 2.07
+   }
+  ],
+  "bins": [
+   {
+    "range": "6–7k",
+    "all": 56,
+    "withoutFlagged": 54
+   },
+   {
+    "range": "7–8k",
+    "all": 41,
+    "withoutFlagged": 41
+   },
+   {
+    "range": "8–9k",
+    "all": 54,
+    "withoutFlagged": 25
+   },
+   {
+    "range": "9–10k",
+    "all": 54,
+    "withoutFlagged": 25
+   },
+   {
+    "range": "10–11k",
+    "all": 15,
+    "withoutFlagged": 15
+   },
+   {
+    "range": "11–12k",
+    "all": 10,
+    "withoutFlagged": 9
+   }
+  ],
+  "cohorts": [
+   {
+    "cohort": "2025H1",
+    "policies": 1201,
+    "lossRatio": 0.64,
+    "lossRatioExFlaggedBrokers": 0.64
+   },
+   {
+    "cohort": "2025H2",
+    "policies": 1158,
+    "lossRatio": 0.68,
+    "lossRatioExFlaggedBrokers": 0.68
+   },
+   {
+    "cohort": "2026H1",
+    "policies": 1288,
+    "lossRatio": 0.9,
+    "lossRatioExFlaggedBrokers": 0.58
+   },
+   {
+    "cohort": "2026H2",
+    "policies": 708,
+    "lossRatio": 0.98,
+    "lossRatioExFlaggedBrokers": 0.62
+   }
+  ],
+  "cityWater": [
+   {
+    "city": "Montreal",
+    "exposureYears": 376,
+    "waterClaims": 77,
+    "freq": 0.205,
+    "avgIncurredPerWater": 6904,
+    "springShare": 0.47
+   },
+   {
+    "city": "Toronto",
+    "exposureYears": 410,
+    "waterClaims": 28,
+    "freq": 0.068,
+    "avgIncurredPerWater": 7413,
+    "springShare": 0.29
+   },
+   {
+    "city": "Calgary",
+    "exposureYears": 261,
+    "waterClaims": 16,
+    "freq": 0.061,
+    "avgIncurredPerWater": 6059,
+    "springShare": 0.5
+   },
+   {
+    "city": "Ottawa",
+    "exposureYears": 137,
+    "waterClaims": 13,
+    "freq": 0.095,
+    "avgIncurredPerWater": 6003,
+    "springShare": 0.23
+   },
+   {
+    "city": "Quebec City",
+    "exposureYears": 164,
+    "waterClaims": 7,
+    "freq": 0.043,
+    "avgIncurredPerWater": 5625,
+    "springShare": 0
+   }
+  ],
+  "months": [
+   {
+    "month": 1,
+    "montreal": 2,
+    "toronto": 3
+   },
+   {
+    "month": 2,
+    "montreal": 4,
+    "toronto": 3
+   },
+   {
+    "month": 3,
+    "montreal": 12,
+    "toronto": 3
+   },
+   {
+    "month": 4,
+    "montreal": 14,
+    "toronto": 3
+   },
+   {
+    "month": 5,
+    "montreal": 10,
+    "toronto": 2
+   },
+   {
+    "month": 6,
+    "montreal": 5,
+    "toronto": 2
+   },
+   {
+    "month": 7,
+    "montreal": 3,
+    "toronto": 2
+   },
+   {
+    "month": 8,
+    "montreal": 3,
+    "toronto": 4
+   },
+   {
+    "month": 9,
+    "montreal": 5,
+    "toronto": 3
+   },
+   {
+    "month": 10,
+    "montreal": 10,
+    "toronto": 2
+   },
+   {
+    "month": 11,
+    "montreal": 3,
+    "toronto": 0
+   },
+   {
+    "month": 12,
+    "montreal": 6,
+    "toronto": 1
+   }
+  ],
+  "waitBuckets": [
+   {
+    "wait": "0–10 days",
+    "policies": 153,
+    "nonRenewalRate": 0.163
+   },
+   {
+    "wait": "10–20 days",
+    "policies": 134,
+    "nonRenewalRate": 0.164
+   },
+   {
+    "wait": "20–30 days",
+    "policies": 81,
+    "nonRenewalRate": 0.173
+   },
+   {
+    "wait": ">30 days",
+    "policies": 84,
+    "nonRenewalRate": 0.548
+   }
+  ],
+  "bookByProduct": [
+   {
+    "product": "Home",
+    "paidOverWritten": 0.69,
+    "earnedLR": 1.03
+   },
+   {
+    "product": "Auto",
+    "paidOverWritten": 0.378,
+    "earnedLR": 0.53
+   }
+  ]
+ }
+}

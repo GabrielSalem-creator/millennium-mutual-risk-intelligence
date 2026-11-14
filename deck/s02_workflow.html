@@ -1,0 +1,21 @@
+<section class="slide">
+<div class="kicker">The agentic workflow</div>
+<h2>Eight steps. The same loop runs on every pattern.</h2>
+<div class="kid"><b>Like a detective:</b> find something odd, guess why, look it up, check the guess against the facts, compare with other towns, then ask "if this goes on forever, do we win or lose?"</div>
+<div class="flow">
+<div class="st"><b>1 DATA</b><span>Load policies.csv and claims.csv, untouched.</span><div class="out">4,684 policies · 3,276 customers · 862 claim rows</div></div>
+<div class="st"><b>2 CLEAN</b><span>Fix formats, drop duplicates, build exposure.</span><div class="out">847 unique claims · 140 premiums rescued</div></div>
+<div class="st"><b>3 DETECT</b><span>Scan every angle: city, peril, broker, time, product, customer.</span><div class="out">5 patterns + several tested nulls</div></div>
+<div class="st"><b>4 HYPOTHESISE</b><span>List competing explanations per pattern.</span><div class="out">e.g. fraud ring vs adverse selection vs data error</div></div>
+</div>
+<div class="flow">
+<div class="st"><b>5 RESEARCH</b><span>Search articles and statistics; note their geography and limits.</span><div class="out">IBC, city guidance, fraud red-flag guides</div></div>
+<div class="st"><b>6 TEST VS DATA</b><span>Does our own data support or break each idea?</span><div class="out">Montreal gap holds in every slice: it is water only</div></div>
+<div class="st"><b>7 COMPARE PEERS</b><span>Why do the other cities or brokers not have it?</span><div class="out">Quebec City: same rules, 0.043 vs 0.205</div></div>
+<div class="st"><b>8 LONG-RUN VERDICT</b><span>Expected profit per policy; law of large numbers.</span><div class="out">B07 loss ratio 4.29: more volume = more loss</div></div>
+</div>
+<div class="grid2">
+<div class="card"><h3>Same loop, every pattern</h3>Steps 3–8 are repeated for each detected pattern, so every verdict is comparable.</div>
+<div class="card"><h3>One pattern, many angles</h3>The same odd number can be read by <b>city</b>, <b>peril</b>, <b>broker</b>, <b>time</b>, <b>product</b> or <b>customer</b>. We look from all six.</div>
+</div>
+</section>

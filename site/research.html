@@ -1,0 +1,18 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>2 · Why it happens — Millennium Mutual</title><link rel="stylesheet" href="/shared.css"></head>
+<body><div class="wrap" id="app"><div class="card">Reading the data…</div></div>
+<script src="/shared.js"></script><script src="/simple.js"></script><script src="/story.js"></script><script src="/common.js"></script>
+<script>
+function render(state){
+  const stories=STORY(state), app=document.getElementById('app'), V={'ruled-out':'ruled out','confirmed':'confirmed','open':'can’t tell','caution':'be careful'};
+  app.innerHTML=PG.hero('Why is it happening?','For each problem we looked for the cause in two places: our own numbers and the outside world (articles and statistics, including ones that disagree with us).')
+  +PG.steps(state)
+  +stories.map(s=>{const key=S.keyArticles(s.articles,3), n=s.checks.length;
+    return `<article class="story" id="${s.id}" style="margin-bottom:16px"><div class="top"><span class="ic">${s.icon}</span><span class="sev ${s.severity.split(' ')[0]}">${s.severity.toUpperCase()}</span></div><h2>${S.esc(s.headline)}</h2>
+    <div class="card" style="background:var(--panel2)"><b>Our best explanation</b><p style="margin:6px 0 0">${S.esc(s.cause)}</p></div>
+    ${n?`<div><b>What we tested</b> <span class="note">(${s.checks.filter(c=>c.verdict==='ruled-out').length} causes ruled out)</span><div class="checks" style="margin-top:6px">${s.checks.map(c=>`<span class="ck ${c.verdict}" title="${S.esc(c.result)}">${V[c.verdict]}: ${S.esc(c.q.replace(/\?$/,''))}</span>`).join('')}</div><details><summary>See the results of each test</summary>${s.checks.map(c=>`<p class="note"><b>${S.esc(c.q)}</b> ${S.esc(c.result)}</p>`).join('')}</details></div>`:''}
+    <div><b>What the articles say</b> <span class="note">(${s.articles.length} read: ${s.articles.filter(a=>a.stance==='supports').length} back it up, ${s.articles.filter(a=>a.stance==='challenges').length} argue against)</span><div class="grid3" style="margin-top:8px">${key.map(S.article).join('')||'<span class="note">No articles for this one.</span>'}</div></div>
+    <p class="note"><b>What we can’t tell yet:</b> ${S.esc(s.gap)}</p>${PG.btns(s.id,s)}<div><a href="/decisions.html#${s.id}">What should we do about it? →</a></div></article>`}).join('');
+  PG.wire(app,stories,state);
+}
+MM.boot('research',render);
+</script></body></html>

@@ -1,0 +1,57 @@
+<section class="slide">
+  <div class="kicker">Pattern 2 · Steps 2 &amp; 5 · Test against the data</div>
+  <h2>Is it a fluke, a mix problem, or a real, repeating thing?</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>Water claims by calendar month (Montreal vs Toronto)</h3>
+      <svg viewBox="0 0 640 230" width="100%" role="img" aria-label="Monthly water claims, Montreal peaks March to May and October, Toronto flat">
+        <line x1="34" x2="630" y1="190" y2="190" stroke="currentColor" opacity=".3"/>
+        <g fill="var(--bad)">
+          <rect x="40" y="168.6" width="19" height="21.4"/><rect x="89" y="147.1" width="19" height="42.9"/><rect x="138" y="61" width="19" height="129"/><rect x="187" y="39.6" width="19" height="150.4"/><rect x="236" y="82.6" width="19" height="107.4"/><rect x="285" y="136.4" width="19" height="53.6"/><rect x="334" y="157.8" width="19" height="32.2"/><rect x="383" y="157.8" width="19" height="32.2"/><rect x="432" y="136.4" width="19" height="53.6"/><rect x="481" y="82.6" width="19" height="107.4"/><rect x="530" y="157.8" width="19" height="32.2"/><rect x="579" y="125.7" width="19" height="64.3"/>
+        </g>
+        <g fill="var(--cyan)">
+          <rect x="60" y="157.8" width="12" height="32.2"/><rect x="109" y="157.8" width="12" height="32.2"/><rect x="158" y="157.8" width="12" height="32.2"/><rect x="207" y="157.8" width="12" height="32.2"/><rect x="256" y="168.6" width="12" height="21.4"/><rect x="305" y="168.6" width="12" height="21.4"/><rect x="354" y="168.6" width="12" height="21.4"/><rect x="403" y="147.1" width="12" height="42.9"/><rect x="452" y="157.8" width="12" height="32.2"/><rect x="501" y="168.6" width="12" height="21.4"/><rect x="550" y="190" width="12" height="0"/><rect x="599" y="179.3" width="12" height="10.7"/>
+        </g>
+        <g text-anchor="middle"><text x="55" y="206">Jan</text><text x="104" y="206">Feb</text><text x="153" y="206">Mar</text><text x="202" y="206">Apr</text><text x="251" y="206">May</text><text x="300" y="206">Jun</text><text x="349" y="206">Jul</text><text x="398" y="206">Aug</text><text x="447" y="206">Sep</text><text x="496" y="206">Oct</text><text x="545" y="206">Nov</text><text x="594" y="206">Dec</text></g>
+        <text x="153" y="55" text-anchor="middle">12</text><text x="202" y="34" text-anchor="middle">14</text><text x="251" y="77" text-anchor="middle">10</text><text x="496" y="77" text-anchor="middle">10</text>
+        <text x="34" y="225" style="fill:var(--bad)">■ Montreal (77)</text><text x="150" y="225" style="fill:var(--cyan)">■ Toronto (28)</text>
+      </svg>
+      <p style="margin:8px 0 0"><b>Montreal: 36 of 77 claims in Mar–May</b>, plus an October bump. Toronto is flat all year. That is a seasonal signature, <i>consistent with</i> thaw and rain. It is not one storm: only 3 Montreal days had even 2 water claims.</p>
+      <p class="mute" style="font-size:13px;margin:4px 0 0">Raw claim counts by calendar month over the 2-year window.</p>
+    </div>
+    <div class="card">
+      <h3>Does it hold in every slice? (water claims / policy-year)</h3>
+      <table class="t">
+        <tr><th>Slice</th><th>Montreal</th><th>Toronto</th></tr>
+        <tr><td>Low risk band</td><td>0.177</td><td>0.028</td></tr>
+        <tr><td>Medium</td><td>0.239</td><td>0.131</td></tr>
+        <tr><td>High</td><td>0.220</td><td>0.067</td></tr>
+        <tr><td>Deductible 500</td><td>0.206</td><td>0.083</td></tr>
+        <tr><td>Deductible 1,000</td><td>0.224</td><td>0.065</td></tr>
+        <tr><td>Deductible 2,500</td><td>0.154</td><td>0.050</td></tr>
+        <tr><td>Agent</td><td>0.217</td><td>0.067</td></tr>
+        <tr><td>Broker</td><td>0.202</td><td>0.075</td></tr>
+        <tr><td>Online</td><td>0.191</td><td>0.062</td></tr>
+      </table>
+      <p style="margin-top:10px">Every slice shows the gap, and so does every policy start cohort. <b>Not a mix, channel or deductible effect.</b></p>
+    </div>
+  </div>
+  <div class="grid2" style="margin-top:16px">
+    <div class="card warn">
+      <h3>The natural experiment: Quebec City</h3>
+      <p style="margin:4px 0">Same province, same law, same claims-coding rules, same adjuster team (Team C), same cold winters. Water frequency:</p>
+      <div class="bars">
+        <div class="r hot"><span>Montreal</span><div class="t"><i style="width:100%"></i></div><span class="v">0.205</span></div>
+        <div class="r cool"><span>Quebec City</span><div class="t"><i style="width:21%"></i></div><span class="v">0.043</span></div>
+      </div>
+      <div class="kid"><b>Explained simply:</b> two cities with the same rules and the same claim-handlers behave very differently, so the rules are not the cause.</div>
+    </div>
+    <div class="card">
+      <h3>Ruled out vs still standing</h3>
+      <p style="margin:4px 0"><span class="tag good">RULED OUT</span> Quebec rules or law · Team C coding or handling · "cold and snow in general" · risk-band or deductible mix · sales channel · a single storm</p>
+      <p style="margin:8px 0 0"><span class="tag warn">HYPOTHESES · UNPROVEN</span> building stock and plumbing · sewer overload and backup · density and paved surface</p>
+      <p class="mute" style="font-size:14px;margin-top:8px">We have no property, postal or plumbing data, so the remaining three cannot be tested yet.</p>
+    </div>
+  </div>
+  <div class="limits">Source: claims.csv + policies.csv, Home, broker B07 excluded, exposure-adjusted. Small cells (e.g. 7 Quebec City water claims): read as direction, not precision.</div>
+</section>

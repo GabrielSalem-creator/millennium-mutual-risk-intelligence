@@ -1,0 +1,310 @@
+[
+ {
+  "id": "R1",
+  "name": "Broker hold on early-claim + threshold pattern",
+  "condition": "Broker with ≥ 15 claims where early-claim (≤ 45 days) share or near-threshold ($8–10k) share is improbable versus the book (binomial tail < 1e-6)",
+  "status": "FIRED",
+  "matched": {
+   "count": 1,
+   "items": [
+    {
+     "broker": "B07",
+     "policies": 173,
+     "claims": 70,
+     "lossRatio": 4.29,
+     "earlyShare": 0.63,
+     "nearThresholdShare": 0.83
+    }
+   ]
+  },
+  "actions": [
+   {
+    "do": "Suspend new binding and renewals for the broker",
+    "to": "Head of Distribution"
+   },
+   {
+    "do": "Open SIU file on policies and claims",
+    "to": "Special Investigations"
+   },
+   {
+    "do": "Route every claim from this broker to senior review regardless of amount",
+    "to": "VP Claims"
+   }
+  ],
+  "notify": [
+   "Head of Distribution",
+   "VP Claims",
+   "SIU"
+  ],
+  "ifWrong": "A hold is a review, not a termination; if SIU clears the broker, payments are released and the broker reinstated. False alarms cost a few weeks of binding.",
+  "logged": true,
+  "firedAt": "2026-11-14T20:52:50.200Z"
+ },
+ {
+  "id": "R2",
+  "name": "Near-threshold claim audit",
+  "condition": "Any claim between 80% and 100% of the $10,000 senior-review line, or any group whose share in that band exceeds 3× the book",
+  "status": "FIRED",
+  "matched": {
+   "count": 108,
+   "items": [
+    {
+     "group": "flagged brokers",
+     "claims": 58
+    },
+    {
+     "group": "everyone else",
+     "claims": 50,
+     "sampleToAudit": 13
+    }
+   ],
+   "examples": [
+    {
+     "claim": "CLM-00399",
+     "amount": 8322,
+     "type": "Theft",
+     "broker": "B07"
+    },
+    {
+     "claim": "CLM-00408",
+     "amount": 9944,
+     "type": "Theft",
+     "broker": "B07"
+    },
+    {
+     "claim": "CLM-00411",
+     "amount": 9063,
+     "type": "Theft",
+     "broker": "B07"
+    },
+    {
+     "claim": "CLM-00413",
+     "amount": 9082,
+     "type": "Theft",
+     "broker": "B07"
+    },
+    {
+     "claim": "CLM-00418",
+     "amount": 9532,
+     "type": "Theft",
+     "broker": "B07"
+    },
+    {
+     "claim": "CLM-00430",
+     "amount": 8385,
+     "type": "Theft",
+     "broker": "B07"
+    },
+    {
+     "claim": "CLM-00432",
+     "amount": 9444,
+     "type": "Theft",
+     "broker": "B07"
+    },
+    {
+     "claim": "CLM-00439",
+     "amount": 9467,
+     "type": "Theft",
+     "broker": "B07"
+    }
+   ]
+  },
+  "actions": [
+   {
+    "do": "Send all flagged-broker near-threshold claims to senior review",
+    "to": "VP Claims"
+   },
+   {
+    "do": "Sample 25% of other near-threshold claims for audit",
+    "to": "Claims QA"
+   }
+  ],
+  "notify": [
+   "VP Claims"
+  ],
+  "ifWrong": "Wasted review time on honest claims; mitigated by sampling only 25% outside flagged sources.",
+  "logged": true,
+  "firedAt": "2026-11-14T20:52:50.201Z"
+ },
+ {
+  "id": "R3",
+  "name": "Ageing-claim escalation and retention call",
+  "condition": "Open or under-review claim older than 14 days (the 20-day line minus a 6-day buffer)",
+  "status": "FIRED",
+  "matched": {
+   "count": 30,
+   "premiumAtRisk": 44881,
+   "byTeam": [
+    {
+     "team": "Team A",
+     "claims": 4
+    },
+    {
+     "team": "Team B",
+     "claims": 2
+    },
+    {
+     "team": "Team C",
+     "claims": 24
+    }
+   ],
+   "examples": [
+    {
+     "claim": "CLM-00516",
+     "ageDays": 206,
+     "team": "Team C",
+     "type": "Water Damage",
+     "amount": 22054
+    },
+    {
+     "claim": "CLM-00565",
+     "ageDays": 173,
+     "team": "Team C",
+     "type": "Water Damage",
+     "amount": 4114
+    },
+    {
+     "claim": "CLM-00677",
+     "ageDays": 99,
+     "team": "Team C",
+     "type": "Water Damage",
+     "amount": 14772
+    },
+    {
+     "claim": "CLM-00683",
+     "ageDays": 94,
+     "team": "Team C",
+     "type": "Liability",
+     "amount": 20204
+    },
+    {
+     "claim": "CLM-00703",
+     "ageDays": 84,
+     "team": "Team C",
+     "type": "Collision",
+     "amount": 539
+    },
+    {
+     "claim": "CLM-00727",
+     "ageDays": 70,
+     "team": "Team C",
+     "type": "Collision",
+     "amount": 17095
+    },
+    {
+     "claim": "CLM-00731",
+     "ageDays": 66,
+     "team": "Team C",
+     "type": "Collision",
+     "amount": 4390
+    },
+    {
+     "claim": "CLM-00732",
+     "ageDays": 65,
+     "team": "Team C",
+     "type": "Collision",
+     "amount": 6756
+    }
+   ]
+  },
+  "actions": [
+   {
+    "do": "Move to the priority queue and ask the adjuster for a status update",
+    "to": "Adjuster team lead"
+   },
+   {
+    "do": "Schedule a proactive customer call",
+    "to": "Retention"
+   },
+   {
+    "do": "Escalate claims ≥ $10,000 to the fast-track reviewer",
+    "to": "Senior reviewer"
+   }
+  ],
+  "notify": [
+   "VP Claims",
+   "Head of Retention"
+  ],
+  "ifWrong": "An unnecessary call to a customer whose claim was already moving; low cost.",
+  "logged": true,
+  "firedAt": "2026-11-14T20:52:50.201Z"
+ },
+ {
+  "id": "R4",
+  "name": "Pricing review ticket",
+  "condition": "City × product with ≥ 150 policies, combined ratio (loss ratio × (1 + LAE) + expenses) above 1.05, and claim-frequency ratio with 95% CI lower bound above 1.3",
+  "status": "FIRED",
+  "matched": {
+   "count": 1,
+   "items": [
+    {
+     "segment": "Home · Montreal",
+     "policies": 501,
+     "lossRatio": 1.52,
+     "frequencyRatio": 1.78,
+     "ci95": [
+      1.39,
+      2.28
+     ],
+     "combinedRatio": 2.03
+    }
+   ]
+  },
+  "actions": [
+   {
+    "do": "Open pricing review with the indicated change table",
+    "to": "Chief Actuary"
+   },
+   {
+    "do": "Freeze broker new business in the segment until rated",
+    "to": "Head of Distribution"
+   }
+  ],
+  "notify": [
+   "CFO",
+   "Chief Actuary"
+  ],
+  "ifWrong": "A review ticket costs analyst time only; no price changes without an actuarial filing.",
+  "logged": true,
+  "firedAt": "2026-11-14T20:52:50.204Z"
+ },
+ {
+  "id": "R5",
+  "name": "Ingestion validation",
+  "condition": "Premium stored as text, non-ISO dates, duplicate claim IDs or city-label variants in a new extract",
+  "status": "FIRED",
+  "matched": {
+   "count": 263,
+   "items": [
+    {
+     "issue": "premiums as text",
+     "rows": 140
+    },
+    {
+     "issue": "day-first dates",
+     "rows": 108
+    },
+    {
+     "issue": "duplicate claims",
+     "rows": 15
+    },
+    {
+     "issue": "city label variants",
+     "rows": 11
+    }
+   ]
+  },
+  "actions": [
+   {
+    "do": "Repair rows and log each change",
+    "to": "Data team"
+   }
+  ],
+  "notify": [
+   "Data team"
+  ],
+  "ifWrong": "A wrongly repaired row is logged and reversible; original files are never edited.",
+  "logged": true,
+  "firedAt": "2026-11-14T20:52:50.204Z"
+ }
+]

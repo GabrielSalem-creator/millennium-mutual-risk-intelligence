@@ -1,0 +1,57 @@
+{
+  "issue": "b07-fraud",
+  "generated": "2026-11-14T20:47:54.116Z",
+  "queries": [
+    "insurance early claim fraud indicators claim soon after policy inception",
+    "broker fraud ghost brokering Canada insurance"
+  ],
+  "cards": [
+    {
+      "id": "LV-B07-1",
+      "angle": "live-scrape",
+      "title": "Insurance Fraud Red Flags | Hesper AI",
+      "url": "https://gethesperai.com/glossary/insurance-fraud-red-flags/",
+      "publisher": "gethesperai.com",
+      "year": null,
+      "geo": "",
+      "claim": "Page reports: (like a claim filed 3 days after policy inception",
+      "stat": {
+        "value": "3 days",
+        "what": "(like a claim filed 3 days after policy inception"
+      },
+      "stance": "context",
+      "relevance": "Matched query: insurance early claim fraud indicators claim soon after policy inception",
+      "limit": "Auto-extracted sentence: verify in the source",
+      "snippet": "A single high-weight indicator (like a claim filed 3 days after policy inception with coverage for the exact loss type) might trigger investigation on its own.",
+      "verified": true,
+      "fetchedOn": "2026-11-14",
+      "source": "live-scrape"
+    },
+    {
+      "id": "LV-B07-2",
+      "angle": "live-scrape",
+      "title": "Insurance Fraud Red Flags | Hesper AI",
+      "url": "https://gethesperai.com/glossary/insurance-fraud-red-flags/",
+      "publisher": "gethesperai.com",
+      "year": null,
+      "geo": "",
+      "claim": "Page reports: are: claims filed within 30 days of policy inception",
+      "stat": {
+        "value": "30 days",
+        "what": "are: claims filed within 30 days of policy inception"
+      },
+      "stance": "supports",
+      "relevance": "Matched query: insurance early claim fraud indicators claim soon after policy inception",
+      "limit": "Auto-extracted sentence: verify in the source",
+      "snippet": "What are the most predictive fraud red flags? + Research shows the most predictive individual indicators are: claims filed within 30 days of policy inception or coverage increase, claimant financial distress combined wit",
+      "verified": true,
+      "fetchedOn": "2026-11-14",
+      "source": "live-scrape"
+    }
+  ],
+  "stats": {
+    "searches": 0,
+    "pagesFetched": 0,
+    "cards": 2
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "issue": "broker-channel",
+  "generated": "2026-11-14T20:47:38.463Z",
+  "queries": [
+    "broker vs direct channel loss ratio Canadian personal lines",
+    "insurance broker oversight loss ratio trigger binding authority",
+    "insurance broker channel performance loss ratio Canada"
+  ],
+  "cards": [
+    {
+      "id": "LV-BRO-1",
+      "angle": "live-scrape",
+      "title": "The Direct Approach",
+      "url": "https://www.canadianunderwriter.ca/news/industry/the-direct-approach/",
+      "publisher": "canadianunderwriter.ca",
+      "year": 2011,
+      "geo": "",
+      "claim": "Page reports: General Insurance just over 10 years ago.",
+      "stat": {
+        "value": "10 years",
+        "what": "General Insurance just over 10 years ago."
+      },
+      "stance": "context",
+      "relevance": "Matched query: broker vs direct channel loss ratio Canadian personal lines",
+      "limit": "Auto-extracted sentence: verify in the source",
+      "snippet": "Sylvie Paquette Desjardins General Insurance Group purchased the home and auto insurance operations of CIBC General Insurance just over 10 years ago.",
+      "verified": true,
+      "fetchedOn": "2026-11-14",
+      "source": "live-scrape"
+    },
+    {
+      "id": "LV-BRO-2",
+      "angle": "live-scrape",
+      "title": "The Direct Approach",
+      "url": "https://www.canadianunderwriter.ca/news/industry/the-direct-approach/",
+      "publisher": "canadianunderwriter.ca",
+      "year": 2011,
+      "geo": "",
+      "claim": "Page reports: companies still account for 57% of the personal lines",
+      "stat": {
+        "value": "57%",
+        "what": "companies still account for 57% of the personal lines"
+      },
+      "stance": "context",
+      "relevance": "Matched query: broker vs direct channel loss ratio Canadian personal lines",
+      "limit": "Auto-extracted sentence: verify in the source",
+      "snippet": "After all, broker-based companies still account for 57% of the personal lines market in Canada, versus 30% for direct writers and 13% for the captive agent companies.",
+      "verified": true,
+      "fetchedOn": "2026-11-14",
+      "source": "live-scrape"
+    },
+    {
+      "id": "LV-BRO-3",
+      "angle": "live-scrape",
+      "title": "The Direct Approach",
+      "url": "https://www.canadianunderwriter.ca/news/industry/the-direct-approach/",
+      "publisher": "canadianunderwriter.ca",
+      "year": 2011,
+      "geo": "",
+      "claim": "Page reports: with the directs at 61% market share in personal",
+      "stat": {
+        "value": "61%",
+        "what": "with the directs at 61% market share in personal"
+      },
+      "stance": "context",
+      "relevance": "Matched query: broker vs direct channel loss ratio Canadian personal lines",
+      "limit": "Auto-extracted sentence: verify in the source",
+      "snippet": "In Quebec, the situation is just the opposite, with the directs at 61% market share in personal lines, and the broker companies at 39%.",
+      "verified": true,
+      "fetchedOn": "2026-11-14",
+      "source": "live-scrape"
+    }
+  ],
+  "stats": {
+    "searches": 1,
+    "pagesFetched": 3,
+    "cards": 3
+  }
+}

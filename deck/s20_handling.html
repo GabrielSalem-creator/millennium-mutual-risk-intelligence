@@ -1,0 +1,29 @@
+<section class="slide">
+<div class="kicker">Pattern 4 · Claims handling</div>
+<h2>Montreal's claims take longer to close. Is that the adjusters?</h2>
+<div class="kid"><b>In kid words:</b> three teams close claims at different speeds, but each team only looks after certain cities. So we can't tell "slow team" from "tricky city" without testing.</div>
+<div class="flow">
+ <div class="st"><b>1 DETECT</b><span>Median days report → close: Team A 12, Team B 13, Team C 18.</span><div class="out">→ Team C is 50% slower</div></div>
+ <div class="st"><b>2 HYPOTHESISE</b><span>(a) Team C is slow. (b) Water claims are slower to settle. (c) Montreal is just complicated.</span><div class="out">→ 3 rival explanations</div></div>
+ <div class="st"><b>3 RESEARCH</b><span>Searched for public benchmarks of Canadian claim cycle times by city. None found.</span><div class="out">→ gap stated, nothing invented</div></div>
+ <div class="st"><b>4 TEST</b><span>Compare the same peril across teams.</span><div class="out">→ Team C still slower</div></div>
+ <div class="st"><b>5 PEER</b><span>Teams are geographic, so no city is handled by two teams.</span><div class="out">→ cannot separate team from city</div></div>
+ <div class="st"><b>6 VERDICT</b><span>Real delay, cause unknown.</span><div class="out">→ pilot: swap some files</div></div>
+</div>
+<div class="grid2">
+ <div class="card"><h3>Who handles what</h3>
+  <table class="t"><tr><th>Team</th><th>Cities</th><th>Claims</th><th>Median days</th></tr>
+  <tr><td>A</td><td>Toronto + Ottawa</td><td>375</td><td>12</td></tr>
+  <tr><td>B</td><td>Calgary</td><td>134</td><td>13</td></tr>
+  <tr class="hot"><td>C</td><td>Montreal + Quebec City</td><td>338</td><td>18</td></tr></table>
+  <p class="mute" style="font-size:15px;margin:10px 0 0">Same peril, A / B / C median days: Collision 13 / 16 / 19 · Water 14 / 19 / 19. Team C is slowest on collision, and tied with B on water.</p></div>
+ <div class="card warn"><h3>What piles up</h3>
+  <div class="stat warn-t">38 of 48<small>open / under-review claims sit with Team C; 4 are older than 90 days</small></div>
+  <div class="stat" style="margin-top:16px">15%<small>of Calgary Home claims denied (6 of 39) vs 4.8% overall. Team B denies 9%.</small></div></div>
+</div>
+<div class="grid2" style="margin-top:16px">
+ <div class="card"><h3>Glass: paid work, zero payout</h3><p style="margin:0">115 glass claims, <b>68 paid $0</b> (with a $1,000+ deductible, 89–100% pay nothing). Total glass paid: 8,468. Someone still handled every file.</p></div>
+ <div class="card"><h3>Verdict</h3><p style="margin:0"><span class="tag warn">CONFOUNDED</span>Denial gaps depend on city and peril, so they are not proof of team performance. Next step: reassign a sample of claims across teams and compare.</p></div>
+</div>
+<ul class="src"><li>Data: claims.csv joined to policies.csv, 847 unique claims (see analysis/PATTERNS.md, P4).</li><li>Research gap: no public source found on cycle time by Canadian city.</li></ul>
+</section>

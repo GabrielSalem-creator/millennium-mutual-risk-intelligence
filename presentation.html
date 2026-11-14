@@ -1,0 +1,582 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Why We Lose Money — Insurance Pattern Study</title>
+<style>
+:root{--bg:#0f0e17;--panel:#1a1826;--panel2:#232035;--ink:#f4f2fb;--mute:#a19fb5;--line:#322f47;--accent:#8b82ff;--good:#4cd6a0;--bad:#ff7a6e;--warn:#f0b958;--cyan:#6fd8ee}
+@media (prefers-color-scheme:light){:root{--bg:#f7f5f0;--panel:#fff;--panel2:#f0ede5;--ink:#1c1b22;--mute:#6b6a75;--line:#e1ddd2;--accent:#4b3fd6;--good:#12805c;--bad:#c2362b;--warn:#b7791f;--cyan:#0a7f96}}
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:var(--bg);color:var(--ink);font:18px/1.5 system-ui,-apple-system,Segoe UI,sans-serif;overflow:hidden}
+.deck{height:100%;position:relative}
+.slide{position:absolute;inset:0;padding:5vh 6vw 8vh;display:none;overflow:auto;animation:in .35s ease}
+.slide.on{display:block}@keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.kicker{font:600 13px/1 ui-monospace,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+h1{font-size:clamp(34px,5vw,64px);line-height:1.05;margin:0 0 18px;letter-spacing:-.02em}
+h2{font-size:clamp(26px,3.3vw,42px);line-height:1.1;margin:0 0 14px;letter-spacing:-.01em}
+h3{font-size:19px;margin:0 0 6px}
+.lede{font-size:clamp(18px,1.7vw,23px);color:var(--mute);max-width:62ch;margin:0 0 22px}
+.kid{background:var(--panel2);border-left:4px solid var(--accent);border-radius:8px;padding:12px 16px;margin:14px 0;font-size:clamp(17px,1.5vw,21px)}
+.kid b{color:var(--accent)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+@media(max-width:900px){.grid2,.grid3,.grid4{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px}
+.card.bad{border-color:var(--bad)}.card.good{border-color:var(--good)}.card.warn{border-color:var(--warn)}
+.stat{font-size:clamp(34px,4vw,54px);font-weight:700;line-height:1;letter-spacing:-.02em}.stat small{display:block;font-size:14px;font-weight:400;color:var(--mute);letter-spacing:0;margin-top:6px;line-height:1.35}
+.bad-t{color:var(--bad)}.good-t{color:var(--good)}.warn-t{color:var(--warn)}.mute{color:var(--mute)}
+.tag{display:inline-block;font:600 12px ui-monospace,Menlo,monospace;letter-spacing:.06em;padding:3px 9px;border-radius:99px;background:var(--panel2);border:1px solid var(--line);color:var(--mute);margin-right:6px}
+.tag.bad{color:var(--bad);border-color:var(--bad)}.tag.good{color:var(--good);border-color:var(--good)}.tag.warn{color:var(--warn);border-color:var(--warn)}
+.bars .r{display:grid;grid-template-columns:120px 1fr 74px;gap:10px;align-items:center;margin:7px 0;font-size:15px}
+.bars .t{height:16px;background:var(--panel2);border-radius:8px;overflow:hidden}.bars .t i{display:block;height:100%;background:var(--accent);border-radius:8px}
+.bars .r.hot .t i{background:var(--bad)}.bars .r.cool .t i{background:var(--good)}.bars .v{text-align:right;font-variant-numeric:tabular-nums}
+.flow{display:flex;flex-wrap:wrap;gap:10px;align-items:stretch;margin:14px 0}
+.flow .st{flex:1 1 150px;min-width:150px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px;position:relative}
+.flow .st:not(:last-child)::after{content:"→";position:absolute;right:-14px;top:50%;transform:translateY(-50%);color:var(--accent);font-size:20px;z-index:2}
+.flow .st b{display:block;font-size:12px;letter-spacing:.1em;color:var(--accent);font-family:ui-monospace,Menlo,monospace}.flow .st span{font-size:14px;color:var(--mute);display:block;margin-top:4px}
+.flow .st .out{margin-top:8px;padding-top:8px;border-top:1px dashed var(--line);color:var(--good);font-size:13px}
+table.t{width:100%;border-collapse:collapse;font-size:15px}table.t th,table.t td{padding:7px 8px;border-bottom:1px solid var(--line);text-align:right;font-variant-numeric:tabular-nums}table.t th:first-child,table.t td:first-child{text-align:left}table.t th{color:var(--mute);font-weight:500}table.t tr.hot td{color:var(--bad);font-weight:600}table.t tr.cool td{color:var(--good)}
+.src{font-size:13px;color:var(--mute)}.src a{color:var(--cyan);text-decoration:none}.src a:hover{text-decoration:underline}.src li{margin:4px 0}
+ul.tight{margin:6px 0 0 18px;padding:0}ul.tight li{margin:4px 0}
+.limits{font-size:13.5px;color:var(--mute);border-top:1px solid var(--line);margin-top:16px;padding-top:10px}
+.nav{position:fixed;left:0;right:0;bottom:0;height:5.5vh;min-height:40px;display:flex;align-items:center;justify-content:space-between;padding:0 6vw;background:linear-gradient(transparent,var(--bg) 40%);z-index:9;font:12px ui-monospace,Menlo,monospace;color:var(--mute)}
+.nav button{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:6px 14px;cursor:pointer;font:inherit}
+.prog{position:fixed;top:0;left:0;height:3px;background:var(--accent);z-index:10;transition:width .3s}
+svg text{fill:var(--mute);font-size:12px}
+</style></head><body>
+<div class="prog" id="prog"></div>
+<div class="deck" id="deck">
+<section class="slide">
+<div class="kicker">Part 1 · Pattern study · Millennium Mutual (Auto + Home)</div>
+<h1>Selling more policies.<br>Making less money.<br><span class="bad-t">Where does the money go?</span></h1>
+<p class="lede">We let an agentic workflow read every policy and claim, find the patterns, research why each one happens, and test whether the money is really leaking.</p>
+<div class="grid3">
+<div class="card bad"><div class="stat bad-t">~0.42M<small>excess loss from one broker (B07): 60 theft claims where ~3 were expected</small></div></div>
+<div class="card bad"><div class="stat bad-t">~0.375M<small>excess Montreal Home water-damage cost vs peer-city frequency</small></div></div>
+<div class="card warn"><div class="stat"><span class="bad-t">1.03</span> <span class="mute" style="font-size:.5em">vs</span> <span class="good-t">0.53</span><small>loss ratio, Home vs Auto: Auto pays for Home</small></div></div>
+</div>
+<div class="grid2" style="margin-top:18px">
+<div class="card"><span class="tag">PART 1</span><b>Analysis (this deck)</b><br><span class="mute">Patterns, research, why Montreal and not the others, long-run verdict.</span></div>
+<div class="card"><span class="tag">PART 2</span><b>Quote desk (live app)</b><br><span class="mute">Applicant in → category → accept or decline → competitive price.</span></div>
+</div>
+<div class="limits">Loss ratio = incurred proxy ÷ earned premium, with a 12-month term assumed. Expenses are not in the data. Currency unspecified.</div>
+</section>
+
+<section class="slide">
+<div class="kicker">The agentic workflow</div>
+<h2>Eight steps. The same loop runs on every pattern.</h2>
+<div class="kid"><b>Like a detective:</b> find something odd, guess why, look it up, check the guess against the facts, compare with other towns, then ask "if this goes on forever, do we win or lose?"</div>
+<div class="flow">
+<div class="st"><b>1 DATA</b><span>Load policies.csv and claims.csv, untouched.</span><div class="out">4,684 policies · 3,276 customers · 862 claim rows</div></div>
+<div class="st"><b>2 CLEAN</b><span>Fix formats, drop duplicates, build exposure.</span><div class="out">847 unique claims · 140 premiums rescued</div></div>
+<div class="st"><b>3 DETECT</b><span>Scan every angle: city, peril, broker, time, product, customer.</span><div class="out">5 patterns + several tested nulls</div></div>
+<div class="st"><b>4 HYPOTHESISE</b><span>List competing explanations per pattern.</span><div class="out">e.g. fraud ring vs adverse selection vs data error</div></div>
+</div>
+<div class="flow">
+<div class="st"><b>5 RESEARCH</b><span>Search articles and statistics; note their geography and limits.</span><div class="out">IBC, city guidance, fraud red-flag guides</div></div>
+<div class="st"><b>6 TEST VS DATA</b><span>Does our own data support or break each idea?</span><div class="out">Montreal gap holds in every slice: it is water only</div></div>
+<div class="st"><b>7 COMPARE PEERS</b><span>Why do the other cities or brokers not have it?</span><div class="out">Quebec City: same rules, 0.043 vs 0.205</div></div>
+<div class="st"><b>8 LONG-RUN VERDICT</b><span>Expected profit per policy; law of large numbers.</span><div class="out">B07 loss ratio 4.29: more volume = more loss</div></div>
+</div>
+<div class="grid2">
+<div class="card"><h3>Same loop, every pattern</h3>Steps 3–8 are repeated for each detected pattern, so every verdict is comparable.</div>
+<div class="card"><h3>One pattern, many angles</h3>The same odd number can be read by <b>city</b>, <b>peril</b>, <b>broker</b>, <b>time</b>, <b>product</b> or <b>customer</b>. We look from all six.</div>
+</div>
+</section>
+
+<section class="slide">
+<div class="kicker">Steps 1–2 · Data and clean-up</div>
+<h2>The raw files were messier than they looked</h2>
+<div class="kid"><b>Plain version:</b> some prices were typed as text and some dates were written the other way round. If we ignore that, the numbers lie.</div>
+<div class="grid2">
+<div class="card"><h3>What we found and fixed</h3>
+<table class="t"><tr><th>Issue</th><th>Count</th><th>Fix</th></tr>
+<tr><td>Duplicate claim rows</td><td>15</td><td>removed (862 → 847)</td></tr>
+<tr><td>City spellings</td><td>16 → 5</td><td>standardised</td></tr>
+<tr><td>Premium stored as text "$1,046.62"</td><td>140</td><td>parsed (old engine counted 0)</td></tr>
+<tr><td>DD/MM/YYYY policy dates</td><td>93</td><td>parsed</td></tr>
+<tr><td>DD/MM/YYYY claim dates</td><td>15</td><td>parsed</td></tr>
+<tr><td>Reported before loss</td><td>6</td><td>flagged, kept</td></tr>
+<tr><td>Ages missing / under 18</td><td>40 / 3</td><td>flagged</td></tr></table>
+<div class="mute" style="font-size:14px;margin-top:8px">Cleaned written premium is 6.70M; the earlier 6.50M was understated.</div></div>
+<div class="card"><h3>Three modelling choices</h3>
+<ul class="tight">
+<li><b>Exposure:</b> every claim happens within 363 days of policy start, so we assume a 12-month term. Exposure = min(1, days since start ÷ 365). Counting policies instead would flatter old business.</li>
+<li><b>Earned premium</b> = annual premium × exposure.</li>
+<li><b>Incurred proxy:</b> Paid → paid amount; Denied → 0; Open → claim amount × the paid ratio of the same peril.</li>
+</ul>
+<div class="kid"><b>Result:</b> loss ratio 0.70 overall · Auto 0.53 · Home 1.03.</div></div>
+</div>
+<div class="limits">Assumptions: 12-month term, cancelled policies treated as full exposure, incurred is a proxy not audited accounting. No expenses, reserves or IBNR in the files.</div>
+</section>
+
+<section class="slide">
+<div class="kicker">Step 3 · Detect</div>
+<h2>Every pattern found, in one list</h2>
+<table class="t">
+<tr><th>#</th><th>Pattern in plain words</th><th>Strength</th><th>Slide</th></tr>
+<tr class="hot"><td>P1</td><td style="text-align:left">One broker (B07) sells policies that get stolen-from almost at once</td><td><span class="tag bad">VERY STRONG · 60 vs ~3 expected</span></td><td>5–6</td></tr>
+<tr class="hot"><td>P2</td><td style="text-align:left">Montreal homes flood far more than homes elsewhere</td><td><span class="tag bad">STRONG · 3.0× (CI 1.95–4.63)</span></td><td>7+</td></tr>
+<tr><td>P3</td><td style="text-align:left">Home prices ignore risk; Auto prices follow it</td><td><span class="tag warn">CLEAR · LR 1.29 Medium band</span></td><td>later</td></tr>
+<tr><td>P4</td><td style="text-align:left">Claims teams are slower where the claims are (geography confound)</td><td><span class="tag warn">MODERATE · 18 vs 12 days</span></td><td>later</td></tr>
+<tr><td>P5</td><td style="text-align:left">Customers with both Auto and Home are safer; claims push non-renewal</td><td><span class="tag">SELECTION · not causal</span></td><td>later</td></tr>
+<tr><td>—</td><td style="text-align:left">Tested, no pattern: severity trend, repeat claimants, Montreal theft, Auto by city</td><td><span class="tag good">NULL · chance</span></td><td>later</td></tr>
+</table>
+<div class="kid"><b>Why show the nulls?</b> Because a detective who finds a clue everywhere is not believable. We also report what turned out to be noise.</div>
+<div class="grid3">
+<div class="card"><h3>Angles used</h3>city · peril · broker · time · product · customer</div>
+<div class="card"><h3>Order</h3>Ranked by dollars at stake, then by strength of evidence.</div>
+<div class="card"><h3>Rule</h3>A pattern is a lead until research and a peer comparison back it.</div>
+</div>
+</section>
+
+<section class="slide">
+<div class="kicker">P1 · Broker B07 · Detect</div>
+<h2>One broker's customers claim <span class="bad-t">4× as often</span>, and almost all claims are theft</h2>
+<div class="kid"><b>Like a toddler's toy box:</b> nine boxes lose about 2 toys a year. One box loses 8, and the toys vanish in the first month after we hand them over.</div>
+<div class="grid2">
+<div class="card"><h3>Claims per policy-year, by source</h3>
+<div class="bars">
+<div class="r hot"><span>B07</span><div class="t"><i style="width:100%"></i></div><span class="v">0.841</span></div>
+<div class="r"><span>B05</span><div class="t"><i style="width:29%"></i></div><span class="v">0.246</span></div>
+<div class="r"><span>B02</span><div class="t"><i style="width:30%"></i></div><span class="v">0.250</span></div>
+<div class="r"><span>B04</span><div class="t"><i style="width:28%"></i></div><span class="v">0.236</span></div>
+<div class="r"><span>B03</span><div class="t"><i style="width:27%"></i></div><span class="v">0.228</span></div>
+<div class="r"><span>Direct / none</span><div class="t"><i style="width:27%"></i></div><span class="v">0.227</span></div>
+<div class="r"><span>B10</span><div class="t"><i style="width:27%"></i></div><span class="v">0.226</span></div>
+<div class="r"><span>B01</span><div class="t"><i style="width:26%"></i></div><span class="v">0.219</span></div>
+<div class="r"><span>B08</span><div class="t"><i style="width:25%"></i></div><span class="v">0.212</span></div>
+<div class="r"><span>B09</span><div class="t"><i style="width:24%"></i></div><span class="v">0.199</span></div>
+<div class="r cool"><span>B06</span><div class="t"><i style="width:20%"></i></div><span class="v">0.171</span></div>
+</div></div>
+<div class="card"><h3>Days from policy start to claim (B07, 70 claims)</h3>
+<div class="bars">
+<div class="r hot"><span>0–29 days</span><div class="t"><i style="width:66%"></i></div><span class="v">25</span></div>
+<div class="r hot"><span>30–59</span><div class="t"><i style="width:100%"></i></div><span class="v">38</span></div>
+<div class="r"><span>60–89</span><div class="t"><i style="width:0%"></i></div><span class="v">0</span></div>
+<div class="r"><span>90–119</span><div class="t"><i style="width:5%"></i></div><span class="v">2</span></div>
+<div class="r"><span>150–179</span><div class="t"><i style="width:8%"></i></div><span class="v">3</span></div>
+<div class="r"><span>210–239</span><div class="t"><i style="width:5%"></i></div><span class="v">2</span></div>
+</div>
+<div class="mute" style="font-size:14px;margin-top:10px">Median 37 days (others 159). 63% within 45 days (others 19%).</div></div>
+</div>
+<div class="grid4" style="margin-top:14px">
+<div class="card"><div class="stat bad-t">60<small>theft claims vs ~2.6 expected</small></div></div>
+<div class="card"><div class="stat bad-t">86%<small>of its 70 claims are theft</small></div></div>
+<div class="card"><div class="stat bad-t">0 / 70<small>denied (portfolio 4.8%)</small></div></div>
+<div class="card"><div class="stat">173<small>policies, all started Jan–Sep 2026</small></div></div>
+</div>
+<div class="limits">Expected theft uses non-B07 rates and the same exposure. Poisson P(≥60) &lt; 1e-15. Mean B07 theft claim 8,760 vs 5,324 for other theft claims.</div>
+</section>
+
+<section class="slide">
+<div class="kicker">P1 · Broker B07 · Hypothesise, research, verdict</div>
+<h2>Four explanations, one rule, and a long-run answer</h2>
+<div class="grid2">
+<div class="card"><h3>Competing explanations</h3>
+<table class="t"><tr><th style="text-align:left">Idea</th><th style="text-align:left">Supports</th><th style="text-align:left">Challenges</th></tr>
+<tr><td>Organised early-claim fraud</td><td style="text-align:left">Claims soon after binding; 100% paid; theft-heavy</td><td style="text-align:left">Red flags are not proof</td></tr>
+<tr><td>Adverse selection</td><td style="text-align:left">Customers buy once a loss is likely</td><td style="text-align:left">Fewer claims in other months of a policy's life</td></tr>
+<tr><td>Broker misconduct</td><td style="text-align:left">Only one source affected; 104 of 173 in Toronto</td><td style="text-align:left">Needs file review</td></tr>
+<tr><td>Data error</td><td style="text-align:left">All 173 start in 2026</td><td style="text-align:left">Pattern is consistent across 70 claim records</td></tr></table></div>
+<div class="card"><h3>What the research says</h3>
+<ul class="tight"><li>Canadian guidance lists a claim soon after a policy is bound as a fraud red flag; one flag alone is not proof.</li>
+<li>No source gave a firm "30-day" threshold.</li>
+<li>Insurers pool data to spot fraud patterns across companies.</li></ul>
+<ul class="src"><li><a href="https://canadianunderwriter.ca/2021/04/07/brokers-pay-attention-to-these-insurance-fraud-red-flags/">Canadian Underwriter: broker fraud red flags</a></li>
+<li><a href="https://www.goremutual.ca/broker-circle/fraud-prevention-starts-before-the-claim/">Gore Mutual: fraud prevention before the claim</a></li>
+<li><a href="https://www.insurancebusinessmag.com/ca/news/auto-motor/how-fake-brokers-are-exploiting-canadas-hunt-for-cheaper-car-insurance-567331.aspx">Insurance Business: fake brokers</a></li>
+<li><a href="https://insurancenewsnet.com/oarticle/equite-association-launch-marks-milestone-moment-for-crime-prevention-across-insurance-industry">Équité Association launch</a></li></ul></div>
+</div>
+<div class="grid3" style="margin-top:14px">
+<div class="card bad"><h3>Peer test</h3>Other 9 brokers and direct: all around 0.17–0.25 claims per year. B07 loss ratio <b class="bad-t">4.29</b> (earned 112k, incurred 480k).</div>
+<div class="card bad"><h3>Long-run verdict</h3>Each B07 policy loses money. More volume only makes the loss bigger: the house loses.</div>
+<div class="card good"><h3>Rule to apply</h3>Hold new B07 business for special investigation. Flag any policy with a claim inside 45 days.</div>
+</div>
+<div class="kid"><b>It explains the story:</b> loss ratio rose from 0.64 to 0.90–0.98 in 2026; without B07 it is 0.58–0.62. Portfolio 0.70 falls to 0.62.</div>
+<div class="limits">Verdict wording: consistent with organised early-claim fraud or adverse selection; needs investigation, not proof.</div>
+</section>
+
+<section class="slide">
+  <div class="kicker">Pattern 2 · Step 1 of 6 · Detect</div>
+  <h1>Montreal homes get wet <span class="bad-t">3× more often</span>.</h1>
+  <p class="lede">We counted Home water-damage claims per insured year (exposure-adjusted, broker B07 removed) in all five cities.</p>
+  <div class="grid2">
+    <div class="card">
+      <h3>Water-damage claims per policy-year</h3>
+      <div class="bars">
+        <div class="r hot"><span>Montreal</span><div class="t"><i style="width:100%"></i></div><span class="v">0.205</span></div>
+        <div class="r"><span>Ottawa</span><div class="t"><i style="width:46%"></i></div><span class="v">0.095</span></div>
+        <div class="r"><span>Toronto</span><div class="t"><i style="width:33%"></i></div><span class="v">0.068</span></div>
+        <div class="r"><span>Calgary</span><div class="t"><i style="width:30%"></i></div><span class="v">0.061</span></div>
+        <div class="r cool"><span>Quebec City</span><div class="t"><i style="width:21%"></i></div><span class="v">0.043</span></div>
+      </div>
+      <p class="mute" style="font-size:14px">Montreal 77 claims / 376 policy-years · Toronto 28 / 410.</p>
+      <div class="stat bad-t" style="margin-top:10px">3.0×<small>Montreal ÷ Toronto water-claim rate · 95% CI 1.95–4.63</small></div>
+    </div>
+    <div class="card">
+      <h3>Is it everything, or just water?</h3>
+      <table class="t">
+        <tr><th>Peril (per policy-year)</th><th>Montreal</th><th>Toronto</th><th>Ratio (95% CI)</th></tr>
+        <tr class="hot"><td>Water damage</td><td>0.205</td><td>0.068</td><td>3.00 (1.95–4.63)</td></tr>
+        <tr><td>Theft</td><td>0.037</td><td>0.032</td><td>1.18 (0.55–2.50)</td></tr>
+        <tr><td>Wind / Hail</td><td>0.032</td><td>0.059</td><td>0.55 (0.27–1.09)</td></tr>
+        <tr><td>Fire</td><td>0.008</td><td>0.015</td><td>0.55 (0.14–2.18)</td></tr>
+      </table>
+      <p style="margin-top:12px"><b>Only water is out of line.</b> Cost per water claim is about the same (Montreal 8,578 vs Toronto 9,083), so this is a <i>how often</i> problem, not a <i>how big</i> problem. All Home claims together: 1.63× (CI 1.21–2.20).</p>
+    </div>
+  </div>
+  <div class="kid"><b>Explained simply:</b> basements get wet in Montreal more often, and we charge the same price as everywhere else.</div>
+  <div class="limits">Source: policies.csv + claims.csv, Home policies excluding broker B07, 12-month term assumed, units unspecified. Rate = claims ÷ insured years. City-level only: no property or postal data.</div>
+</section>
+
+<section class="slide">
+  <div class="kicker">Pattern 2 · Steps 2 &amp; 5 · Test against the data</div>
+  <h2>Is it a fluke, a mix problem, or a real, repeating thing?</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>Water claims by calendar month (Montreal vs Toronto)</h3>
+      <svg viewBox="0 0 640 230" width="100%" role="img" aria-label="Monthly water claims, Montreal peaks March to May and October, Toronto flat">
+        <line x1="34" x2="630" y1="190" y2="190" stroke="currentColor" opacity=".3"/>
+        <g fill="var(--bad)">
+          <rect x="40" y="168.6" width="19" height="21.4"/><rect x="89" y="147.1" width="19" height="42.9"/><rect x="138" y="61" width="19" height="129"/><rect x="187" y="39.6" width="19" height="150.4"/><rect x="236" y="82.6" width="19" height="107.4"/><rect x="285" y="136.4" width="19" height="53.6"/><rect x="334" y="157.8" width="19" height="32.2"/><rect x="383" y="157.8" width="19" height="32.2"/><rect x="432" y="136.4" width="19" height="53.6"/><rect x="481" y="82.6" width="19" height="107.4"/><rect x="530" y="157.8" width="19" height="32.2"/><rect x="579" y="125.7" width="19" height="64.3"/>
+        </g>
+        <g fill="var(--cyan)">
+          <rect x="60" y="157.8" width="12" height="32.2"/><rect x="109" y="157.8" width="12" height="32.2"/><rect x="158" y="157.8" width="12" height="32.2"/><rect x="207" y="157.8" width="12" height="32.2"/><rect x="256" y="168.6" width="12" height="21.4"/><rect x="305" y="168.6" width="12" height="21.4"/><rect x="354" y="168.6" width="12" height="21.4"/><rect x="403" y="147.1" width="12" height="42.9"/><rect x="452" y="157.8" width="12" height="32.2"/><rect x="501" y="168.6" width="12" height="21.4"/><rect x="550" y="190" width="12" height="0"/><rect x="599" y="179.3" width="12" height="10.7"/>
+        </g>
+        <g text-anchor="middle"><text x="55" y="206">Jan</text><text x="104" y="206">Feb</text><text x="153" y="206">Mar</text><text x="202" y="206">Apr</text><text x="251" y="206">May</text><text x="300" y="206">Jun</text><text x="349" y="206">Jul</text><text x="398" y="206">Aug</text><text x="447" y="206">Sep</text><text x="496" y="206">Oct</text><text x="545" y="206">Nov</text><text x="594" y="206">Dec</text></g>
+        <text x="153" y="55" text-anchor="middle">12</text><text x="202" y="34" text-anchor="middle">14</text><text x="251" y="77" text-anchor="middle">10</text><text x="496" y="77" text-anchor="middle">10</text>
+        <text x="34" y="225" style="fill:var(--bad)">■ Montreal (77)</text><text x="150" y="225" style="fill:var(--cyan)">■ Toronto (28)</text>
+      </svg>
+      <p style="margin:8px 0 0"><b>Montreal: 36 of 77 claims in Mar–May</b>, plus an October bump. Toronto is flat all year. That is a seasonal signature, <i>consistent with</i> thaw and rain. It is not one storm: only 3 Montreal days had even 2 water claims.</p>
+      <p class="mute" style="font-size:13px;margin:4px 0 0">Raw claim counts by calendar month over the 2-year window.</p>
+    </div>
+    <div class="card">
+      <h3>Does it hold in every slice? (water claims / policy-year)</h3>
+      <table class="t">
+        <tr><th>Slice</th><th>Montreal</th><th>Toronto</th></tr>
+        <tr><td>Low risk band</td><td>0.177</td><td>0.028</td></tr>
+        <tr><td>Medium</td><td>0.239</td><td>0.131</td></tr>
+        <tr><td>High</td><td>0.220</td><td>0.067</td></tr>
+        <tr><td>Deductible 500</td><td>0.206</td><td>0.083</td></tr>
+        <tr><td>Deductible 1,000</td><td>0.224</td><td>0.065</td></tr>
+        <tr><td>Deductible 2,500</td><td>0.154</td><td>0.050</td></tr>
+        <tr><td>Agent</td><td>0.217</td><td>0.067</td></tr>
+        <tr><td>Broker</td><td>0.202</td><td>0.075</td></tr>
+        <tr><td>Online</td><td>0.191</td><td>0.062</td></tr>
+      </table>
+      <p style="margin-top:10px">Every slice shows the gap, and so does every policy start cohort. <b>Not a mix, channel or deductible effect.</b></p>
+    </div>
+  </div>
+  <div class="grid2" style="margin-top:16px">
+    <div class="card warn">
+      <h3>The natural experiment: Quebec City</h3>
+      <p style="margin:4px 0">Same province, same law, same claims-coding rules, same adjuster team (Team C), same cold winters. Water frequency:</p>
+      <div class="bars">
+        <div class="r hot"><span>Montreal</span><div class="t"><i style="width:100%"></i></div><span class="v">0.205</span></div>
+        <div class="r cool"><span>Quebec City</span><div class="t"><i style="width:21%"></i></div><span class="v">0.043</span></div>
+      </div>
+      <div class="kid"><b>Explained simply:</b> two cities with the same rules and the same claim-handlers behave very differently, so the rules are not the cause.</div>
+    </div>
+    <div class="card">
+      <h3>Ruled out vs still standing</h3>
+      <p style="margin:4px 0"><span class="tag good">RULED OUT</span> Quebec rules or law · Team C coding or handling · "cold and snow in general" · risk-band or deductible mix · sales channel · a single storm</p>
+      <p style="margin:8px 0 0"><span class="tag warn">HYPOTHESES · UNPROVEN</span> building stock and plumbing · sewer overload and backup · density and paved surface</p>
+      <p class="mute" style="font-size:14px;margin-top:8px">We have no property, postal or plumbing data, so the remaining three cannot be tested yet.</p>
+    </div>
+  </div>
+  <div class="limits">Source: claims.csv + policies.csv, Home, broker B07 excluded, exposure-adjusted. Small cells (e.g. 7 Quebec City water claims): read as direction, not precision.</div>
+</section>
+
+<section class="slide">
+  <div class="kicker">Pattern 2 · Steps 3 &amp; 4 · Research the "why"</div>
+  <h2>What the articles say, and what they can't tell us</h2>
+  <p class="lede">Each source is a lead, not proof. We record where it is from, what it covers, and whether it supports or challenges the idea.</p>
+  <div class="card" style="padding:8px 14px">
+    <table class="t">
+      <tr><th style="width:26%">Source</th><th style="text-align:left">What it says</th><th style="text-align:left;width:26%">Geography / limit</th><th style="width:11%">Verdict</th></tr>
+      <tr><td><a class="src" href="https://www.cbc.ca/1.7292005" style="color:var(--cyan)">IBC via CBC</a></td><td style="text-align:left">About 25,000 flood-related claims a year in Quebec over the past 5 years.</td><td style="text-align:left">Province-wide, flood only; not Montreal vs Toronto.</td><td><span class="tag good">supports</span></td></tr>
+      <tr><td>2008 Gazette piece citing IBC Quebec</td><td style="text-align:left">Water damage is acute in Montreal because aging infrastructure can't cope with heavy storms.</td><td style="text-align:left">Dated; infrastructure, not building stock.</td><td><span class="tag good">supports</span></td></tr>
+      <tr><td><a class="src" href="https://montreal.ca/en/articles/protecting-your-building-heavy-rains-68382" style="color:var(--cyan)">Montreal heavy-rain guidance</a></td><td style="text-align:left">Sewer overload and backup, basement entry points; recommends backwater valves and sump pumps.</td><td style="text-align:left">Mechanisms, not insurer claim rates.</td><td><span class="tag good">supports</span></td></tr>
+      <tr><td><a class="src" href="https://www.toronto.ca/services-payments/water-environment/managing-rain-melted-snow/basement-flooding/" style="color:var(--cyan)">Toronto basement-flooding guidance</a></td><td style="text-align:left">Lists the same mechanisms for Toronto.</td><td style="text-align:left">Mechanisms exist in both cities, so they alone don't explain the gap.</td><td><span class="tag warn">challenges</span></td></tr>
+      <tr><td><a class="src" href="https://www.ibc.ca/news-insights/news/february-extreme-weather-events-in-eastern-canada-cause-over-260-million-in-insured-damage" style="color:var(--cyan)">IBC, Feb 2025 thaw/storm</a></td><td style="text-align:left">Over $260M insured damage in ON/QC/Atlantic; ice damming and water infiltration led the causes.</td><td style="text-align:left">Regional event, not our portfolio.</td><td><span class="tag good">supports</span> seasonality</td></tr>
+      <tr><td>RSA / Desjardins (spring claims)</td><td style="text-align:left">Most spring home claims are overland water from snowmelt or heavy rain; freeze-thaw cycling hurts structures.</td><td style="text-align:left">Insurer commentary; no monthly Quebec peak data found.</td><td><span class="tag good">supports</span> seasonality</td></tr>
+      <tr><td><a class="src" href="https://www.insuranceinstitute.ca/en/Insights-And-Publications/CanadianUnderwriterArticles/items/2024/01/19/Brokerage-sees-nearly-200-increase-in-cold-weather-claims" style="color:var(--cyan)">Brokerage cold-weather claims</a></td><td style="text-align:left">A burst pipe averages about $16,000 to repair.</td><td style="text-align:left">One brokerage; not city-specific.</td><td><span class="tag">context</span></td></tr>
+      <tr><td><a class="src" href="https://www.point2homes.com/CA/Demographics/QC/Montreal-Demographics.html" style="color:var(--cyan)">Point2Homes / CMHC</a></td><td style="text-align:left">About 36% of Montreal homes built before 1961 (indicative); plexes were about 75% of dwellings in 1944 (CMHC, historical).</td><td style="text-align:left">Census year unclear; no Toronto comparison found.</td><td><span class="tag warn">weak</span></td></tr>
+    </table>
+  </div>
+  <div class="grid2" style="margin-top:14px">
+    <div class="card">
+      <h3>Why Toronto and the others don't show it</h3>
+      <ul class="tight">
+        <li>Quebec City, in the same province, shows 0.043, so it's something about <b>Montreal</b>, not Quebec rules. <span class="tag warn">HYPOTHESIS</span></li>
+        <li>Toronto runs a voluntary backwater-valve and sump subsidy (now up to $6,650 a property from May 2026; about 21,500 properties by 2017). <a class="src" href="https://www.toronto.ca/services-payments/water-environment/managing-rain-melted-snow/basement-flooding-protection-subsidy-program/" style="color:var(--cyan)">Toronto program</a> We found <b>no evaluation</b> showing it cuts claims.</li>
+      </ul>
+    </div>
+    <div class="card warn">
+      <h3>Honest evidence gaps</h3>
+      <ul class="tight">
+        <li>No like-for-like Montreal vs Toronto housing-age source found.</li>
+        <li>No monthly Quebec claims-peak source found.</li>
+        <li>No evidence that Toronto's program works.</li>
+        <li>Sewer backup and overland water usually need endorsements, so coverage varies.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="kid"><b>Explained simply:</b> the articles say old pipes, full sewers and spring melt make basements flood. That fits our numbers, but nobody has proved it for our customers yet.</div>
+</section>
+
+<section class="slide">
+  <div class="kicker">Pattern 2 · Step 6 · Long-run verdict</div>
+  <h2>At today's price, every Montreal home we add <span class="bad-t">loses money</span>.</h2>
+  <div class="grid4">
+    <div class="card"><div class="stat">1,235<small>premium per policy-year</small></div></div>
+    <div class="card bad"><div class="stat bad-t">1,878<small>incurred per policy-year</small></div></div>
+    <div class="card bad"><div class="stat bad-t">1.52<small>Home loss ratio, Montreal</small></div></div>
+    <div class="card good"><div class="stat good-t">0.37<small>loss ratio <i>without</i> water claims</small></div></div>
+  </div>
+  <div class="grid2" style="margin-top:16px">
+    <div class="card">
+      <h3>The numbers in plain words</h3>
+      <ul class="tight">
+        <li>Expected loss per Montreal Home policy-year ≈ <b>1,878</b>; price charged ≈ <b>1,235</b>. Gap ≈ <b class="bad-t">643 per policy-year</b>, before any expenses.</li>
+        <li>Water claims alone explain it: without them Montreal Home runs at 0.37, a profitable line.</li>
+        <li>Excess water cost versus the other cities' water frequency ≈ <b>0.375M</b> over the period.</li>
+        <li>Toronto charges more (1,416) yet loses less (Montreal Home loses about 1.5× as much per premium dollar).</li>
+      </ul>
+      <p class="mute" style="font-size:13.5px">Expenses are not in the data; any expense load only makes the gap bigger.</p>
+    </div>
+    <div class="card bad">
+      <h3>Law of large numbers</h3>
+      <p style="margin:4px 0">Annual loss S = X₁ + … + X<sub>N</sub>, so E[S] = E[N]·E[X]. The average over n policies wobbles by σ/√n, which shrinks as n grows, but it shrinks <i>around the expected value</i>.</p>
+      <p style="margin:8px 0"><b>If the expected value is below zero, more customers don't rescue us. They make the loss more certain.</b></p>
+      <div class="kid"><b>Explained simply:</b> flip a coin that loses us 643 each time on average. One flip might win. A thousand flips will not.</div>
+    </div>
+  </div>
+  <div class="card good" style="margin-top:16px">
+    <h3>What to do</h3>
+    <div class="grid4">
+      <div><b>1 · Price the water factor</b><br><span class="mute">Add a Montreal water load to Home rating; risk band doesn't capture it.</span></div>
+      <div><b>2 · Prevention pilot</b><br><span class="mute">Backwater-valve and sump-pump offer with a comparison group; measure claims.</span></div>
+      <div><b>3 · Spring-thaw program</b><br><span class="mute">Inspection and warning before March–May, when 36 of 77 claims occurred.</span></div>
+      <div><b>4 · Cap new business</b><br><span class="mute">Limit new Montreal Home until priced (the Quote Desk shows the price that wins and still earns).</span></div>
+    </div>
+  </div>
+  <div class="limits">Incurred is a proxy (paid; denied = 0; open claims estimated); loss ratio = incurred ÷ earned premium, not audited accounting. Broker B07 excluded. Causes in the hypothesis list remain unproven until property data arrive.</div>
+</section>
+
+<section class="slide">
+  <div class="kicker">Pattern 3 · Detect → Test → Compare → Verdict</div>
+  <h2>Home prices don't follow risk. Auto prices do.</h2>
+  <div class="grid2">
+    <div class="card">
+      <h3>Home: loss ratio by risk band</h3>
+      <div class="bars">
+        <div class="r"><span>Low</span><div class="t"><i style="width:51%"></i></div><span class="v">0.66</span></div>
+        <div class="r hot"><span>Medium</span><div class="t"><i style="width:100%"></i></div><span class="v">1.29</span></div>
+        <div class="r"><span>High</span><div class="t"><i style="width:76%"></i></div><span class="v">0.98</span></div>
+      </div>
+      <table class="t" style="margin-top:8px"><tr><th>Home</th><th>Low</th><th>Medium</th><th>High</th></tr>
+        <tr><td>Claims / policy-year</td><td>0.128</td><td>0.243</td><td>0.289</td></tr>
+        <tr><td>Avg premium</td><td>1,059</td><td>1,324</td><td>1,879</td></tr></table>
+      <p style="margin:8px 0 0"><b>Medium is underpriced</b>; High is loaded 42% over Medium for 19% more claims.</p>
+    </div>
+    <div class="card good">
+      <h3>Auto (the control): loss ratio by risk band</h3>
+      <div class="bars">
+        <div class="r cool"><span>Low</span><div class="t"><i style="width:31%"></i></div><span class="v">0.39</span></div>
+        <div class="r cool"><span>Medium</span><div class="t"><i style="width:36%"></i></div><span class="v">0.46</span></div>
+        <div class="r cool"><span>High</span><div class="t"><i style="width:40%"></i></div><span class="v">0.51</span></div>
+      </div>
+      <table class="t" style="margin-top:8px"><tr><th>Auto</th><th>Low</th><th>Medium</th><th>High</th></tr>
+        <tr><td>Claims / policy-year</td><td>0.183</td><td>0.286</td><td>0.442</td></tr>
+        <tr><td>Avg premium</td><td>1,242</td><td>1,586</td><td>2,350</td></tr></table>
+      <p style="margin:8px 0 0"><b>Price rises with claims and every band stays profitable (LR 0.39 / 0.46 / 0.51; High is slightly under-charged)</b> (young drivers 18–24: 0.41 claims, premium 2,179, loss ratio 0.60).</p>
+    </div>
+  </div>
+  <div class="grid3" style="margin-top:16px">
+    <div class="card bad"><h3>City isn't priced</h3><p style="margin:4px 0">Home premium only ranges 1,108 (Quebec City) to 1,397 (Toronto), yet water frequency ranges 0.043 to 0.205. Montreal low-risk: premium 1,007, loss ratio <b class="bad-t">1.44</b>. Toronto low-risk: premium 1,175, loss ratio <b class="good-t">0.32</b>.</p></div>
+    <div class="card warn"><h3>500 deductible is cheap</h3><p style="margin:4px 0">Premium 1,343 / 1,275 / 1,153 for 500 / 1,000 / 2,500. Loss ratio 1.03 / 0.91 / 0.90, so the 500 option is only slightly under-charged: a small lever, not a main cause.</p></div>
+    <div class="card"><h3>Why it matters</h3><p style="margin:4px 0">Same insurer, same method, same adjusters: Auto works, Home doesn't. The rating tables, not the company, are the problem.</p></div>
+  </div>
+  <div class="kid"><b>Explained simply:</b> in Auto, riskier drivers pay more. In Home, a wet Montreal basement pays about the same as a dry one.</div>
+  <div class="card good" style="margin-top:10px"><b>Verdict:</b> rebuild Home rating so city (water), Medium band and the 500 deductible carry their real cost; Auto is the template. <span class="tag warn">Home 51% of incurred, 35% of earned premium.</span></div>
+  <div class="limits">Broker B07 excluded; loss ratio = incurred proxy ÷ earned premium; Auto/Home loss ratios here are screening values, expenses not in data.</div>
+</section>
+
+<section class="slide">
+<div class="kicker">Pattern 4 · Claims handling</div>
+<h2>Montreal's claims take longer to close. Is that the adjusters?</h2>
+<div class="kid"><b>In kid words:</b> three teams close claims at different speeds, but each team only looks after certain cities. So we can't tell "slow team" from "tricky city" without testing.</div>
+<div class="flow">
+ <div class="st"><b>1 DETECT</b><span>Median days report → close: Team A 12, Team B 13, Team C 18.</span><div class="out">→ Team C is 50% slower</div></div>
+ <div class="st"><b>2 HYPOTHESISE</b><span>(a) Team C is slow. (b) Water claims are slower to settle. (c) Montreal is just complicated.</span><div class="out">→ 3 rival explanations</div></div>
+ <div class="st"><b>3 RESEARCH</b><span>Searched for public benchmarks of Canadian claim cycle times by city. None found.</span><div class="out">→ gap stated, nothing invented</div></div>
+ <div class="st"><b>4 TEST</b><span>Compare the same peril across teams.</span><div class="out">→ Team C still slower</div></div>
+ <div class="st"><b>5 PEER</b><span>Teams are geographic, so no city is handled by two teams.</span><div class="out">→ cannot separate team from city</div></div>
+ <div class="st"><b>6 VERDICT</b><span>Real delay, cause unknown.</span><div class="out">→ pilot: swap some files</div></div>
+</div>
+<div class="grid2">
+ <div class="card"><h3>Who handles what</h3>
+  <table class="t"><tr><th>Team</th><th>Cities</th><th>Claims</th><th>Median days</th></tr>
+  <tr><td>A</td><td>Toronto + Ottawa</td><td>375</td><td>12</td></tr>
+  <tr><td>B</td><td>Calgary</td><td>134</td><td>13</td></tr>
+  <tr class="hot"><td>C</td><td>Montreal + Quebec City</td><td>338</td><td>18</td></tr></table>
+  <p class="mute" style="font-size:15px;margin:10px 0 0">Same peril, A / B / C median days: Collision 13 / 16 / 19 · Water 14 / 19 / 19. Team C is slowest on collision, and tied with B on water.</p></div>
+ <div class="card warn"><h3>What piles up</h3>
+  <div class="stat warn-t">38 of 48<small>open / under-review claims sit with Team C; 4 are older than 90 days</small></div>
+  <div class="stat" style="margin-top:16px">15%<small>of Calgary Home claims denied (6 of 39) vs 4.8% overall. Team B denies 9%.</small></div></div>
+</div>
+<div class="grid2" style="margin-top:16px">
+ <div class="card"><h3>Glass: paid work, zero payout</h3><p style="margin:0">115 glass claims, <b>68 paid $0</b> (with a $1,000+ deductible, 89–100% pay nothing). Total glass paid: 8,468. Someone still handled every file.</p></div>
+ <div class="card"><h3>Verdict</h3><p style="margin:0"><span class="tag warn">CONFOUNDED</span>Denial gaps depend on city and peril, so they are not proof of team performance. Next step: reassign a sample of claims across teams and compare.</p></div>
+</div>
+<ul class="src"><li>Data: claims.csv joined to policies.csv, 847 unique claims (see analysis/PATTERNS.md, P4).</li><li>Research gap: no public source found on cycle time by Canadian city.</li></ul>
+</section>
+
+<section class="slide">
+<div class="kicker">Pattern 5 · Bundles and renewals</div>
+<h2>Customers with Auto + Home cost us less. Customers who claim leave more.</h2>
+<div class="kid"><b>In kid words:</b> people who buy two things from us tend to have fewer accidents. And people who just had a claim are much more likely to be gone next year.</div>
+<div class="flow">
+ <div class="st"><b>1 DETECT</b><span>1,405 of 3,276 customers hold both lines. Their loss ratio is lower.</span><div class="out">→ bundle LR 0.66 vs 0.75</div></div>
+ <div class="st"><b>2 HYPOTHESISE</b><span>Bundling attracts careful people (selection), or the discount makes them stay.</span><div class="out">→ selection is likely</div></div>
+ <div class="st"><b>3 RESEARCH</b><span>J.D. Power 2022 US study: about 95% retention for bundlers vs 85% for non-bundlers.</span><div class="out">→ US survey, context only</div></div>
+ <div class="st"><b>4 TEST</b><span>Compare claim frequency and price.</span><div class="out">→ fewer claims, only 6% cheaper</div></div>
+ <div class="st"><b>5 PEER</b><span>Non-renewal by city and price quartile.</span><div class="out">→ flat, so claims drive it</div></div>
+ <div class="st"><b>6 VERDICT</b><span>Bundle = better risk. Claims = churn.</span><div class="out">→ keep good claimants</div></div>
+</div>
+<div class="grid2">
+ <div class="card"><h3>Bundled vs single-line customers</h3>
+  <table class="t"><tr><th></th><th>Bundled</th><th>Single</th></tr>
+  <tr><td>Overall loss ratio</td><td class="good-t">0.66</td><td>0.75</td></tr>
+  <tr><td>Claims per policy-year</td><td class="good-t">0.214</td><td>0.277</td></tr>
+  <tr><td>Auto loss ratio</td><td class="good-t">0.39</td><td>0.66</td></tr>
+  <tr><td>Home loss ratio</td><td class="good-t">0.99</td><td>1.15</td></tr>
+  <tr><td>Auto premium</td><td>1,486</td><td>1,581</td></tr></table>
+  <p class="mute" style="font-size:14px;margin:8px 0 0">The bundle discount is only about 6%, yet the loss gap is far bigger. This is selection, not proof that bundling causes safer behaviour.</p></div>
+ <div class="card bad"><h3>After a claim, more customers leave</h3>
+  <div class="bars">
+   <div class="r"><span>Auto, no claim</span><div class="t"><i style="width:56%"></i></div><span class="v">14%</span></div>
+   <div class="r hot"><span>Auto, claim</span><div class="t"><i style="width:92%"></i></div><span class="v">23%</span></div>
+   <div class="r"><span>Home, no claim</span><div class="t"><i style="width:60%"></i></div><span class="v">15%</span></div>
+   <div class="r hot"><span>Home, claim</span><div class="t"><i style="width:100%"></i></div><span class="v">25%</span></div>
+  </div>
+  <p class="mute" style="font-size:14px;margin:8px 0 0">Share Not Renewed among completed-term policies. Price does not explain it: non-renewal is 16–17% in all four premium quartiles and similar across cities.</p></div>
+</div>
+<div class="card good" style="margin-top:16px"><h3>Verdict</h3><span class="tag good">SUPPORTED BY DATA</span>Bundled customers are our better risks, so a deeper bundle discount is affordable. The claim-to-exit link is a service question: who is leaving, the good risks or the bad? We can't tell yet because the files hold no reason-for-leaving field.</div>
+<ul class="src"><li><a href="https://www.jdpower.com/business/press-releases/2022-us-home-insurance-study">J.D. Power 2022 US Home Insurance Study</a>: US, survey-based. It measures retention, not loss ratio.</li><li>Research gap: no loss-ratio study on bundled vs unbundled customers found.</li></ul>
+</section>
+
+<section class="slide">
+<div class="kicker">The method also says "no"</div>
+<h2>We tested four more ideas. None survived.</h2>
+<div class="kid"><b>In kid words:</b> a detective who accuses everybody is useless. Throwing out false clues is how we know the true ones (B07, Montreal water) are real.</div>
+<div class="grid2">
+ <div class="card"><span class="tag">REJECTED</span><h3>"Claims are getting more expensive"</h3>
+  <p>Cost per claim trend per year (log regression, B07 excluded):</p>
+  <table class="t"><tr><th>Group</th><th>Trend / yr</th><th>t-stat</th></tr>
+  <tr><td>Auto</td><td>−4%</td><td>−0.45</td></tr><tr><td>Home</td><td>+10%</td><td>1.07</td></tr>
+  <tr><td>Collision</td><td>+5%</td><td>—</td></tr><tr><td>Water</td><td>+1%</td><td>—</td></tr><tr><td>Theft</td><td>+1%</td><td>—</td></tr>
+  <tr class="hot"><td>Liability (n=44)</td><td>+45%</td><td>1.97</td></tr></table>
+  <p class="mute" style="font-size:14px;margin:8px 0 0">Nothing is clearly significant. Liability is a watch item only: 44 claims is too few.</p></div>
+ <div class="card"><span class="tag">REJECTED</span><h3>"Some customers claim again and again"</h3>
+  <div class="stat">75 <span class="mute" style="font-size:22px">vs</span> 67.7<small>policies with 2+ claims observed vs expected if claims were pure chance (Poisson)</small></div>
+  <p style="margin-top:12px">That is within chance. Repeat claimants are not a hidden pattern.</p></div>
+ <div class="card"><span class="tag">REJECTED</span><h3>"Montreal has more theft"</h3>
+  <table class="t"><tr><th>Home theft per policy-year</th><th></th></tr><tr><td>Montreal</td><td>0.037</td></tr><tr><td>Toronto</td><td>0.032</td></tr></table>
+  <p class="mute" style="font-size:14px;margin:8px 0 0">Rate ratio 1.18, 95% interval 0.55–2.50, so it includes 1. Montreal's problem is water only.</p></div>
+ <div class="card"><span class="tag">REJECTED</span><h3>"Auto is mispriced in some city"</h3>
+  <p style="margin:0">Auto loss ratio stays profitable in every risk band (Low .39 · Medium .46 · High .51), with prices rising alongside claim rates. Young drivers pay 2,179 for a 0.41 claim rate. Montreal Auto has the best loss ratio in the company (0.40). Auto prices follow risk.</p></div>
+</div>
+<div class="card good" style="margin-top:16px"><h3>Why this matters</h3>Every finding in this deck passed the same test that these four failed. That is the difference between a pattern and a story.</div>
+<ul class="src"><li>Data: analysis/PATTERNS.md, "Tested, no pattern".</li></ul>
+</section>
+
+<section class="slide">
+<div class="kicker">The long-run math</div>
+<h2>One customer is luck. A thousand customers is arithmetic.</h2>
+<div class="grid3" style="margin-bottom:14px">
+ <div class="card"><h3>1 · The random variable</h3><p style="margin:0"><b>S = X₁ + X₂ + … + X<sub>N</sub></b><br>N = how many claims this year (a random count). X = what each one costs. S = our total bill for one customer.</p><div class="kid" style="font-size:15px;margin-bottom:0"><b>Kid words:</b> roll a dice to see how many accidents, then roll again for each price tag.</div></div>
+ <div class="card"><h3>2 · The expectation</h3><p style="margin:0"><b>E[S] = E[N] × E[X]</b><br>Average number of claims × average cost of a claim. That is the fair "cost of one customer".</p><div class="kid" style="font-size:15px;margin-bottom:0"><b>Kid words:</b> if you get 1 candy a day, you expect 7 a week, even if some days are zero.</div></div>
+ <div class="card"><h3>3 · Large numbers</h3><p style="margin:0">The average of n customers wobbles by about <b>σ/√n</b>. Chebyshev: <b>P(|avg − μ| ≥ ε) ≤ σ²/(n·ε²)</b>. More customers → smaller wobble.</p><div class="kid" style="font-size:15px;margin-bottom:0"><b>Kid words:</b> one coin flip is random; a thousand flips are almost exactly half heads.</div></div>
+</div>
+<div class="grid2">
+ <div class="card bad"><h3>Montreal Home · Medium risk · current price ≈ 1,286</h3><svg viewBox="0 0 520 300" width="100%" role="img" aria-label="Average profit per policy converges to -2286 as policies grow"><defs><clipPath id="ca"><rect x="52" y="14" width="458" height="252"/></clipPath></defs><line x1="52" x2="52" y1="14" y2="266" stroke="currentColor" opacity=".08"/><text x="44" y="282">1</text><line x1="143.60000000000002" x2="143.60000000000002" y1="14" y2="266" stroke="currentColor" opacity=".08"/><text x="135.60000000000002" y="282">10</text><line x1="235.20000000000002" x2="235.20000000000002" y1="14" y2="266" stroke="currentColor" opacity=".08"/><text x="227.20000000000002" y="282">100</text><line x1="326.8" x2="326.8" y1="14" y2="266" stroke="currentColor" opacity=".08"/><text x="318.8" y="282">1k</text><line x1="418.40000000000003" x2="418.40000000000003" y1="14" y2="266" stroke="currentColor" opacity=".08"/><text x="410.40000000000003" y="282">10k</text><line x1="510" x2="510" y1="14" y2="266" stroke="currentColor" opacity=".08"/><text x="502" y="282">100k</text><text x="4" y="234">−$3,000</text><text x="4" y="180">−$1,500</text><text x="4" y="126">$0</text><text x="4" y="72">$1,500</text><text x="4" y="18">$3,000</text>
+ <line x1="52" x2="510" y1="122" y2="122" stroke="currentColor" opacity=".5" stroke-dasharray="4 3"/>
+ <g clip-path="url(#ca)"><polygon points="52.0,14.0 56.6,14.0 61.2,14.0 65.7,14.0 70.3,14.0 74.9,14.0 79.5,14.0 84.1,14.0 88.6,14.0 93.2,14.0 97.8,14.0 102.4,14.0 107.0,14.0 111.5,14.0 116.1,14.0 120.7,14.0 125.3,17.2 129.9,27.6 134.4,37.5 139.0,46.8 143.6,55.6 148.2,64.0 152.8,71.8 157.3,79.2 161.9,86.2 166.5,92.8 171.1,99.1 175.7,104.9 180.2,110.5 184.8,115.8 189.4,120.7 194.0,125.4 198.6,129.8 203.1,134.0 207.7,137.9 212.3,141.6 216.9,145.1 221.5,148.4 226.0,151.6 230.6,154.5 235.2,157.3 239.8,159.9 244.4,162.4 248.9,164.7 253.5,167.0 258.1,169.0 262.7,171.0 267.3,172.9 271.8,174.6 276.4,176.3 281.0,177.9 285.6,179.3 290.2,180.7 294.7,182.1 299.3,183.3 303.9,184.5 308.5,185.6 313.1,186.6 317.6,187.6 322.2,188.6 326.8,189.4 331.4,190.3 336.0,191.0 340.5,191.8 345.1,192.5 349.7,193.1 354.3,193.8 358.9,194.4 363.4,194.9 368.0,195.4 372.6,195.9 377.2,196.4 381.8,196.8 386.3,197.3 390.9,197.7 395.5,198.0 400.1,198.4 404.7,198.7 409.2,199.0 413.8,199.3 418.4,199.6 423.0,199.9 427.6,200.1 432.1,200.3 436.7,200.6 441.3,200.8 445.9,201.0 450.5,201.2 455.0,201.3 459.6,201.5 464.2,201.7 468.8,201.8 473.4,201.9 477.9,202.1 482.5,202.2 487.1,202.3 491.7,202.4 496.3,202.5 500.8,202.6 505.4,202.7 510.0,202.8 510.0,205.8 505.4,205.9 500.8,206.0 496.3,206.1 491.7,206.2 487.1,206.3 482.5,206.4 477.9,206.5 473.4,206.7 468.8,206.8 464.2,206.9 459.6,207.1 455.0,207.3 450.5,207.4 445.9,207.6 441.3,207.8 436.7,208.0 432.1,208.3 427.6,208.5 423.0,208.7 418.4,209.0 413.8,209.3 409.2,209.6 404.7,209.9 400.1,210.2 395.5,210.6 390.9,210.9 386.3,211.3 381.8,211.7 377.2,212.2 372.6,212.7 368.0,213.2 363.4,213.7 358.9,214.2 354.3,214.8 349.7,215.4 345.1,216.1 340.5,216.8 336.0,217.5 331.4,218.3 326.8,219.2 322.2,220.0 317.6,221.0 313.1,222.0 308.5,223.0 303.9,224.1 299.3,225.3 294.7,226.5 290.2,227.9 285.6,229.3 281.0,230.7 276.4,232.3 271.8,234.0 267.3,235.7 262.7,237.6 258.1,239.5 253.5,241.6 248.9,243.8 244.4,246.2 239.8,248.7 235.2,251.3 230.6,254.1 226.0,257.0 221.5,260.2 216.9,263.5 212.3,266.0 207.7,266.0 203.1,266.0 198.6,266.0 194.0,266.0 189.4,266.0 184.8,266.0 180.2,266.0 175.7,266.0 171.1,266.0 166.5,266.0 161.9,266.0 157.3,266.0 152.8,266.0 148.2,266.0 143.6,266.0 139.0,266.0 134.4,266.0 129.9,266.0 125.3,266.0 120.7,266.0 116.1,266.0 111.5,266.0 107.0,266.0 102.4,266.0 97.8,266.0 93.2,266.0 88.6,266.0 84.1,266.0 79.5,266.0 74.9,266.0 70.3,266.0 65.7,266.0 61.2,266.0 56.6,266.0 52.0,266.0" fill="var(--bad)" opacity=".25"/><line x1="52" x2="510" y1="204.296" y2="204.296" stroke="var(--bad)" stroke-width="3"/></g>
+ <text x="58" y="196.296" style="fill:var(--bad);font-weight:600">expected: −$2,286 per policy</text>
+ <text x="180" y="296">number of policies (log scale)</text></svg>
+  <p style="margin:6px 0 0;font-size:15px"><span class="tag bad">THE HOUSE LOSES</span>Expected loss 2,795, or 3,186 with claims-handling cost. Of the 1,286 price, 1,286 × 0.70 = 900 is left after expenses: <b class="bad-t">−2,286 per policy</b>. Break-even price: 3,186 ÷ 0.70 = 4,551. The band narrows around a negative number: by about 33 policies it no longer touches zero, so more customers makes the loss certain.</p></div>
+ <div class="card good"><h3>Calgary Auto · Low risk · current price ≈ 1,234</h3><svg viewBox="0 0 520 300" width="100%" role="img" aria-label="Average profit per policy converges to 381 as policies grow"><defs><clipPath id="cb"><rect x="52" y="14" width="458" height="252"/></clipPath></defs><line x1="52" x2="52" y1="14" y2="266" stroke="currentColor" opacity=".08"/><text x="44" y="282">1</text><line x1="143.60000000000002" x2="143.60000000000002" y1="14" y2="266" stroke="currentColor" opacity=".08"/><text x="135.60000000000002" y="282">10</text><line x1="235.20000000000002" x2="235.20000000000002" y1="14" y2="266" stroke="currentColor" opacity=".08"/><text x="227.20000000000002" y="282">100</text><line x1="326.8" x2="326.8" y1="14" y2="266" stroke="currentColor" opacity=".08"/><text x="318.8" y="282">1k</text><line x1="418.40000000000003" x2="418.40000000000003" y1="14" y2="266" stroke="currentColor" opacity=".08"/><text x="410.40000000000003" y="282">10k</text><line x1="510" x2="510" y1="14" y2="266" stroke="currentColor" opacity=".08"/><text x="502" y="282">100k</text><text x="4" y="234">−$3,000</text><text x="4" y="180">−$1,500</text><text x="4" y="126">$0</text><text x="4" y="72">$1,500</text><text x="4" y="18">$3,000</text>
+ <line x1="52" x2="510" y1="122" y2="122" stroke="currentColor" opacity=".5" stroke-dasharray="4 3"/>
+ <g clip-path="url(#cb)"><polygon points="52.0,14.0 56.6,14.0 61.2,14.0 65.7,14.0 70.3,14.0 74.9,14.0 79.5,14.0 84.1,14.0 88.6,19.2 93.2,24.1 97.8,28.8 102.4,33.3 107.0,37.5 111.5,41.4 116.1,45.2 120.7,48.7 125.3,52.0 129.9,55.2 134.4,58.2 139.0,61.0 143.6,63.6 148.2,66.1 152.8,68.5 157.3,70.7 161.9,72.8 166.5,74.8 171.1,76.7 175.7,78.4 180.2,80.1 184.8,81.7 189.4,83.2 194.0,84.6 198.6,85.9 203.1,87.1 207.7,88.3 212.3,89.4 216.9,90.5 221.5,91.5 226.0,92.4 230.6,93.3 235.2,94.2 239.8,94.9 244.4,95.7 248.9,96.4 253.5,97.1 258.1,97.7 262.7,98.3 267.3,98.8 271.8,99.4 276.4,99.9 281.0,100.3 285.6,100.8 290.2,101.2 294.7,101.6 299.3,102.0 303.9,102.3 308.5,102.7 313.1,103.0 317.6,103.3 322.2,103.6 326.8,103.8 331.4,104.1 336.0,104.3 340.5,104.5 345.1,104.7 349.7,104.9 354.3,105.1 358.9,105.3 363.4,105.5 368.0,105.6 372.6,105.8 377.2,105.9 381.8,106.0 386.3,106.2 390.9,106.3 395.5,106.4 400.1,106.5 404.7,106.6 409.2,106.7 413.8,106.8 418.4,106.9 423.0,107.0 427.6,107.0 432.1,107.1 436.7,107.2 441.3,107.2 445.9,107.3 450.5,107.3 455.0,107.4 459.6,107.4 464.2,107.5 468.8,107.5 473.4,107.6 477.9,107.6 482.5,107.7 487.1,107.7 491.7,107.7 496.3,107.8 500.8,107.8 505.4,107.8 510.0,107.8 510.0,108.7 505.4,108.8 500.8,108.8 496.3,108.8 491.7,108.8 487.1,108.9 482.5,108.9 477.9,109.0 473.4,109.0 468.8,109.0 464.2,109.1 459.6,109.1 455.0,109.2 450.5,109.2 445.9,109.3 441.3,109.3 436.7,109.4 432.1,109.5 427.6,109.5 423.0,109.6 418.4,109.7 413.8,109.8 409.2,109.9 404.7,110.0 400.1,110.1 395.5,110.2 390.9,110.3 386.3,110.4 381.8,110.5 377.2,110.7 372.6,110.8 368.0,110.9 363.4,111.1 358.9,111.3 354.3,111.4 349.7,111.6 345.1,111.8 340.5,112.0 336.0,112.3 331.4,112.5 326.8,112.8 322.2,113.0 317.6,113.3 313.1,113.6 308.5,113.9 303.9,114.2 299.3,114.6 294.7,115.0 290.2,115.4 285.6,115.8 281.0,116.2 276.4,116.7 271.8,117.2 267.3,117.7 262.7,118.3 258.1,118.9 253.5,119.5 248.9,120.2 244.4,120.9 239.8,121.6 235.2,122.4 230.6,123.2 226.0,124.1 221.5,125.1 216.9,126.1 212.3,127.1 207.7,128.2 203.1,129.4 198.6,130.7 194.0,132.0 189.4,133.4 184.8,134.9 180.2,136.5 175.7,138.1 171.1,139.9 166.5,141.8 161.9,143.8 157.3,145.9 152.8,148.1 148.2,150.5 143.6,153.0 139.0,155.6 134.4,158.4 129.9,161.4 125.3,164.5 120.7,167.9 116.1,171.4 111.5,175.1 107.0,179.1 102.4,183.3 97.8,187.7 93.2,192.4 88.6,197.4 84.1,202.7 79.5,208.3 74.9,214.2 70.3,220.5 65.7,227.1 61.2,234.2 56.6,241.6 52.0,249.5" fill="var(--good)" opacity=".25"/><line x1="52" x2="510" y1="108.284" y2="108.284" stroke="var(--good)" stroke-width="3"/></g>
+ <text x="58" y="100.284" style="fill:var(--good);font-weight:600">expected: +$381 per policy</text>
+ <text x="180" y="296">number of policies (log scale)</text></svg>
+  <p style="margin:6px 0 0;font-size:15px"><span class="tag good">THE HOUSE WINS</span>Expected loss 424, or 483 with claims-handling cost; 1,234 × 0.70 = 864 is left: <b class="good-t">+381 per policy</b>. A loss is still possible with a few policies; by about 107 the band stays above zero. Chebyshev (95%, margin = the whole profit) guarantees it at ≈ 553 policies.</p></div>
+</div>
+<div class="limits"><b>How these were computed</b> (node script, applicant age 45–54, $1,000 deductible, Agent channel, not bundled, B07 excluded, from the refit model): Montreal Home claim rates are water 0.325 + other 0.103 per year, Calgary Auto 0.151; expected loss per policy = rate × mean cost per claim = 2,795 and 424. Profit per policy = price × (1 − 0.30) − expected loss × 1.14. <b>I applied the 1.14 claims-handling load to the spread as well</b> (loss with handling = 1.14 × S): σ per policy-year ≈ 5,844 × 1.14 ≈ 6,662 (Montreal Home) and ≈ 1,756 × 1.14 ≈ 2,002 (Calgary Auto). Shaded band = profit ± 1.96 σ/√n; "band stays off zero" n = (1.96σ/profit)²; Chebyshev n = σ²/(0.05 × profit²). <b>The 30% expense load and the 14% claims-handling load are sourced assumptions, not measured from the data</b>: Definity 2025 expense ratio 29.6%; MSA Research claims-handling cost 8–11 points of premium; the industry combined ratio was about 92–95% in 2024 (context from analysis/PATTERNS.md). Premiums are current segment averages. The live app is <b>platform.html</b>. Approximate, not a rate filing.</div>
+</section>
+<section class="slide">
+<div class="kicker">From analysis to action · Part 2</div>
+<h2>The same math, run on every new customer before we quote.</h2>
+<div class="kid"><b>In kid words:</b> a new person asks for a price. The machine looks up which group they belong to, works out the average bill for that group, and only says yes if we can charge more than that and still be cheaper than other insurers.</div>
+<div class="flow">
+ <div class="st"><b>1 APPLICANT</b><span>Product, city, age, risk band, deductible, sales source.</span><div class="out">→ profile</div></div>
+ <div class="st"><b>2 CATEGORY</b><span>Profile is mapped to its group using the factors learned from the data (e.g. the Montreal water factor).</span><div class="out">→ risk factors</div></div>
+ <div class="st"><b>3 RANDOM VARIABLE</b><span>Claims N ~ Poisson, cost X per claim, S = ΣX.</span><div class="out">→ model of one year</div></div>
+ <div class="st"><b>4 EXPECTATION</b><span>E[S] = E[N]·E[X] plus a 14% claims-handling load and a 90% range.</span><div class="out">→ expected loss</div></div>
+ <div class="st"><b>5 DECIDE</b><span>Blocked source (B07)? Price needed far above market? Then refer or decline.</span><div class="out">→ accept / decline</div></div>
+ <div class="st"><b>6 PRICE</b><span>Pick the price that maximises chance-to-win × profit.</span><div class="out">→ optimal competitive quote</div></div>
+</div>
+<div class="grid2">
+ <div class="card" style="font-family:ui-monospace,Menlo,monospace;font-size:14px">
+  <div class="mute">platform.html · example screen</div>
+  <div style="margin-top:10px">Applicant: Home · Montreal · Medium · $1,000 ded · Agent · not bundled</div>
+  <div class="warn-t" style="margin-top:6px">Category: water-exposed city (Montreal)</div>
+  <div style="margin-top:6px">Expected loss: 2,795 / yr (3,186 with handling)</div>
+  <div style="margin-top:6px">Break-even: 4,551 · Market proxy: 1,286</div>
+  <div class="bad-t" style="margin-top:10px;font-weight:700">DECLINE: needs price far above market</div>
+  <div class="mute" style="margin-top:6px">…then a 1,000-policy simulation shows the book loses money.</div></div>
+ <div class="card"><h3>Three outcomes</h3><ul class="tight"><li><span class="tag good">ACCEPT</span>we can match or beat the market and keep our margin.</li><li><span class="tag warn">ACCEPT · PREMIUM</span>we need a price a little above market; the win rate will be lower.</li><li><span class="tag bad">DECLINE / REFER</span>competitive price loses money in the long run, or the sales source is blocked.</li></ul>
+ <p class="mute" style="margin:10px 0 0;font-size:14px">Open <b>platform.html</b> (the live app) to try your own applicant. Expense load, margin and price sensitivity are sliders because the data has no quote or conversion records.</p></div>
+</div>
+<div class="limits">Break-even = expected loss with handling ÷ (1 − 0.30 expense load) = 2,795 × 1.14 ÷ 0.70 = 3,186 ÷ 0.70 ≈ 4,551 (same assumptions as the previous slide; the app recalculates live). The 30% expense load and 14% claims-handling load are sourced assumptions (Definity 2025 expense ratio 29.6%; MSA Research claims-handling cost 8–11 points of premium). The example screen illustrates the app's logic, not a saved result.</div>
+</section>
+
+<section class="slide">
+<div class="kicker">Honesty slide</div>
+<h2>What is measured, what is assumed, what we still need.</h2>
+<div class="grid3">
+ <div class="card good"><h3>Measured from the files</h3><ul class="tight">
+  <li>Counts, claim frequency per exposure-year, severity</li>
+  <li>B07: 60 theft claims vs about 3 expected</li>
+  <li>Montreal Home water 3.0× Toronto (95% CI 1.95–4.63)</li>
+  <li>Cleaning: 15 duplicates, 140 text premiums, 108 DD/MM/YYYY dates</li></ul></div>
+ <div class="card warn"><h3>Assumed</h3><ul class="tight">
+  <li>12-month policy term (all claims fall within 363 days of start)</li>
+  <li>Cancelled policies earn a full year</li>
+  <li>Incurred proxy: paid; denied = 0; open claims estimated</li>
+  <li>30% expense load, 5% margin, price sensitivity</li>
+  <li>Currency unspecified</li></ul></div>
+ <div class="card bad"><h3>Not in the data</h3><ul class="tight">
+  <li>Expenses, reserves, IBNR, reinsurance, investment income</li>
+  <li>Postal codes and property details</li>
+  <li>Quote and conversion records</li>
+  <li>Reason a customer left</li></ul></div>
+</div>
+<div class="card" style="margin-top:16px"><h3>Next data to request, in order</h3>
+ <ol style="margin:6px 0 0 20px;padding:0">
+  <li><b>Policy start and end dates, earned premium by month</b> — turns our exposure assumption into fact.</li>
+  <li><b>Insured postal code and property data</b> (age, basement, plumbing, mitigation) — tests why Montreal water is 3× the peer cities.</li>
+  <li><b>Expenses, commissions, case reserves, IBNR</b> — turns the loss ratio into a real profit number.</li>
+  <li><b>Quote and conversion records</b> — replaces our price-sensitivity guess with measured behaviour.</li>
+  <li><b>Referral of broker B07 to the special investigations unit</b> — consistent with early-claim fraud or adverse selection, not proof.</li></ol></div>
+<div class="limits">Research gaps: no like-for-like Montreal vs Toronto housing-age source; no monthly Quebec claim-peak source; no evidence that Toronto's flood subsidy works; no loss-ratio study on bundles; no public data on claim cycle times by city. Source for the fraud context: <a href="https://canadianunderwriter.ca/2021/04/07/brokers-pay-attention-to-these-insurance-fraud-red-flags/" style="color:var(--cyan)">Canadian Underwriter, fraud red flags</a> (red flags are not proof). Not an actuarial filing; rating variables need fairness and regulatory review.</div>
+</section>
+
+</div>
+<div class="nav"><button id="prev">← Prev</button><span id="count"></span><button id="next">Next →</button></div>
+<script>
+const S=[...document.querySelectorAll('.slide')];let i=Math.min(S.length-1,Math.max(0,(+location.hash.slice(1)||1)-1));
+function show(n){i=Math.max(0,Math.min(S.length-1,n));S.forEach((s,k)=>s.classList.toggle('on',k===i));document.getElementById('count').textContent=(i+1)+' / '+S.length;document.getElementById('prog').style.width=((i+1)/S.length*100)+'%';history.replaceState(null,'','#'+(i+1));S[i].scrollTop=0}
+document.getElementById('prev').onclick=()=>show(i-1);document.getElementById('next').onclick=()=>show(i+1);
+addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();show(i+1)}if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(i-1)}});
+show(i);
+</script></body></html>

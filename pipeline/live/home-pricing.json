@@ -1,0 +1,205 @@
+{
+  "issue": "home-pricing",
+  "generated": "2026-11-14T20:47:31.944Z",
+  "queries": [
+    "Canada home insurance loss ratio vs auto insurance loss ratio 2025",
+    "home insurance combined ratio Canada water damage claims",
+    "insurance risk classification validation loss ratio by tier lift"
+  ],
+  "cards": [
+    {
+      "id": "LV-HOM-1",
+      "angle": "live-scrape",
+      "title": "What-risks-lurk-for-Canadas-PC-insurers-after-a-strong-2025",
+      "url": "https://www.insuranceinstitute.ca/en/Insights-And-Publications/CanadianUnderwriterArticles/items/2026/08/19/What-risks-lurk-for-Canadas-PC-insurers-after-a-strong-2025",
+      "publisher": "insuranceinstitute.ca",
+      "year": 2025,
+      "geo": "",
+      "claim": "Page reports: Canada recorded approximately $2.4 billion in insured losses from",
+      "stat": {
+        "value": "$2.4 billion",
+        "what": "Canada recorded approximately $2.4 billion in insured losses from"
+      },
+      "stance": "context",
+      "relevance": "Matched query: Canada home insurance loss ratio vs auto insurance loss ratio 2025",
+      "limit": "Auto-extracted sentence: verify in the source",
+      "snippet": "Canada recorded approximately $2.4 billion in insured losses from severe events in 2025, well below the prior-year’s $9 billion-plus.",
+      "verified": true,
+      "fetchedOn": "2026-11-14",
+      "source": "live-scrape"
+    },
+    {
+      "id": "LV-HOM-2",
+      "angle": "live-scrape",
+      "title": "What-risks-lurk-for-Canadas-PC-insurers-after-a-strong-2025",
+      "url": "https://www.insuranceinstitute.ca/en/Insights-And-Publications/CanadianUnderwriterArticles/items/2026/08/19/What-risks-lurk-for-Canadas-PC-insurers-after-a-strong-2025",
+      "publisher": "insuranceinstitute.ca",
+      "year": 2025,
+      "geo": "",
+      "claim": "Page reports: ratios remained well above 100% due to rate caps,",
+      "stat": {
+        "value": "100%",
+        "what": "ratios remained well above 100% due to rate caps,"
+      },
+      "stance": "context",
+      "relevance": "Matched query: Canada home insurance loss ratio vs auto insurance loss ratio 2025",
+      "limit": "Auto-extracted sentence: verify in the source",
+      "snippet": "Personal auto remains the sector’s most challenged line, with profitability constrained in certain jurisdictions — particularly Alberta, where combined ratios remained well above 100% due to rate caps, claims inflation, ",
+      "verified": true,
+      "fetchedOn": "2026-11-14",
+      "source": "live-scrape"
+    },
+    {
+      "id": "LV-HOM-3",
+      "angle": "live-scrape",
+      "title": "What-risks-lurk-for-Canadas-PC-insurers-after-a-strong-2025",
+      "url": "https://www.insuranceinstitute.ca/en/Insights-And-Publications/CanadianUnderwriterArticles/items/2026/08/19/What-risks-lurk-for-Canadas-PC-insurers-after-a-strong-2025",
+      "publisher": "insuranceinstitute.ca",
+      "year": 2025,
+      "geo": "",
+      "claim": "Page reports: Revenue — fell by 9% to 77.4%.",
+      "stat": {
+        "value": "9%",
+        "what": "Revenue — fell by 9% to 77.4%."
+      },
+      "stance": "challenges",
+      "relevance": "Matched query: Canada home insurance loss ratio vs auto insurance loss ratio 2025",
+      "limit": "Auto-extracted sentence: verify in the source",
+      "snippet": "The Gross Insurance Service Ratio — calculated by dividing Insurance Service Expenses by Insurance Revenue — fell by 9% to 77.4%.",
+      "verified": true,
+      "fetchedOn": "2026-11-14",
+      "source": "live-scrape"
+    },
+    {
+      "id": "LV-HOM-4",
+      "angle": "live-scrape",
+      "title": "Why 2025 insurer performance split along several lines",
+      "url": "https://www.canadianunderwriter.ca/news/claims/bank-why-2025-insurer-performance-split-along-several-lines/",
+      "publisher": "canadianunderwriter.ca",
+      "year": 2026,
+      "geo": "",
+      "claim": "Page reports: net investment results rising 27% and underwriting metrics strengthening,",
+      "stat": {
+        "value": "27%",
+        "what": "net investment results rising 27% and underwriting metrics strengthening,"
+      },
+      "stance": "challenges",
+      "relevance": "Matched query: Canada home insurance loss ratio vs auto insurance loss ratio 2025",
+      "limit": "Auto-extracted sentence: verify in the source",
+      "snippet": "Investment performance was a major contributor, with net investment results rising 27% and underwriting metrics strengthening, including a lower combined ratio of 97%.",
+      "verified": true,
+      "fetchedOn": "2026-11-14",
+      "source": "live-scrape"
+    },
+    {
+      "id": "LV-HOM-5",
+      "angle": "live-scrape",
+      "title": "Why 2025 insurer performance split along several lines",
+      "url": "https://www.canadianunderwriter.ca/news/claims/bank-why-2025-insurer-performance-split-along-several-lines/",
+      "publisher": "canadianunderwriter.ca",
+      "year": 2026,
+      "geo": "",
+      "claim": "Page reports: provinces and territories exceeding 100%, indicating unprofitable underwriting .",
+      "stat": {
+        "value": "100%",
+        "what": "provinces and territories exceeding 100%, indicating unprofitable underwriting ."
+      },
+      "stance": "context",
+      "relevance": "Matched query: Canada home insurance loss ratio vs auto insurance loss ratio 2025",
+      "limit": "Auto-extracted sentence: verify in the source",
+      "snippet": "Auto insurance remained particularly strained due to regulation , with Net Insurance Service Ratios (NISRs) in 10 of Canada’s 13 provinces and territories exceeding 100%, indicating unprofitable underwriting .",
+      "verified": true,
+      "fetchedOn": "2026-11-14",
+      "source": "live-scrape"
+    },
+    {
+      "id": "LV-HOM-6",
+      "angle": "live-scrape",
+      "title": "Why 2025 insurer performance split along several lines",
+      "url": "https://www.canadianunderwriter.ca/news/claims/bank-why-2025-insurer-performance-split-along-several-lines/",
+      "publisher": "canadianunderwriter.ca",
+      "year": 2026,
+      "geo": "",
+      "claim": "Page reports: Combined Ratio falling to 91% and the Gross Insurance",
+      "stat": {
+        "value": "91%",
+        "what": "Combined Ratio falling to 91% and the Gross Insurance"
+      },
+      "stance": "context",
+      "relevance": "Matched query: Canada home insurance loss ratio vs auto insurance loss ratio 2025",
+      "limit": "Auto-extracted sentence: verify in the source",
+      "snippet": "Profitability metrics improved, with the Comprehensive Combined Ratio falling to 91% and the Gross Insurance Service Ratio improving to 67.5%, reflecting stronger underwriting efficiency.",
+      "verified": true,
+      "fetchedOn": "2026-11-14",
+      "source": "live-scrape"
+    },
+    {
+      "id": "LV-HOM-7",
+      "angle": "live-scrape",
+      "title": "Why-2025-insurer-performance-split-along-several-lines",
+      "url": "https://www.insuranceinstitute.ca/en/Insights-And-Publications/CanadianUnderwriterArticles/items/2026/08/13/Why-2025-insurer-performance-split-along-several-lines",
+      "publisher": "insuranceinstitute.ca",
+      "year": 1914,
+      "geo": "",
+      "claim": "Page reports: net investment results rising 27% and underwriting metrics strengthening,",
+      "stat": {
+        "value": "27%",
+        "what": "net investment results rising 27% and underwriting metrics strengthening,"
+      },
+      "stance": "challenges",
+      "relevance": "Matched query: Canada home insurance loss ratio vs auto insurance loss ratio 2025",
+      "limit": "Auto-extracted sentence: verify in the source",
+      "snippet": "Investment performance was a major contributor, with net investment results rising 27% and underwriting metrics strengthening, including a lower combined ratio of 97%.",
+      "verified": true,
+      "fetchedOn": "2026-11-14",
+      "source": "live-scrape"
+    },
+    {
+      "id": "LV-HOM-8",
+      "angle": "live-scrape",
+      "title": "Why-2025-insurer-performance-split-along-several-lines",
+      "url": "https://www.insuranceinstitute.ca/en/Insights-And-Publications/CanadianUnderwriterArticles/items/2026/08/13/Why-2025-insurer-performance-split-along-several-lines",
+      "publisher": "insuranceinstitute.ca",
+      "year": 1914,
+      "geo": "",
+      "claim": "Page reports: provinces and territories exceeding 100%, indicating unprofitable underwriting.",
+      "stat": {
+        "value": "100%",
+        "what": "provinces and territories exceeding 100%, indicating unprofitable underwriting."
+      },
+      "stance": "context",
+      "relevance": "Matched query: Canada home insurance loss ratio vs auto insurance loss ratio 2025",
+      "limit": "Auto-extracted sentence: verify in the source",
+      "snippet": "Auto insurance remained particularly strained due to regulation, with Net Insurance Service Ratios (NISRs) in 10 of Canada’s 13 provinces and territories exceeding 100%, indicating unprofitable underwriting.",
+      "verified": true,
+      "fetchedOn": "2026-11-14",
+      "source": "live-scrape"
+    },
+    {
+      "id": "LV-HOM-9",
+      "angle": "live-scrape",
+      "title": "Why-2025-insurer-performance-split-along-several-lines",
+      "url": "https://www.insuranceinstitute.ca/en/Insights-And-Publications/CanadianUnderwriterArticles/items/2026/08/13/Why-2025-insurer-performance-split-along-several-lines",
+      "publisher": "insuranceinstitute.ca",
+      "year": 1914,
+      "geo": "",
+      "claim": "Page reports: Combined Ratio falling to 91% and the Gross Insurance",
+      "stat": {
+        "value": "91%",
+        "what": "Combined Ratio falling to 91% and the Gross Insurance"
+      },
+      "stance": "context",
+      "relevance": "Matched query: Canada home insurance loss ratio vs auto insurance loss ratio 2025",
+      "limit": "Auto-extracted sentence: verify in the source",
+      "snippet": "Profitability metrics improved, with the Comprehensive Combined Ratio falling to 91% and the Gross Insurance Service Ratio improving to 67.5%, reflecting stronger underwriting efficiency.",
+      "verified": true,
+      "fetchedOn": "2026-11-14",
+      "source": "live-scrape"
+    }
+  ],
+  "stats": {
+    "searches": 1,
+    "pagesFetched": 4,
+    "cards": 9
+  }
+}

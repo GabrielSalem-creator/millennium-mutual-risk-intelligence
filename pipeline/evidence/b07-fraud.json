@@ -1,0 +1,279 @@
+{
+ "issue": "b07-fraud",
+ "queries": [
+  "Équité Association organized crime auto theft Canada cost of insurance fraud report",
+  "ghost broking insurance fraud fake broker Canada IBC warning",
+  "insurance fraud red flags claim shortly after policy inception early claim indicator",
+  "structuring transactions just below reporting threshold FINTRAC indicators",
+  "insurance claims bunching just below settlement authority threshold adjusters study",
+  "Canada insurance fraud ring brokerage employees staged theft claims police charged",
+  "insurer terminates broker agreement high loss ratio MGA oversight audit delegated authority fraud rapid growth",
+  "Équité Association insurance fraud cost Canada billion per year property casualty",
+  "adverse selection new agents rapid premium growth underwriting quality loss ratio insurance distribution study",
+  "Équité Association auto theft trend report 2025 Ontario Quebec hotspots theft claims severity",
+  "FSRA OR RIBO insurer duty oversee brokers managing general agents expectations fraud",
+  "claim amounts clustered just below investigation threshold fraud detection analytics insurance"
+ ],
+ "cards": [
+  {
+   "id": "BF-01",
+   "angle": "organised-theft",
+   "title": "Auto theft in Canada falls 18% but organized crime is getting smarter, warns Équité",
+   "url": "https://www.insurancebusinessmag.com/ca/news/auto-motor/auto-theft-in-canada-falls-18--but-organized-crime-is-getting-smarter-warns-equite-564894.aspx",
+   "publisher": "Insurance Business Canada",
+   "year": 2026,
+   "geo": "Canada",
+   "claim": "Équité reports national vehicle thefts fell in 2025 yet claims stay near $900 million a year, with organized groups shifting toward finance fraud using synthetic identities.",
+   "stat": {
+    "value": "46,999 thefts in 2025 (-18%); ~$900M claims/yr",
+    "what": "National private passenger vehicle thefts and annual theft claims cost, Équité Association"
+   },
+   "stance": "context",
+   "relevance": "Gives the national theft base rate against which a broker book that is 86% theft claims looks anomalous, and shows organized crime also exploits insurance and financing channels.",
+   "limit": "Trade-press summary of the Équité report; says nothing about broker-originated policies.",
+   "verified": true,
+   "fetchedOn": "2026-11-14"
+  },
+  {
+   "id": "BF-02",
+   "angle": "organised-theft",
+   "title": "Auto theft is down 18%, but organized crime is finding new ways to export stolen vehicles",
+   "url": "https://www.insurancebusinessmag.com/ca/news/auto-motor/auto-theft-is-down-18-but-organized-crime-is-finding-new-ways-to-export-stolen-vehicles-596725.aspx",
+   "publisher": "Insurance Business Canada",
+   "year": 2026,
+   "geo": "Canada",
+   "claim": "Theft risk is concentrated in particular models, and the report calls theft high-reward and low-risk; model mix of an insured book can therefore legitimately lift theft claim share.",
+   "stat": {
+    "value": ">11% theft rate for Lexus TX",
+    "what": "Share of insured vehicles stolen for the highest-frequency model in Équité's 2025 list"
+   },
+   "stance": "challenges",
+   "relevance": "Challenges a pure-fraud reading: if B07 sold mostly high-theft models (keyless-entry SUVs), elevated theft share and severity have a non-fraud explanation worth testing.",
+   "limit": "Model-level rate is one data point; cannot explain 60 theft claims within weeks of inception or 0 denials.",
+   "verified": true,
+   "fetchedOn": "2026-11-14"
+  },
+  {
+   "id": "BF-03",
+   "angle": "organised-theft",
+   "title": "GTA police bust organized insurance fraud scheme network (Project Outsource)",
+   "url": "https://www.insurancebusinessmag.com/ca/news/breaking-news/gta-police-bust-organized-insurance-fraud-scheme-network-539352.aspx",
+   "publisher": "Insurance Business Canada",
+   "year": 2025,
+   "geo": "Ontario, Canada",
+   "claim": "Peel police allege tow-company-linked groups staged collisions and inflated repair and service costs billed to insurers, using coercion to control scenes.",
+   "stat": {
+    "value": "18 arrests, 97 charges",
+    "what": "Outcome of Peel Regional Police Project Outsource, June 2025"
+   },
+   "stance": "supports",
+   "relevance": "Documents that organized, repeat claim schemes against Ontario insurers are real and police-confirmed, so a ring-driven cluster is plausible.",
+   "limit": "Staged collisions and tow fraud, not theft claims or broker involvement; allegations unproven in court.",
+   "verified": true,
+   "fetchedOn": "2026-11-14"
+  },
+  {
+   "id": "BF-04",
+   "angle": "organised-theft",
+   "title": "Ontario tow-sector probe shines spotlight on systemic auto insurance fraud",
+   "url": "https://www.insurancebusinessmag.com/ca/news/auto-motor/ontario-towsector-probe-shines-spotlight-on-systemic-auto-insurance-fraud-568476.aspx",
+   "publisher": "Insurance Business Canada",
+   "year": 2026,
+   "geo": "Ontario, Canada",
+   "claim": "Court filings in a related case list many fraud charges against insurers and the article notes Aviva's suspected staged-collision cases rose nearly fourfold in 2025.",
+   "stat": {
+    "value": "~+400% suspected staged collisions (Aviva, 2025)",
+    "what": "Year-over-year rise in suspected staged-collision cases identified by Aviva Canada"
+   },
+   "stance": "supports",
+   "relevance": "Shows insurers are seeing sharp, repeated-pattern fraud growth that hits loss ratios when the same scheme recurs across files.",
+   "limit": "Staged collisions, not theft; Aviva-reported figure with no denominator; charges are allegations.",
+   "verified": true,
+   "fetchedOn": "2026-11-14"
+  },
+  {
+   "id": "BF-05",
+   "angle": "broker-fraud",
+   "title": "Beware of ghost brokers",
+   "url": "https://aviva.ca/en/blog/beware-of-ghost-brokers",
+   "publisher": "Aviva Canada",
+   "year": 2022,
+   "geo": "Canada",
+   "claim": "Aviva describes ghost brokers as people posing as brokers who sell coverage they cannot place, with bargain social-media pricing and e-transfer payments as warning signs.",
+   "stat": null,
+   "stance": "context",
+   "relevance": "Defines the policy-side fraud typology: policies that look valid but may be counterfeit or built on false details, a possible route for B07 policies.",
+   "limit": "Victim-side consumer warning; ghost brokers are unlicensed outsiders, whereas B07 is a contracted broker.",
+   "verified": true,
+   "fetchedOn": "2026-11-14"
+  },
+  {
+   "id": "BF-06",
+   "angle": "broker-fraud",
+   "title": "Peel police: Economic pressure creates opening for insurance fraudsters",
+   "url": "https://www.insurancebusinessmag.com/ca/news/auto-motor/peel-police-economic-pressure-creates-opening-for-insurance-fraudsters-590560.aspx",
+   "publisher": "Insurance Business Canada",
+   "year": 2026,
+   "geo": "Ontario, Canada",
+   "claim": "Police allege a former brokerage employee sold fake auto policies for over two years, but say they see no wider trend of ex-brokers committing fraud.",
+   "stat": {
+    "value": "15 incidents, losses over $10,000",
+    "what": "Incidents police identified in the alleged fake-policy case"
+   },
+   "stance": "context",
+   "relevance": "A recent Ontario example of agent-assisted policy fraud, tempered by police saying it is not a broad trend.",
+   "limit": "Single alleged case about fake policies, not insured claims; unproven allegations.",
+   "verified": true,
+   "fetchedOn": "2026-11-14"
+  },
+  {
+   "id": "BF-07",
+   "angle": "early-claim",
+   "title": "Red flags in business interruption claims (Claims Journal)",
+   "url": "https://claimsjournal.com/news/national/2018/10/08/287124.htm",
+   "publisher": "Claims Journal",
+   "year": 2018,
+   "geo": "United States",
+   "claim": "A claim shortly after policy activation, after raised coverage, or just before expiry warrants scrutiny, but the author stresses flags call for investigation rather than prove fraud and most claims are legitimate.",
+   "stat": null,
+   "stance": "challenges",
+   "relevance": "Supports using early-claim timing as a screening flag while cautioning that timing alone is not proof, so B07 needs corroborating indicators.",
+   "limit": "US business-interruption context by a forensic accountant, no time window given, no Canadian personal-lines data.",
+   "verified": true,
+   "fetchedOn": "2026-11-14"
+  },
+  {
+   "id": "BF-08",
+   "angle": "threshold-structuring",
+   "title": "ML/TF indicators: Life insurance companies, brokers and agents",
+   "url": "https://fintrac-canafe.canada.ca/guidance-directives/transaction-operation/indicators-indicateurs/li_mltf-eng",
+   "publisher": "FINTRAC",
+   "year": null,
+   "geo": "Canada",
+   "claim": "FINTRAC lists multiple transactions kept below reporting thresholds, and cancelling insurance soon after purchase, as suspicion indicators for insurance brokers and agents.",
+   "stat": null,
+   "stance": "context",
+   "relevance": "Regulatory precedent in Canadian insurance that amounts clustered under a threshold are a recognised red flag.",
+   "limit": "Anti-money-laundering guidance on client transactions, not claims; page date not captured; only first 100,000 characters read.",
+   "verified": true,
+   "fetchedOn": "2026-11-14"
+  },
+  {
+   "id": "BF-09",
+   "angle": "threshold-structuring",
+   "title": "Business rules alone are not enough to fight insurance fraud",
+   "url": "https://www.thewealthadvisor.com/article/business-rules-alone-are-not-enough-fight-insurance-fraud",
+   "publisher": "The Wealth Advisor (Shift Technology author)",
+   "year": 2023,
+   "geo": "International",
+   "claim": "Fixed referral cutoffs are easy to game because a fraudster can learn the insurer's limit and keep every claim under it, bypassing investigator referral.",
+   "stat": null,
+   "stance": "supports",
+   "relevance": "Directly describes the mechanism that would explain about 46 of 70 B07 claims falling between 8,000 and 9,999.",
+   "limit": "Vendor-authored opinion piece with no measured bunching data.",
+   "verified": true,
+   "fetchedOn": "2026-11-14"
+  },
+  {
+   "id": "BF-10",
+   "angle": "adverse-selection",
+   "title": "3 Warning Signs of Adverse Selection",
+   "url": "https://www.insurancethoughtleadership.com/underwriting/3-warning-signs-adverse-selection",
+   "publisher": "Insurance Thought Leadership (Valen Analytics CEO)",
+   "year": 2014,
+   "geo": "United States",
+   "claim": "Rising loss ratios and loss costs are the first sign of adverse selection, and blaming rivals rather than examining one's own risk selection is a common mistake.",
+   "stat": null,
+   "stance": "challenges",
+   "relevance": "Offers a non-fraud reading: rapid growth through a new channel can attract underpriced risk, producing a high loss ratio without intentional deceit.",
+   "limit": "Generic commercial-lines opinion piece, old, not about broker programs or early claims.",
+   "verified": true,
+   "fetchedOn": "2026-11-14"
+  },
+  {
+   "id": "BF-11",
+   "angle": "broker-controls",
+   "title": "AM Best Report Cites MGA's Role in Insurer Insolvencies",
+   "url": "https://www.insurancejournal.com/news/southeast/2024/12/18/805231.htm",
+   "publisher": "Insurance Journal",
+   "year": 2024,
+   "geo": "United States",
+   "claim": "AM Best says some MGAs wrote unprofitable business to raise commissions and insurers need checks and balances and awareness of what delegated partners write.",
+   "stat": {
+    "value": "13 insolvencies; all but one gave >=96% of premium to MGAs",
+    "what": "AM Best review of property insurer insolvencies since 2017"
+   },
+   "stance": "supports",
+   "relevance": "Shows commission-driven volume growth through delegated distributors is a recognised insurer-failure risk, supporting tighter controls on B07.",
+   "limit": "US property MGAs, mostly Florida; some industry figures dispute the link; B07 is an independent broker.",
+   "verified": true,
+   "fetchedOn": "2026-11-14"
+  },
+  {
+   "id": "BF-12",
+   "angle": "broker-controls",
+   "title": "Managing General Agent's Agreement, Alfa Vision / Vision Insurance Group (SEC exhibit)",
+   "url": "https://www.sec.gov/Archives/edgar/data/0000743532/000119312505049471/dex10d.htm",
+   "publisher": "SEC EDGAR (Alfa Corp 10-K exhibit)",
+   "year": 2005,
+   "geo": "United States",
+   "claim": "A real contract lets the insurer terminate on a loss-ratio breach, end immediately for fraud, suspend binding authority, and audit records, including semi-annual on-site audits.",
+   "stat": {
+    "value": "80% of earned premium",
+    "what": "Claims-incurred loss-ratio trigger for termination on 30 days' notice (premium above $2M)"
+   },
+   "stance": "context",
+   "relevance": "Concrete precedent for loss-ratio triggers and suspension of authority that could be applied to B07 at a ratio of 4.3.",
+   "limit": "One 2005 US MGA contract, not Canadian broker terms.",
+   "verified": true,
+   "fetchedOn": "2026-11-14"
+  },
+  {
+   "id": "BF-13",
+   "angle": "broker-controls",
+   "title": "FSRA finds gaps in insurers' oversight of MGAs, agents",
+   "url": "https://www.investmentexecutive.com/from-the-regulators/fsra-finds-gaps-in-insurers-oversight-of-mgas-agents/",
+   "publisher": "Investment Executive",
+   "year": 2026,
+   "geo": "Ontario, Canada",
+   "claim": "Ontario's regulator found insurers' proactive reviews covered a tiny share of agents and several lacked formal MGA or agent reviews, linking weak oversight to conduct problems.",
+   "stat": {
+    "value": "0% to 4% of active agents reviewed",
+    "what": "Share of active agents covered by insurers' own proactive reviews (8 insurers, life and health)"
+   },
+   "stance": "context",
+   "relevance": "Establishes that Canadian regulators expect insurers to own oversight of distributors, and that thin monitoring is common.",
+   "limit": "Life and health sector, self-reported survey; says nothing about P&C broker suspension triggers.",
+   "verified": true,
+   "fetchedOn": "2026-11-14"
+  },
+  {
+   "id": "BF-14",
+   "angle": "cost-of-fraud",
+   "title": "Équité Association launches insurance crime detection platform",
+   "url": "https://insurancebusinessmag.com/ca/news/technology/equite-association-launches-insurance-crime-detection-platform-464327.aspx",
+   "publisher": "Insurance Business Canada",
+   "year": null,
+   "geo": "Canada",
+   "claim": "Équité's EQ Insights consortium platform shares intelligence among member insurers to predict and prevent fraud, and insurance crime is estimated to cost Canadians billions annually.",
+   "stat": {
+    "value": "$3 billion to $5 billion per year",
+    "what": "Estimated annual cost of insurance-related crime to Canadians"
+   },
+   "stance": "context",
+   "relevance": "Sizes the cost of fraud and points to the shared-intelligence channel for checking whether B07 insureds or vehicles appear at other insurers.",
+   "limit": "Secondary press report with a wide range and no methodology; publication date not captured.",
+   "verified": true,
+   "fetchedOn": "2026-11-14"
+  }
+ ],
+ "gaps": [
+  "No verified source quantifying how early after inception Canadian theft or personal-lines fraud claims typically occur (no benchmark for the 37-day median).",
+  "No verified empirical study of insurance claim amounts bunching below an internal review threshold; only vendor opinion (BF-09) and AML analogues (BF-08).",
+  "No Canadian P&C source on broker termination or suspension terms; contract precedent (BF-12) is a US MGA agreement.",
+  "Équité 2025 report PDF and FSRA newsroom page could not be read via WebFetch (binary/403); Équité figures come from trade-press summaries.",
+  "CBC ghost-broker, Alberta regulator PDF and IBC fraud pages were unreachable (403/404/binary); IBC fraud-cost figure not verified.",
+  "No verified source on legitimate drivers of theft clustering by broker (newcomer demographics, vehicle mix, postal-code hotspots) beyond model-level theft rates.",
+  "No verified source on denial rates for early theft claims or typical Canadian loss-ratio benchmarks for a new broker program."
+ ]
+}

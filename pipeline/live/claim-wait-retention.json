@@ -1,0 +1,37 @@
+{
+  "issue": "claim-wait-retention",
+  "generated": "2026-11-14T20:47:50.226Z",
+  "queries": [
+    "claim cycle time customer satisfaction renewal intent insurance",
+    "J.D. Power claims satisfaction cycle time home insurance",
+    "claims impact on customer retention personal lines insurance Canada"
+  ],
+  "cards": [
+    {
+      "id": "LV-CLA-1",
+      "angle": "live-scrape",
+      "title": "What Cycle Time Actually Tells You About a Claims Operation",
+      "url": "https://www.aspenclaims.com/blog/claims-cycle-time-and-carrier-performance/",
+      "publisher": "aspenclaims.com",
+      "year": 2026,
+      "geo": "",
+      "claim": "Page reports: time number is down 10% and the reopen rate",
+      "stat": {
+        "value": "10%",
+        "what": "time number is down 10% and the reopen rate"
+      },
+      "stance": "challenges",
+      "relevance": "Matched query: claim cycle time customer satisfaction renewal intent insurance",
+      "limit": "Auto-extracted sentence: verify in the source",
+      "snippet": "If the cycle time number is down 10% and the reopen rate is up 12%, that’s not progress.",
+      "verified": true,
+      "fetchedOn": "2026-11-14",
+      "source": "live-scrape"
+    }
+  ],
+  "stats": {
+    "searches": 1,
+    "pagesFetched": 2,
+    "cards": 1
+  }
+}

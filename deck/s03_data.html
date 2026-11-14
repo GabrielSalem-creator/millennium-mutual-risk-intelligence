@@ -1,0 +1,25 @@
+<section class="slide">
+<div class="kicker">Steps 1–2 · Data and clean-up</div>
+<h2>The raw files were messier than they looked</h2>
+<div class="kid"><b>Plain version:</b> some prices were typed as text and some dates were written the other way round. If we ignore that, the numbers lie.</div>
+<div class="grid2">
+<div class="card"><h3>What we found and fixed</h3>
+<table class="t"><tr><th>Issue</th><th>Count</th><th>Fix</th></tr>
+<tr><td>Duplicate claim rows</td><td>15</td><td>removed (862 → 847)</td></tr>
+<tr><td>City spellings</td><td>16 → 5</td><td>standardised</td></tr>
+<tr><td>Premium stored as text "$1,046.62"</td><td>140</td><td>parsed (old engine counted 0)</td></tr>
+<tr><td>DD/MM/YYYY policy dates</td><td>93</td><td>parsed</td></tr>
+<tr><td>DD/MM/YYYY claim dates</td><td>15</td><td>parsed</td></tr>
+<tr><td>Reported before loss</td><td>6</td><td>flagged, kept</td></tr>
+<tr><td>Ages missing / under 18</td><td>40 / 3</td><td>flagged</td></tr></table>
+<div class="mute" style="font-size:14px;margin-top:8px">Cleaned written premium is 6.70M; the earlier 6.50M was understated.</div></div>
+<div class="card"><h3>Three modelling choices</h3>
+<ul class="tight">
+<li><b>Exposure:</b> every claim happens within 363 days of policy start, so we assume a 12-month term. Exposure = min(1, days since start ÷ 365). Counting policies instead would flatter old business.</li>
+<li><b>Earned premium</b> = annual premium × exposure.</li>
+<li><b>Incurred proxy:</b> Paid → paid amount; Denied → 0; Open → claim amount × the paid ratio of the same peril.</li>
+</ul>
+<div class="kid"><b>Result:</b> loss ratio 0.70 overall · Auto 0.53 · Home 1.03.</div></div>
+</div>
+<div class="limits">Assumptions: 12-month term, cancelled policies treated as full exposure, incurred is a proxy not audited accounting. No expenses, reserves or IBNR in the files.</div>
+</section>
