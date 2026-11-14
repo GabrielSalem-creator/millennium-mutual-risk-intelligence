@@ -1,19 +1,25 @@
-# Millennium Mutual · Data → Detect → Decide → Act
+# millennium-mutual-risk-intelligence
+Insurance signal analysis and portfolio-based quote decision prototype.
 
-The default web app analyzes the supplied Auto/Home CSVs. It removes exact duplicate claim rows for calculations, normalizes city labels, flags chronology/data-quality issues, creates evidence-linked detections, checks data sufficiency by business question, and ranks transparent next actions. Original files remain unchanged.
+Built for the Millennium Mutual case (Home + Auto, five Canadian cities). It follows **DATA → DETECT → DECIDE → ACT**: it reads `policies.csv` and `claims.csv`, finds patterns from every angle, checks each against articles and statistics, and turns them into decisions, automations and a price answer.
 
-## Run locally
+## What it found
+- **Broker B07**: 60 theft claims where about 3 are normal, a median 37 days after the policy starts, 83% just under the $10,000 senior-review line. Explains the 2026 "more business, less money" deterioration.
+- **Montréal Home water damage**: 3.0× Toronto's rate (95% CI 1.95–4.63), spring + October peak; Québec City (same province, same adjusters) is 5× lower. Montréal Home needs +148% on price alone to break even, or +36% (market level) together with ~60% fewer water claims.
+- **Home pricing** ignores risk (Home loss ratio 1.03 vs Auto 0.53); **claims over 30 days** lose customers (55% vs 17% non-renewal); **$10,000 senior review** doubles waiting time.
 
+## Run it
 ```sh
-INSURANCE_DATA_DIR="/path/to/MillenniumMutual_Insurance_Data" npm start
+node pipeline/server.mjs          # site on http://127.0.0.1:4180
+node pipeline/run.mjs [--scrape]  # detect -> (live research) -> decide, prints each command
 ```
+Data location: `INSURANCE_DATA_DIR` (a folder with `policies.csv` and `claims.csv`), or upload both files on the site. The CSVs are not in this repo.
 
-Open `http://127.0.0.1:4173/insurance` for the portfolio dashboard, `/underwriting` for the applicant-level decision-support prototype, and `/presentation` for the two-part walkthrough. The folder must contain `policies.csv` and `claims.csv`. Analysis runs on the local server and returns aggregate results; it does not expose claim or customer rows in the browser. The older VDO-X behavior prototype remains at `/index.html`.
+## Layout
+- `pipeline/` — `detect.mjs` (signals, written by the team, no AI), `research.mjs` (live web scraper), `decide.mjs` (hypothesis tests, decisions, automations, pricing plan), `server.mjs`, `run.mjs`, `evidence/` (articles read and verified by research agents).
+- `site/` — plain-language 3-page site (`index`, `research`, `decisions`) plus `how.html`; every claim has a "see the data" graph and "see the articles" drawer.
+- `platform.html` — company underwriting console: 12 predefined profiles, price-vs-competitor slider, law-of-large-numbers simulation.
+- `analysis/` — data cleaning, pricing model fit, research notes with sources. `deck/` + `presentation.html` — slide deck.
 
-The first investigation compares Montreal and Toronto Home claim records: 115/510 versus 79/570, or 1.63× raw claim-records per policy row. This is not an exposure-adjusted rate. The interface keeps the count and distinct policies-with-claims separate, breaks the signal down by peril and loss year, shows competing explanations, and links to public evidence with its geography and limits.
-
-The supplied files are not enough to calculate underwriting profit. They lack earned premium/exposure, ultimate claim liabilities and loss-adjustment expenses, acquisition/operating expense, reinsurance, and investment income. The app blocks a profit conclusion until those are provided. Claims-per-policy values are screening counts only, not exposure-adjusted rates. A longer research report with evidence for and against causes is in `reports/Montreal Home anomaly causes.md`.
-
-The underwriting workbench collects property facts in the browser but does not save or transmit applicant information. It intentionally does not infer a risk class or approve/decline a person. The current files cannot train a reliable applicant rating because applicant-linked property features, earned exposure, ultimate losses, and expenses are missing. Its portfolio scenario calculates only after an insurer enters validated assumptions; the market comparison is reference-only because quote/conversion data are missing.
-
-The code includes exact-duplicate cleanup, data-quality detectors, a Montreal–Toronto Home anomaly, an evidence ledger with competing hypotheses, a data-readiness checker, a rule-based decision queue, compound-frequency/severity formulas, and a Chebyshev sample-size function. The linked sources are a curated research starter set; dynamic web crawling and an LLM research agent are not connected in this local build. The PowerPoint is `presentations/Millennium Mutual Risk Intelligence.pptx`. This is a hackathon prototype, not a production pricing, reserving, or actuarial filing system.
+## Honest limits
+Currency is unspecified; earned premium assumes 12-month policies; claim cost is an estimate (paid, denied = 0, open claims projected); there are no postal codes or property details, expense and claims-handling loads are sourced assumptions (30% and 14%), and findings are leads with stated uncertainty, not an actuarial filing.
