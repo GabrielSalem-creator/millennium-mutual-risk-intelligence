@@ -190,11 +190,14 @@ function serveStatic(req, res, pathname) {
 }
 
 // ---- server
+import { chat, engine as chatEngine } from './chat.mjs';
 const server = http.createServer(async (req, res) => {
   try {
     const url = new URL(req.url, `http://${req.headers.host || HOST}`);
     const p = url.pathname, m = req.method;
     if (p.startsWith('/api/')) {
+      if (p === '/api/chat/engine' && m === 'GET') return sendJson(res, 200, { engine: chatEngine() });
+      if (p === '/api/chat' && m === 'POST') { try { const b = JSON.parse((await readBody(req, 20000)).toString('utf8') || '{}'); return sendJson(res, 200, await chat(b)); } catch (e) { return sendJson(res, 400, { error: String(e.message || e) }); } }
       if (p === '/api/state' && m === 'GET') return sendJson(res, 200, buildState());
       if (p === '/api/log' && m === 'GET') return sendJson(res, 200, { running, log: log.slice(-300) });
       if (p === '/api/run' && m === 'POST') return void (await startRun(url.searchParams.get('scrape') === '1', res));

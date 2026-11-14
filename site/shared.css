@@ -106,3 +106,12 @@ body{background:radial-gradient(1200px 600px at 12% -10%,rgba(139,130,255,.22),t
 @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}.term .l{animation:none;opacity:1}}
 
 @media(max-height:760px){.flow{display:none}.topbar .row{padding:8px 20px}}
+
+/* chat */
+.chatbox{z-index:70}.chatbox header .engine{font:600 11px ui-monospace,Menlo,monospace;color:var(--mute)}
+.chatbox .body{display:flex;flex-direction:column;gap:10px}
+.msg{max-width:90%;padding:10px 14px;border-radius:16px;font-size:14.5px;line-height:1.5}.msg p{margin:0 0 8px}.msg p:last-child{margin:0}
+.msg.ai{background:var(--panel2);border:1px solid var(--line);align-self:flex-start;border-bottom-left-radius:4px}.msg.me{background:var(--accent);color:#fff;align-self:flex-end;border-bottom-right-radius:4px}
+.dots::after{content:"";animation:dt 1.2s steps(4) infinite}@keyframes dt{0%{content:""}25%{content:"."}50%{content:".."}75%{content:"..."}}
+.chat-sug{display:flex;gap:6px;flex-wrap:wrap;padding:8px 16px;border-top:1px solid var(--line)}.chat-in{display:flex;gap:8px;padding:10px 16px 16px}.chat-in textarea{flex:1;resize:none;padding:10px;border-radius:12px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font:inherit}
+.pbtn.chat{border-color:var(--cyan);color:var(--cyan)}.pbtn.chat:hover{background:var(--cyan);color:#06222a}

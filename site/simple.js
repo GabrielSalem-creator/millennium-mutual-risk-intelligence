@@ -57,6 +57,37 @@
     };
     showTab(tab); drawer.classList.add('open');
   };
+
+  // ---- Ask-the-AI chat (one conversation per signal) ----
+  const chatEl = document.createElement('aside'); chatEl.className = 'proof chatbox'; chatEl.id = 'chat';
+  chatEl.innerHTML = '<header><b id="chat-title">Ask the AI</b><span class="engine" id="chat-eng"></span><button class="btn" id="chat-x">Close</button></header><div class="body" id="chat-body"></div><div class="chat-sug" id="chat-sug"></div><form class="chat-in" id="chat-form"><textarea id="chat-q" rows="2" placeholder="Ask anything about this signal, e.g. “what does this mean?”"></textarea><button class="btn primary" type="submit" id="chat-send">Ask</button></form>';
+  const mountChat = () => document.body.appendChild(chatEl); if (document.body) mountChat(); else document.addEventListener('DOMContentLoaded', mountChat);
+  const CHATS = {}; let CUR = null;
+  const fmtA = (t) => esc(t).split(/\n{2,}/).map((p) => '<p>' + p.replace(/\n/g, '<br>') + '</p>').join('');
+  const SUG = ['What does this mean in plain words?', 'Why does it matter for our money?', 'How sure are we about this?', 'What should we do about it?', 'Give me a simple example'];
+  S.openChat = function ({ signalId, storyId, title }) {
+    const $ = (q) => chatEl.querySelector(q), key = signalId || 'story:' + storyId; CUR = { key, signalId, storyId };
+    $('#chat-title').textContent = 'Ask the AI: ' + (title || 'this signal').slice(0, 70);
+    const hist = (CHATS[key] = CHATS[key] || []);
+    const draw = () => { $('#chat-body').innerHTML = (hist.length ? '' : '<div class="msg ai"><p>Hi! I can explain this signal in plain words. Pick a question below or type your own.</p></div>') + hist.map((m) => `<div class="msg ${m.role === 'user' ? 'me' : 'ai'}">${m.role === 'user' ? '<p>' + esc(m.content) + '</p>' : fmtA(m.content)}</div>`).join(''); $('#chat-body').scrollTop = 1e9; };
+    $('#chat-sug').innerHTML = SUG.map((q) => `<button type="button" class="chip">${esc(q)}</button>`).join('');
+    const ask = async (q) => {
+      q = (q || '').trim(); if (!q || CUR.key !== key) return; hist.push({ role: 'user', content: q }); draw();
+      $('#chat-q').value = ''; const send = $('#chat-send'); send.disabled = true; $('#chat-body').insertAdjacentHTML('beforeend', '<div class="msg ai think"><p>Thinking<span class="dots"></span></p></div>'); $('#chat-body').scrollTop = 1e9;
+      try { const r = await fetch('/api/chat', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ signalId, storyId, question: q, history: hist.slice(0, -1) }) }); const j = await r.json(); if (!r.ok) throw new Error(j.error || 'Something went wrong'); hist.push({ role: 'ai', content: j.answer }); $('#chat-eng').textContent = 'via ' + (j.engine === 'codex' ? 'Codex CLI' : 'Claude Code'); }
+      catch (e) { hist.push({ role: 'ai', content: '⚠ ' + e.message }); }
+      send.disabled = false; draw();
+    };
+    $('#chat-sug').querySelectorAll('.chip').forEach((b) => (b.onclick = () => ask(b.textContent)));
+    $('#chat-form').onsubmit = (e) => { e.preventDefault(); ask($('#chat-q').value); };
+    $('#chat-q').onkeydown = (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); ask($('#chat-q').value); } };
+    fetch('/api/chat/engine').then((r) => r.json()).then((j) => { $('#chat-eng').textContent = j.engine ? 'via ' + (j.engine === 'codex' ? 'Codex CLI' : 'Claude Code') : 'no AI tool installed'; }).catch(() => {});
+    draw(); chatEl.classList.add('open'); $('#chat-q').focus();
+  };
+  document.addEventListener('click', (e) => {
+    if (e.target.id === 'chat-x') chatEl.classList.remove('open');
+    const b = e.target.closest('[data-chat-signal],[data-chat-story]'); if (b) S.openChat({ signalId: b.dataset.chatSignal, storyId: b.dataset.chatStory, title: b.dataset.chatTitle });
+  });
   document.addEventListener('click', (e) => { if (e.target.id === 'proof-x') drawer.classList.remove('open'); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') drawer.classList.remove('open'); });
 })();
